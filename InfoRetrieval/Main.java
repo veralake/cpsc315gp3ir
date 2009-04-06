@@ -3,23 +3,9 @@
  * and open the template in the editor.
  */
 
-package javaapplication2;
+package InfoRetrieval;
 
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import ui.MainFrame;
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  *
