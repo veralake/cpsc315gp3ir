@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package InfoRetrieval;
+package infoRetrieval;
 
-import ui.MainFrame;
+
 
 /**
  *
@@ -18,8 +18,7 @@ public class Main
      */
     public static void main(String[] args)
     {
-        MainFrame myFrame = new MainFrame();
-        myFrame.Show();
+        InfoRetrieval.getInstance().Run();
     }
 
 }

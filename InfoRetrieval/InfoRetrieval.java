@@ -1,4 +1,6 @@
-package InfoRetrieval;
+package infoRetrieval;
+
+import ui.MainFrame;
 
 /**
  * Application class (singleton)
@@ -23,6 +25,8 @@ public final class InfoRetrieval
 	
 	public static void Run()
 	{
-		
+		Holder.mInstance.myFrame.Show();
 	}
+
+    MainFrame myFrame = new MainFrame();
 }

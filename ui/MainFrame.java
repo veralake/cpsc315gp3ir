@@ -42,25 +42,55 @@ public class MainFrame extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBar = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        exitItem = new javax.swing.JMenuItem();
+        viewMenu = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Search");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName("mainFrame"); // NOI18N
 
+        fileMenu.setText("File");
+        fileMenu.setPreferredSize(new java.awt.Dimension(29, 25));
+
+        exitItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        exitItem.setText("Exit");
+        exitItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(exitItem);
+
+        menuBar.add(fileMenu);
+
+        viewMenu.setText("View");
+        menuBar.add(viewMenu);
+
+        setJMenuBar(menuBar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 347, Short.MAX_VALUE)
+            .addGap(0, 459, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 271, Short.MAX_VALUE)
+            .addGap(0, 332, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exitItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitItemActionPerformed
+    {//GEN-HEADEREND:event_exitItemActionPerformed
+        setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_exitItemActionPerformed
 
     private void setScreenStartPoint()
     {
@@ -94,6 +124,10 @@ public class MainFrame extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem exitItem;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu viewMenu;
     // End of variables declaration//GEN-END:variables
 
 }
