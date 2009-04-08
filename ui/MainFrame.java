@@ -90,6 +90,7 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_exitItemActionPerformed
         setVisible(false);
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_exitItemActionPerformed
 
     private void setScreenStartPoint()
