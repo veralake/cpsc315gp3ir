@@ -16,7 +16,7 @@ import java.io.File;
 /**
  * <b>SearchResult</b>
  *
- * <p>This class represents the visual end for a classic presentation of a query based search
+ * <p>This class represents the visual end for a classic presentation of a query based search item
  * (i.e. a list item) that will contain various elements such as the name of the document, sample
  * text, and a link to the document.  Instances of <code>SearchResult</code> are what will be passed
  * to <code>SearchPanel</code> as well as <code>VisualPanel</code>.
@@ -80,6 +80,7 @@ public class SearchResult extends javax.swing.JPanel
         
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 

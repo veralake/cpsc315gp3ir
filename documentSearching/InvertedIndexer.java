@@ -5,20 +5,14 @@
 
 package documentSearching;
 
-import java.util.Set;
-import project3.DocumentInfo;
-import project3.StemInfo.StemInstance;
-
 /**
  *
  * @author Zachary Edens
  */
-public class InvertedIndexer implements DocumentInfo
+public class InvertedIndexer
 {
-
-    public Set<StemInstance> getInstances(String stem)
+    public InvertedIndexer()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
 }

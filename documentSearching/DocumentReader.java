@@ -1,17 +1,25 @@
 package documentSearching;
 
+
+import java.io.File;
 import java.util.List;
+import java.util.Set;
 
-import project3.WordTokenizer;
-
-public class DocumentReader implements WordTokenizer
+/**
+ * <b>DocumentReader</b>
+ * <p>This class serves as the higher level object that scans documents for instances
+ * of index terms returns the
+ */
+public class DocumentReader
 {
-
-	@Override
-	public List<String> tokenize(String bodyOfText)
+    
+    public Set<Document> getResults(File directory,
+                                     List<String> indexTerms)
     {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+	private InvertedIndexer docIndexer = new InvertedIndexer();
+    private RankAssigner rankAssigner = new RankAssigner();
+    
 }
