@@ -1,5 +1,7 @@
 package controllers;
 
+import textProcessing.QueryProcessor;
+
 /**
  * <b>DataController</b>
  *
@@ -28,10 +30,14 @@ public class DataController
 		return Holder.mInstance;
 	}
 
+    /**
+     * Call in response to a user event to start a search.
+     * @param query - Original query to be processed
+     */
     public void analyzeQuery(String query)
     {
-        
+        // Use queryAnalyzer to genera
     }
 
-    
+    private QueryProcessor queryAnalyzer = new QueryProcessor();
 }

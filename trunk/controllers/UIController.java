@@ -8,6 +8,7 @@ package controllers;
 import ui.ListPanel;
 import ui.MainFrame;
 import ui.QueryPanel;
+import ui.ResultsDisplay;
 import ui.VisualPanel;
 
 /**
@@ -15,8 +16,6 @@ import ui.VisualPanel;
  * <p>Handles UI events.  The main purpose of the UIController
  * is to logically separate UI upkeep from the UI classes while providing a seamless
  * transition between visualization and traditional UI to the user.</p>
- * 
- * @author Zachary Edens
  */
 public class UIController
 {
@@ -98,16 +97,16 @@ public class UIController
      * Set the List panel for a list of search results.
      * @param searcher - JPanel for finding a list of search results
      */
-    public void setList(ListPanel lister)
+    public void setListPanel(ListPanel listPanel)
     {
-    	mList = lister;
+    	mList = listPanel;
     }
     
     /**
      * Returns a reference to panel with a list of results
      * @return
      */
-    public ListPanel getList()
+    public ListPanel getListPanel()
     {
     	return mList;
     }
@@ -124,13 +123,14 @@ public class UIController
     	}
     	
     	mFrame.add(mVisualizer);
+        mCurrentPanel = mVisualizer;
     }
     
     /**
-     * <code>viewSearcher</code> is called in response to a user event;
+     * Called in response to a user event;
      * it sets the current display to the List panel
      */
-    public void viewSearcher()
+    public void viewListPanel()
     {
     	if (mFrame.hasComponent(mVisualizer))
     	{
@@ -138,11 +138,21 @@ public class UIController
     	}
     	
     	mFrame.add(mList);
+        mCurrentPanel = mList;
+    }
+
+    /**
+     * @return - The current panel that is being displayed
+     */
+    public ResultsDisplay getCurrentDisplay()
+    {
+        return mCurrentPanel;
     }
     
     // Members
     private MainFrame mFrame;
     private QueryPanel mSearcher;
     private ListPanel mList;
+    private ResultsDisplay mCurrentPanel;
     private VisualPanel mVisualizer;
 }

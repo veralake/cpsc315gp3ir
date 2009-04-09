@@ -9,7 +9,7 @@ package documentSearching;
  *
  * @author Zachary Edens
  */
-public class DocumentSearcher
+public class RankAssigner
 {
 
 }

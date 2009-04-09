@@ -8,8 +8,8 @@ package infoRetrieval;
 
 
 /**
- *
- * @author Zachary Edens
+ * <b>Main</b>
+ * <p>Entry point of the application.</p>
  */
 public class Main
 {
@@ -20,5 +20,4 @@ public class Main
     {
         InfoRetrieval.Run();
     }
-
 }

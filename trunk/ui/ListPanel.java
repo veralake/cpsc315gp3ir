@@ -12,6 +12,7 @@
 package ui;
 
 import javax.swing.JComponent;
+import documentSearching.Document;
 
 /**
  * <b>ListPanel</b>
@@ -19,7 +20,8 @@ import javax.swing.JComponent;
  * <p>This class represents the window for viewing the search results of a query
  * in a list.</p>
  */
-public class ListPanel extends javax.swing.JPanel {
+public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
+{
 
     /** Creates new form ListPanel */
     public ListPanel()
@@ -63,6 +65,11 @@ public class ListPanel extends javax.swing.JPanel {
     public void removeSearchItems()
     {
 
+    }
+
+    public void addDocument(Document doc)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
