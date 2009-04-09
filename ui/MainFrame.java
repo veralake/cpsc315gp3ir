@@ -20,8 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author Zachary Edens
+ * This is the main JFrame for the application.
  */
 public class MainFrame extends javax.swing.JFrame
 {
@@ -87,6 +86,7 @@ public class MainFrame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Event handler for exiting the program from the menu bar
     private void exitItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitItemActionPerformed
     {//GEN-HEADEREND:event_exitItemActionPerformed
         setVisible(false);
@@ -94,6 +94,7 @@ public class MainFrame extends javax.swing.JFrame
         System.exit(0);
     }//GEN-LAST:event_exitItemActionPerformed
 
+    // Offset the screen from the top left corner
     private void setScreenStartPoint()
     {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -102,6 +103,7 @@ public class MainFrame extends javax.swing.JFrame
                          (int)(0.2 * screenSize.height));
     }
 
+    // Sets the program's look-and-feel to that of the machine
     private void setLookAndFeel()
     {
         try {
@@ -124,7 +126,12 @@ public class MainFrame extends javax.swing.JFrame
     {
         this.setVisible(true);
     }
-    
+
+    /**
+     * Checks to see whether the frame has ownership of a component, namely a panel
+     * @param panel - The panel to test whether the frame currently has ownership of it
+     * @return <code>true</code> if the frame owns <code>panel</code>.
+     */
     public boolean hasComponent(Component panel)
     {
     	boolean hasPanel = false;

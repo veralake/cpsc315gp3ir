@@ -5,8 +5,9 @@
 
 package controllers;
 
+import ui.ListPanel;
 import ui.MainFrame;
-import ui.SearchPanel;
+import ui.QueryPanel;
 import ui.VisualPanel;
 
 /**
@@ -30,7 +31,10 @@ public class UIController
     {
     }
 
-    // Singleton - Invoke the UIController
+     /**
+     * Call for singleton to gain access to the methods inside the DataController
+     * @return Instance of the controller.
+     */
     public static UIController getInstance()
     {
         return Holder.instance;
@@ -52,6 +56,25 @@ public class UIController
     {
         return mFrame;
     }
+
+    /**
+     * Adds the panel to the UI that enables the user to make text-based
+     * queries.
+     * @param searcher - QueryPanel for entering queries
+     */
+    public void setSearcher(QueryPanel searcher)
+    {
+        mSearcher = searcher;
+    }
+
+    /**
+     * Retrieves a handle to the panel for entering searches
+     * @return the JPanel for searching
+     */
+    public QueryPanel getSearcher()
+    {
+        return mSearcher;
+    }
     
     /**
      * Set the Visualizer panel
@@ -72,21 +95,21 @@ public class UIController
     }
     
     /**
-     * Set the Searcher panel for query-based searches
+     * Set the List panel for a list of search results.
      * @param searcher - JPanel for finding a list of search results
      */
-    public void setSearcher(SearchPanel searcher)
+    public void setList(ListPanel lister)
     {
-    	mSearcher = searcher;
+    	mList = lister;
     }
     
     /**
-     * Returns a reference to the query-based search panel
+     * Returns a reference to panel with a list of results
      * @return
      */
-    public SearchPanel getSearcher()
+    public ListPanel getList()
     {
-    	return mSearcher;
+    	return mList;
     }
 
     /**
@@ -95,9 +118,9 @@ public class UIController
      */
     public void viewVisualizer()
     {
-    	if (mFrame.hasComponent(mSearcher))
+    	if (mFrame.hasComponent(mList))
     	{
-    		mFrame.remove(mSearcher);
+    		mFrame.remove(mList);
     	}
     	
     	mFrame.add(mVisualizer);
@@ -105,7 +128,7 @@ public class UIController
     
     /**
      * <code>viewSearcher</code> is called in response to a user event;
-     * it sets the current display to the Searcher panel
+     * it sets the current display to the List panel
      */
     public void viewSearcher()
     {
@@ -114,11 +137,12 @@ public class UIController
     		mFrame.remove(mVisualizer);
     	}
     	
-    	mFrame.add(mSearcher);
+    	mFrame.add(mList);
     }
     
     // Members
     private MainFrame mFrame;
-    private SearchPanel mSearcher;
+    private QueryPanel mSearcher;
+    private ListPanel mList;
     private VisualPanel mVisualizer;
 }

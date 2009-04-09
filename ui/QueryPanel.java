@@ -12,13 +12,15 @@
 package ui;
 
 /**
- *
- * @author Zachary Edens
+ * <b>QueryPanel</b>
+ * <p>This class provides the interface for entering in text for queries.</p>
  */
-public class SearchPanel extends javax.swing.JPanel {
+public class QueryPanel extends javax.swing.JPanel
+{
 
     /** Creates new form searchPanel */
-    public SearchPanel() {
+    public QueryPanel()
+    {
         initComponents();
     }
 

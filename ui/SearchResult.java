@@ -4,26 +4,28 @@
  */
 
 /*
- * VisualPanel.java
+ * SearchResult.java
  *
- * Created on Apr 8, 2009, 1:32:45 AM
+ * Created on Apr 9, 2009, 12:10:09 AM
  */
 
 package ui;
 
-import javax.swing.JComponent;
+import java.io.File;
 
 /**
- * <b>VisualPanel</b>
+ * <b>SearchResult</b>
  *
- * <p>This class represents the window for viewing the search results of a query
- * in an interactive, visually appealing format</p>
+ * <p>This class represents the visual end for a classic presentation of a query based search
+ * (i.e. a list item) that will contain various elements such as the name of the document, sample
+ * text, and a link to the document.  Instances of <code>SearchResult</code> are what will be passed
+ * to <code>SearchPanel</code> as well as <code>VisualPanel</code>.
  */
-public class VisualPanel extends javax.swing.JPanel
+public class SearchResult extends javax.swing.JPanel
 {
 
-    /** Creates new form VisualPanel */
-    public VisualPanel()
+    /** Creates new form SearchResult */
+    public SearchResult()
     {
         initComponents();
     }
@@ -50,18 +52,30 @@ public class VisualPanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Adds a search item that is to be displayed in the visual format.
-     * @param item - JComponent to displayed
+     * Set the title for the result.  This is typically the document title.
+     * @param title - String that will be used for the title of the result
      */
-    public void addSearchItem(JComponent item)
+    public void setTitle(String title)
     {
-        this.add(item);
+        
     }
 
     /**
-     * Removes all search items contained in the visual panel for another query.
+     * Used as a short description of the result.  This can be sample text containing
+     * the index terms.
+     * @param text - String of a description of the result
      */
-    public void removeSearchItems()
+    public void setSampleText(String text)
+    {
+        
+    }
+
+    /**
+     * Create a link to the document for opening.
+     * @param document - A file object so that the file may be retrieved for user
+     * interaction
+     */
+    public void setLink(File document)
     {
         
     }
