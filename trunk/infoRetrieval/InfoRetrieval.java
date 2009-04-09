@@ -3,7 +3,7 @@ package infoRetrieval;
 import controllers.UIController;
 import ui.MainFrame;
 import ui.VisualPanel;
-import ui.SearchPanel;
+import ui.QueryPanel;
 
 /**
  * <b>Application</b>
@@ -17,7 +17,7 @@ public final class InfoRetrieval
 		private static final InfoRetrieval mInstance = new InfoRetrieval();
 	}
 	
-	public static InfoRetrieval getInstance()
+	private static InfoRetrieval getInstance()
 	{
 		return Holder.mInstance;
 	}
@@ -26,9 +26,12 @@ public final class InfoRetrieval
 	{
 		UIController.getInstance().setFrame(new MainFrame());
 		UIController.getInstance().setVisualizer(new VisualPanel());
-		UIController.getInstance().setSearcher(new SearchPanel());
+		UIController.getInstance().setSearcher(new QueryPanel());
 	}
-	
+
+    /**
+     * Call to begin execution of the InfoRetrieval application.
+     */
 	public static void Run()
 	{
 		getInstance().myFrame.Show();

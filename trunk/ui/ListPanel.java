@@ -4,9 +4,9 @@
  */
 
 /*
- * VisualPanel.java
+ * ListPanel.java
  *
- * Created on Apr 8, 2009, 1:32:45 AM
+ * Created on Apr 9, 2009, 7:31:31 AM
  */
 
 package ui;
@@ -14,16 +14,15 @@ package ui;
 import javax.swing.JComponent;
 
 /**
- * <b>VisualPanel</b>
+ * <b>ListPanel</b>
  *
  * <p>This class represents the window for viewing the search results of a query
- * in an interactive, visually appealing format</p>
+ * in a list.</p>
  */
-public class VisualPanel extends javax.swing.JPanel
-{
+public class ListPanel extends javax.swing.JPanel {
 
-    /** Creates new form VisualPanel */
-    public VisualPanel()
+    /** Creates new form ListPanel */
+    public ListPanel()
     {
         initComponents();
     }
@@ -63,7 +62,7 @@ public class VisualPanel extends javax.swing.JPanel
      */
     public void removeSearchItems()
     {
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
