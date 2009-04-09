@@ -11,6 +11,7 @@
 
 package ui;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.logging.Level;
@@ -122,6 +123,25 @@ public class MainFrame extends javax.swing.JFrame
     public void Show()
     {
         this.setVisible(true);
+    }
+    
+    public boolean hasComponent(Component panel)
+    {
+    	boolean hasPanel = false;
+    	
+    	Component[] components = getContentPane().getComponents();
+    	int count = components.length;
+    	
+    	for (int i = 0; i < count; ++i)
+    	{
+    		if(components[i].equals(panel))
+    		{
+    			hasPanel = true;
+    			break;
+    		}
+    	}
+    	
+    	return hasPanel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,10 +1,14 @@
 package infoRetrieval;
 
+import controllers.UIController;
 import ui.MainFrame;
+import ui.VisualPanel;
+import ui.SearchPanel;
 
 /**
- * Application class (singleton)
- *
+ * <b>Application</b>
+ * <p>The class that binds the other components together.  It instantiates the primary
+ * UI layer and the business logic layer.</p>
  */
 public final class InfoRetrieval 
 {
@@ -20,12 +24,14 @@ public final class InfoRetrieval
 	
 	private InfoRetrieval()
 	{
-		
+		UIController.getInstance().setFrame(new MainFrame());
+		UIController.getInstance().setVisualizer(new VisualPanel());
+		UIController.getInstance().setSearcher(new SearchPanel());
 	}
 	
 	public static void Run()
 	{
-		Holder.mInstance.myFrame.Show();
+		getInstance().myFrame.Show();
 	}
 
     MainFrame myFrame = new MainFrame();
