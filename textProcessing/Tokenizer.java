@@ -15,6 +15,11 @@ public class Tokenizer implements WordTokenizer
 	{
 	}
 
+	/**
+	 * Tokenizes a string and eliminates erroneous punctuation.
+	 * @param bodyOfText - String to be tokenized
+	 * @return a <code>List</code> of strings representing tokens
+	 */
 	@Override
 	public List<String> tokenize(String bodyOfText) 
 	{
