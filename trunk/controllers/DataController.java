@@ -1,6 +1,11 @@
 package controllers;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import textProcessing.QueryProcessor;
+import documentSearching.Document;
 
 /**
  * <b>DataController</b>
@@ -34,10 +39,20 @@ public class DataController
      * Call in response to a user event to start a search.
      * @param query - Original query to be processed
      */
-    public void analyzeQuery(String query)
+    public List<Document> runQuery(String query)
     {
-        // Use queryAnalyzer to genera
+        // Use queryAnalyzer to generate a list of documents
+    	return new ArrayList<Document>();
+    }
+    
+    /**
+     * Sets the directory of files to be searched and automatically runs the indexing algorithm.
+     * @param directory - name of directory containing text files that the user wants to search.
+     */
+    public void setSearchDirectory(File directory)
+    {
+    	
     }
 
-    private QueryProcessor queryAnalyzer = new QueryProcessor();
+    private QueryProcessor mQueryAnalyzer;
 }

@@ -32,7 +32,7 @@ public class QueryProcessor implements WordTokenizer
 		return indexWords;
 	}
 	
-
+	private Tokenizer tokenizer = new Tokenizer();
 	private StopWordFilter stopFilter = new StopWordFilter();
 	private StemFilter wordStemmer = new StemFilter();
 }
