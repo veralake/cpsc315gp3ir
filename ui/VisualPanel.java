@@ -50,16 +50,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Adds a search item that is to be displayed in the visual format.
-     * @param item - JComponent to displayed
-     */
-    public void addSearchItem(JComponent item)
-    {
-        this.add(item);
-    }
-
-    /**
+     /**
      * Removes all search items contained in the visual panel for another query.
      */
     public void removeSearchItems()
@@ -67,6 +58,10 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
         
     }
 
+    /**
+     * Adds a search item that is to be displayed in the visual format.
+     * @param doc - <code>Document</code> to displayed
+     */
     @Override
     public void addDocument(Document doc)
     {

@@ -95,7 +95,7 @@ public class UIController
     
     /**
      * Set the List panel for a list of search results.
-     * @param searcher - JPanel for finding a list of search results
+     * @param listPanel - JPanel for containing a list of search results
      */
     public void setListPanel(ListPanel listPanel)
     {
@@ -104,7 +104,7 @@ public class UIController
     
     /**
      * Returns a reference to panel with a list of results
-     * @return
+     * @return panel containing a graphical list of search results
      */
     public ListPanel getListPanel()
     {

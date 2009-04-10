@@ -20,7 +20,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * This is the main JFrame for the application.
+ * <b>MainFrame</b>
+ * 
+ * <p>This is the main JFrame for the application.</p>
  */
 public class MainFrame extends javax.swing.JFrame
 {
