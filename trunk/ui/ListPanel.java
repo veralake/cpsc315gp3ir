@@ -51,26 +51,21 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Adds a search item that is to be displayed in the visual format.
-     * @param item - JComponent to displayed
-     */
-    public void addSearchItem(JComponent item)
-    {
-        this.add(item);
-    }
-
-    /**
      * Removes all search items contained in the visual panel for another query.
      */
     public void removeSearchItems()
     {
-
     }
 
-    public void addDocument(Document doc)
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    /**
+     * Adds a search item that is to be displayed in the visual format.
+     * @param doc - <code>Document</code> reference to displayed
+     */
+	@Override
+	public void addDocument(Document doc) 
+	{
+		
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
