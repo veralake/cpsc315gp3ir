@@ -2,10 +2,11 @@ package textProcessing;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Collections;
 
 /**
- * Represents a list of words to eliminate from a token list.
+ * <b>StopWordFilter</b>
+ * <p>Represents a list of words to eliminate from a token list.</p>
  */
 public class StopWordFilter
 {
@@ -14,7 +15,9 @@ public class StopWordFilter
 	 */
 	public StopWordFilter()
 	{
-		// Connect/initialize list
+		mStopList = new ArrayList<String>();
+		initList(mStopList);
+		sortList(mStopList);
 	}
 	
 	/**
@@ -27,4 +30,25 @@ public class StopWordFilter
 	{
 		return new ArrayList<String>();
 	}
+	
+	private void initList(ArrayList<String> stopList)
+	{
+		// Find file and read it in
+	}
+	
+	// Sort the list after reading in.  In case someone gets mischievous with the stop list.
+	private boolean sortList(ArrayList<String> stopList)
+	{
+		boolean bSorted = false;
+		
+		if (mStopList != null && !mStopList.isEmpty())
+		{
+			Collections.sort(stopList);
+			bSorted = true;
+		}
+		
+		return bSorted;
+	}
+	
+	private ArrayList<String> mStopList;
 }
