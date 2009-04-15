@@ -25,10 +25,24 @@ public class StemFilter implements WordStemmer
 	@Override
 	public String stem(String word) 
 	{
-		// TODO Auto-generated method stub
+		if(word.endsWith("sses"))replaceEnd(word,"es",null);
+		if(word.endsWith("ies"))replaceEnd(word,"es",null);
 		return null;
 	}
-
+	/**
+	 * replaces the ending of a word. If the replaceValue is greater than the original then it will return the original
+	 * @param original
+	 * @param replaceValue
+	 * @param newValue
+	 * @return
+	 */
+	String replaceEnd(String original, String replaceValue, String newValue  )
+	{
+		
+		if(original.length()>replaceValue.length())
+			return original.substring(0,original.length()-replaceValue.length()-1)+ newValue;
+		 return original; 
+	}
     /**
      * Finds the stems of multiple words
      * @param words - Strings of words for analyzing.
