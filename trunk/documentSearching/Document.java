@@ -22,8 +22,9 @@ public class Document implements DocumentInfo
 	 * Create a <code>Document</code> for a file
 	 * @param rank - the rank of the file
 	 */
-	public Document(double rank)
+	public Document(String name, double rank)
 	{
+		mName = name;
 		mRank = rank;
 	}
 	
@@ -37,4 +38,5 @@ public class Document implements DocumentInfo
     }
 
     private double mRank;
+    private String mName;
 }
