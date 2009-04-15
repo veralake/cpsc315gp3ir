@@ -13,6 +13,7 @@ package ui;
 
 import javax.swing.JComponent;
 import documentSearching.Document;
+import prefuse.data.Table;
 
 /**
  * <b>VisualPanel</b>
@@ -24,8 +25,18 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
 {
 
     /** Creates new form VisualPanel */
-    public VisualPanel()
+    public VisualPanel(Document documents [][])
     {
+        String name = "Column";
+        int maxRows = 0;
+        for(int i = 0; i < documents.length; i++){
+            data.addColumn((name + i), Document.class);
+            if (documents[i].length > maxRows)
+                maxRows = documents[i].length;
+        }
+        
+        data.addRows(maxRows);
+        
         initComponents();
     }
 
@@ -67,7 +78,10 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
 
+    Table data;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
