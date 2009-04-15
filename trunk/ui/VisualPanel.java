@@ -13,7 +13,10 @@ package ui;
 
 import javax.swing.JComponent;
 import documentSearching.Document;
+import prefuse.Visualization;
 import prefuse.data.Table;
+import prefuse.render.DefaultRendererFactory;
+import prefuse.render.LabelRenderer;
 
 /**
  * <b>VisualPanel</b>
@@ -24,20 +27,29 @@ import prefuse.data.Table;
 public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
 {
 
-    /** Creates new form VisualPanel */
-    public VisualPanel(Document documents [][])
+    /** Creates new form VisualPanel
+     Might need to change constructor to Document[] and get name from document object*/
+    public VisualPanel(Document documents [])
     {
-        String name = "Column";
-        int maxRows = 0;
+        initComponents();
+        String doc = "Document";
+        String name = "Name";
+        
+        data.addColumn(doc, Document.class);
+        data.addColumn(name, String.class);
+        data.addRows(documents.length);
+        
         for(int i = 0; i < documents.length; i++){
-            data.addColumn((name + i), Document.class);
-            if (documents[i].length > maxRows)
-                maxRows = documents[i].length;
+            data.set(i, doc, documents[i]);
+            //data.set(i, name, documents[i].getName());
         }
         
-        data.addRows(maxRows);
         
-        initComponents();
+        viz.add("data", data);
+        
+        //update later to give an image
+        renderer = new LabelRenderer("Name");
+        viz.setRendererFactory(new DefaultRendererFactory(renderer));
     }
 
     /** This method is called from within the constructor to
@@ -79,8 +91,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    
-
+    Visualization viz;
+    LabelRenderer renderer;
     Table data;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
