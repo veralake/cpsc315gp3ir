@@ -28,6 +28,11 @@ public class Document implements DocumentInfo
 		mRank = rank;
 	}
 	
+	public String getName()
+	{
+		return mName;
+	}
+	
 	/**
 	 * Return all instances of a stem in the document
 	 */
