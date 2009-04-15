@@ -4,7 +4,7 @@
 
 package project3;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Used for obtaining information about a particular text document.
@@ -17,6 +17,6 @@ public interface DocumentInfo
      * @return a set of all instances of the provided <code>stem</code> or null
      * if no instances of the stem exist in the document.
      */
-    public Set<StemInfo.StemInstance> getInstances(String stem);
+    public Collection<StemInfo.StemInstance> getInstances(String stem);
 }
 
