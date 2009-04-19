@@ -41,7 +41,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
         
         for(int i = 0; i < documents.length; i++){
             data.set(i, doc, documents[i]);
-            //data.set(i, name, documents[i].getName());
+            data.set(i, name, documents[i].getName());
         }
         
         
