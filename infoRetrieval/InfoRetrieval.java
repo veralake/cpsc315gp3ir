@@ -25,6 +25,12 @@ public final class InfoRetrieval
 	private InfoRetrieval()
 	{
 		UIController.getInstance().setFrame(new MainFrame());
+                //I rewrote the constructor for vizual panel to take an array of
+                //documents. We could initialy set it up to show all documents.
+                //If you are unable to get all the documents in an array and then 
+                //pass them in here, then let me know and I'll write an initalizer
+                //function that takes in an array of documents
+                //-Justin
 		UIController.getInstance().setVisualizer(new VisualPanel());
 		UIController.getInstance().setSearcher(new QueryPanel());
 	}
