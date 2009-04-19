@@ -13,7 +13,11 @@ package ui;
 
 import javax.swing.JComponent;
 import documentSearching.Document;
+import prefuse.Display;
 import prefuse.Visualization;
+import prefuse.action.ActionList;
+import prefuse.action.layout.GridLayout;
+import prefuse.activity.Activity;
 import prefuse.data.Table;
 import prefuse.render.DefaultRendererFactory;
 import prefuse.render.LabelRenderer;
@@ -50,6 +54,16 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
         //update later to give an image
         renderer = new LabelRenderer("Name");
         viz.setRendererFactory(new DefaultRendererFactory(renderer));
+        
+        layout = new ActionList(Activity.INFINITY);
+        layout.add( new GridLayout("layout", 4, 4));
+        viz.putAction("layout", layout);
+        
+        display = new Display(viz);
+        display.setSize(500, 500);
+        
+        this.add(display);
+        viz.run("layout");
     }
 
     /** This method is called from within the constructor to
@@ -94,6 +108,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
     Visualization viz;
     LabelRenderer renderer;
     Table data;
+    ActionList layout;
+    Display display;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
