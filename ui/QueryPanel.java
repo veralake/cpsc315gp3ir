@@ -11,6 +11,12 @@
 
 package ui;
 
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+
 /**
  * <b>QueryPanel</b>
  * <p>This class provides the interface for entering in text for queries.</p>
@@ -33,20 +39,107 @@ public class QueryPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        mainPanel = new javax.swing.JPanel();
+        queryField = new javax.swing.JTextField();
+        queryLabel = new javax.swing.JLabel();
+        searchButton = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(500, 500));
+        setPreferredSize(new java.awt.Dimension(500, 250));
+
+        mainPanel.setOpaque(false);
+
+        queryField.setText("Type text here to begin search...");
+        queryField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(0, 0, 0)));
+        queryField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                queryFieldFocusGained(evt);
+            }
+        });
+
+        queryLabel.setBackground(new java.awt.Color(51, 0, 204));
+        queryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        queryLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/blue_coffee_mug.jpeg"))); // NOI18N
+        queryLabel.setText("<html> <h1>Humanly Search</h1> <p>Powered by Coffee</p> </html>");
+        queryLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        queryLabel.setMaximumSize(new java.awt.Dimension(198, 67));
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(queryField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                            .addComponent(queryLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(143, 143, 143))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(queryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(queryField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        add(mainPanel);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
+    {//GEN-HEADEREND:event_searchButtonActionPerformed
+        // TODO pass string to data controller
+}//GEN-LAST:event_searchButtonActionPerformed
+
+    private void queryFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_queryFieldFocusGained
+    {//GEN-HEADEREND:event_queryFieldFocusGained
+        queryField.selectAll();
+    }//GEN-LAST:event_queryFieldFocusGained
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        Graphics2D g2D = (Graphics2D)g.create();
+        super.paintComponent(g);
+
+        int height = this.getHeight();
+        int width = this.getWidth();
+
+        GradientPaint p = new GradientPaint(new Point(0, 0),
+                                            Color.BLUE,
+                                            new Point(width, height),
+                                            Color.WHITE);
+
+        g2D.setPaint(p);
+        g2D.fill(this.getVisibleRect());
+
+        g2D.dispose();
+    }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JTextField queryField;
+    private javax.swing.JLabel queryLabel;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 
 }

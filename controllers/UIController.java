@@ -117,13 +117,13 @@ public class UIController
      */
     public void viewVisualizer()
     {
-    	if (mFrame.hasComponent(mList))
-    	{
-    		mFrame.remove(mList);
-    	}
-    	
-    	mFrame.add(mVisualizer);
-        mCurrentPanel = mVisualizer;
+//    	if (mFrame.hasComponent(mList))
+//    	{
+//    		mFrame.remove(mList);
+//
+//            mFrame.add(mVisualizer);
+//            mCurrentPanel = mVisualizer;
+//    	}
     }
     
     /**
@@ -132,13 +132,13 @@ public class UIController
      */
     public void viewListPanel()
     {
-    	if (mFrame.hasComponent(mVisualizer))
-    	{
-    		mFrame.remove(mVisualizer);
-    	}
-    	
-    	mFrame.add(mList);
-        mCurrentPanel = mList;
+//    	if (mFrame.hasComponent(mVisualizer))
+//    	{
+//    		mFrame.remove(mVisualizer);
+//
+//            mFrame.add(mList);
+//            mCurrentPanel = mList;
+//    	}
     }
 
     /**
@@ -148,8 +148,22 @@ public class UIController
     {
         return mCurrentPanel;
     }
+
+    public void configureStartUp()
+    {
+        if (!(mFrame == null || 
+              mSearcher == null ||
+              mList == null))
+        {
+            mFrame.setStartUpConfig(mSearcher, 
+                                    mList,
+                                    mHalf);
+        }
+    }
     
     // Members
+    private final double mHalf = 0.50;
+
     private MainFrame mFrame;
     private QueryPanel mSearcher;
     private ListPanel mList;
