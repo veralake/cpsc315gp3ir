@@ -11,11 +11,14 @@
 
 package ui;
 
+import controllers.UIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -44,19 +47,58 @@ public class MainFrame extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        splitPane = new javax.swing.JSplitPane();
+        jPanel2 = new javax.swing.JPanel();
+        queryPanel1 = new ui.QueryPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        directoryItem = new javax.swing.JMenuItem();
         exitItem = new javax.swing.JMenuItem();
         viewMenu = new javax.swing.JMenu();
+        listItem = new javax.swing.JRadioButtonMenuItem();
+        visualItem = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Search");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName("mainFrame"); // NOI18N
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                altFFourPressed(evt);
+            }
+        });
+
+        splitPane.setBackground(new java.awt.Color(255, 255, 255));
+        splitPane.setDividerLocation(240);
+        splitPane.setDividerSize(7);
+        splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        splitPane.setResizeWeight(0.6);
+        splitPane.setContinuousLayout(true);
+        splitPane.setLastDividerLocation(240);
+        splitPane.setOneTouchExpandable(true);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 678, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 261, Short.MAX_VALUE)
+        );
+
+        splitPane.setRightComponent(jPanel2);
+
+        queryPanel1.setMinimumSize(new java.awt.Dimension(500, 250));
+        splitPane.setLeftComponent(queryPanel1);
 
         fileMenu.setText("File");
         fileMenu.setPreferredSize(new java.awt.Dimension(29, 25));
+
+        directoryItem.setText("Search directory");
+        fileMenu.add(directoryItem);
 
         exitItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         exitItem.setText("Exit");
@@ -70,6 +112,25 @@ public class MainFrame extends javax.swing.JFrame
         menuBar.add(fileMenu);
 
         viewMenu.setText("View");
+
+        listItem.setSelected(true);
+        listItem.setText("List");
+        listItem.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                listItemStateChanged(evt);
+            }
+        });
+        viewMenu.add(listItem);
+
+        visualItem.setSelected(false);
+        visualItem.setText("Visual");
+        visualItem.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                visualItemStateChanged(evt);
+            }
+        });
+        viewMenu.add(visualItem);
+
         menuBar.add(viewMenu);
 
         setJMenuBar(menuBar);
@@ -78,11 +139,11 @@ public class MainFrame extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
         );
 
         pack();
@@ -91,35 +152,42 @@ public class MainFrame extends javax.swing.JFrame
     // Event handler for exiting the program from the menu bar
     private void exitItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitItemActionPerformed
     {//GEN-HEADEREND:event_exitItemActionPerformed
-        setVisible(false);
-        this.dispose();
-        System.exit(0);
+        exitApplication();
     }//GEN-LAST:event_exitItemActionPerformed
 
-    // Offset the screen from the top left corner
-    private void setScreenStartPoint()
-    {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private void altFFourPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_altFFourPressed
+    {//GEN-HEADEREND:event_altFFourPressed
+       if(evt.isAltDown() && evt.getKeyCode() == KeyEvent.VK_F4)
+       {
+           exitApplication();
+       }
+    }//GEN-LAST:event_altFFourPressed
 
-        this.setLocation((int)(0.2 * screenSize.width),
-                         (int)(0.2 * screenSize.height));
-    }
-
-    // Sets the program's look-and-feel to that of the machine
-    private void setLookAndFeel()
-    {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+    private void listItemStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_listItemStateChanged
+    {//GEN-HEADEREND:event_listItemStateChanged
+        if (listItem.isSelected())
+        {
+            visualItem.setSelected(false);
+            UIController.getInstance().viewListPanel();
         }
-    }
+        else if (!listItem.isSelected() && !visualItem.isSelected())
+        {
+            listItem.setSelected(true);
+        }
+    }//GEN-LAST:event_listItemStateChanged
+
+    private void visualItemStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_visualItemStateChanged
+    {//GEN-HEADEREND:event_visualItemStateChanged
+        if (visualItem.isSelected())
+        {
+            listItem.setSelected(false);
+            UIController.getInstance().viewVisualizer();
+        }
+        else if (!visualItem.isSelected() && !listItem.isSelected())
+        {
+            visualItem.setSelected(true);
+        }
+    }//GEN-LAST:event_visualItemStateChanged
 
     /**
      * Displays the frame to the user
@@ -153,11 +221,93 @@ public class MainFrame extends javax.swing.JFrame
     	return hasPanel;
     }
 
+    public void setSplitterPosition(double percentage)
+    {
+        splitPane.setDividerLocation(percentage);
+    }
+
+    public void setTopPanel(QueryPanel c)
+    {
+        if (c != null)
+        {
+            
+            splitPane.remove(1);
+            splitPane.setTopComponent(c);
+        }
+    }
+
+    public void setBottomPanel(JComponent c)
+    {
+        if (c != null)
+        {
+            //splitPane.remove(2);
+            splitPane.setBottomComponent(c);
+        }
+    }
+
+    public void setStartUpConfig(QueryPanel top,
+                                 JComponent bottom,
+                                 double splitPosition)
+    {
+        setTopPanel(top);
+        setBottomPanel(bottom);
+        setSplitterPosition(splitPosition);
+        this.validate();
+    }
+
+    // Offset the screen from the top left corner
+    private void setScreenStartPoint()
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        this.setLocation((int)(0.2 * screenSize.width),
+                         (int)(0.2 * screenSize.height));
+    }
+
+    // Sets the program's look-and-feel to that of the machine
+    private void setLookAndFeel()
+    {
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } 
+        catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (InstantiationException ex)
+        {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (IllegalAccessException ex)
+        {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (UnsupportedLookAndFeelException ex)
+        {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // Operations for exiting the program cleanly.
+    private void exitApplication()
+    {
+        setVisible(false);
+        this.dispose();
+        System.exit(0);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem directoryItem;
     private javax.swing.JMenuItem exitItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButtonMenuItem listItem;
     private javax.swing.JMenuBar menuBar;
+    private ui.QueryPanel queryPanel1;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenu viewMenu;
+    private javax.swing.JRadioButtonMenuItem visualItem;
     // End of variables declaration//GEN-END:variables
 
 }

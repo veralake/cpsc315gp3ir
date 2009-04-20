@@ -11,7 +11,7 @@ import documentSearching.Document;
  * <b>DataController</b>
  *
  * <p>The DataController is responsible for analyzing and shuffling queries from
- * the UI to text processing, to document searching, and to the UI again.
+ * the UI to text processing, to document searching, and to the UI again.</p>
  */
 public class DataController 
 {

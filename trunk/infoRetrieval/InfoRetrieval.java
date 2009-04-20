@@ -1,6 +1,7 @@
 package infoRetrieval;
 
 import controllers.UIController;
+import ui.ListPanel;
 import ui.MainFrame;
 import ui.VisualPanel;
 import ui.QueryPanel;
@@ -31,8 +32,11 @@ public final class InfoRetrieval
                 //pass them in here, then let me know and I'll write an initalizer
                 //function that takes in an array of documents
                 //-Justin
-		UIController.getInstance().setVisualizer(new VisualPanel());
+		//UIController.getInstance().setVisualizer(new VisualPanel());
+        UIController.getInstance().setListPanel(new ListPanel());
 		UIController.getInstance().setSearcher(new QueryPanel());
+
+        UIController.getInstance().configureStartUp();
 	}
 
     /**
