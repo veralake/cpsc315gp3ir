@@ -27,6 +27,21 @@ public class StemFilter implements WordStemmer
 	{
 		if(word.endsWith("sses"))replaceEnd(word,"es",null);
 		if(word.endsWith("ies"))replaceEnd(word,"es",null);
+		if(word.endsWith("ing"))
+		{
+			replaceEnd(word,"ing",null);
+			if(word.endsWith("at"))replaceEnd(word,"at","ate");
+			if(word.endsWith("bl"))replaceEnd(word,"bl","ble");
+			if(word.endsWith("iz"))replaceEnd(word,"iz","ize");
+			
+		}
+		if(word.endsWith("ed"))
+		{
+			replaceEnd(word,"ed",null);
+			if(word.endsWith("at"))replaceEnd(word,"at","ate");
+			if(word.endsWith("bl"))replaceEnd(word,"bl","ble");
+			if(word.endsWith("iz"))replaceEnd(word,"iz","ize");
+		}
 		return null;
 	}
 	/**
