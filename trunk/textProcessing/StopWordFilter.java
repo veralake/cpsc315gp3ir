@@ -1,5 +1,10 @@
 package textProcessing;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -15,9 +20,21 @@ public class StopWordFilter
 	 */
 	public StopWordFilter()
 	{
-		mStopList = new ArrayList<String>();
-		initList(mStopList);
-		sortList(mStopList);
+		
+	}
+	
+	public void Initialize()
+	{
+		try
+		{
+			mStopList = initList();
+			sortList(mStopList);
+			// 
+		}
+		catch (IOException ioe)
+		{
+			System.out.println(ioe.getMessage());
+		}
 	}
 	
 	/**
@@ -31,9 +48,30 @@ public class StopWordFilter
 		return new ArrayList<String>();
 	}
 	
-	private void initList(ArrayList<String> stopList)
+	private ArrayList<String> initList()
+		throws IOException
 	{
-		// Find file and read it in
+		ArrayList<String> stopList = new ArrayList<String>();
+		BufferedReader listReader = null;
+		
+		try 
+		{
+			listReader = new BufferedReader(new FileReader("StopList.txt"));
+			
+			String word = null;
+			while((word = listReader.readLine()) == null)
+			{
+				stopList.add(word);
+			}
+		} 
+		finally
+		{
+			if (listReader != null)
+			{
+				listReader.close();
+			}
+		}
+		return stopList;
 	}
 	
 	// Sort the list after reading in.  In case someone gets mischievous with the stop list.
