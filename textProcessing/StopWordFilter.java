@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
+// TODO Test StopWordFilter
+
+
 /**
  * <b>StopWordFilter</b>
  * <p>Represents a list of words to eliminate from a token list.</p>
@@ -20,10 +23,10 @@ public class StopWordFilter
 	 */
 	public StopWordFilter()
 	{
-		
+		Initialize();	
 	}
 	
-	public void Initialize()
+	private void Initialize()
 	{
 		try
 		{
@@ -41,21 +44,39 @@ public class StopWordFilter
 	 * Takes a list of tokens and eliminates words too common to search on
 	 * @param query - A list of strings that comprises a query from the user
 	 * @return A <code>List</code> of strings that is a subset of the original query but
-	 * without stop words
+	 * without stop words, or null if no stop word file was present.
 	 */
 	public List<String> filterWords(final List<String> query)
 	{
-		return new ArrayList<String>();
+		ArrayList<String> newList = null;
+		
+		if (mStopList != null && query != null)
+		{
+			newList = new ArrayList<String>();
+			
+			// If the word is not in the stop list, add it to the list 
+			// of keywords to return.
+			for (String word : query)
+			{
+				if (Collections.binarySearch(mStopList, word) == -1)
+				{
+					newList.add(word);
+				}
+			}
+		}
+		
+		return newList;
 	}
 	
 	private ArrayList<String> initList()
 		throws IOException
 	{
-		ArrayList<String> stopList = new ArrayList<String>();
+		ArrayList<String> stopList = null;
 		BufferedReader listReader = null;
 		
 		try 
 		{
+			stopList = new ArrayList<String>();
 			listReader = new BufferedReader(new FileReader("StopList.txt"));
 			
 			String word = null;
