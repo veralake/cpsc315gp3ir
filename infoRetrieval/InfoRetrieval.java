@@ -3,8 +3,8 @@ package infoRetrieval;
 import controllers.UIController;
 import ui.ListPanel;
 import ui.MainFrame;
-import ui.VisualPanel;
 import ui.QueryPanel;
+import ui.VisualPanel;
 
 /**
  * <b>Application</b>
@@ -32,20 +32,22 @@ public final class InfoRetrieval
                 //pass them in here, then let me know and I'll write an initalizer
                 //function that takes in an array of documents
                 //-Justin
-		//UIController.getInstance().setVisualizer(new VisualPanel());
+		UIController.getInstance().setVisualizer(new VisualPanel());
         UIController.getInstance().setListPanel(new ListPanel());
 		UIController.getInstance().setSearcher(new QueryPanel());
-
-        UIController.getInstance().configureStartUp();
+        UIController.getInstance().setListConfiguration();
 	}
+
+    private void Show()
+    {
+        UIController.getInstance().getFrame().Show();
+    }
 
     /**
      * Call to begin execution of the InfoRetrieval application.
      */
 	public static void Run()
 	{
-		getInstance().myFrame.Show();
-	}
-
-    MainFrame myFrame = new MainFrame();
+        getInstance().Show();
+    }
 }

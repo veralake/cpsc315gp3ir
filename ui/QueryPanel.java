@@ -45,16 +45,22 @@ public class QueryPanel extends javax.swing.JPanel
         searchButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(500, 500));
+        setMinimumSize(new java.awt.Dimension(500, 200));
         setPreferredSize(new java.awt.Dimension(500, 250));
 
         mainPanel.setOpaque(false);
 
+        queryField.setFont(new java.awt.Font("Tahoma", 0, 14));
         queryField.setText("Type text here to begin search...");
         queryField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(0, 0, 0)));
         queryField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 queryFieldFocusGained(evt);
+            }
+        });
+        queryField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                queryFieldKeyPressed(evt);
             }
         });
 
@@ -112,6 +118,11 @@ public class QueryPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_queryFieldFocusGained
         queryField.selectAll();
     }//GEN-LAST:event_queryFieldFocusGained
+
+    private void queryFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_queryFieldKeyPressed
+    {//GEN-HEADEREND:event_queryFieldKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_queryFieldKeyPressed
 
     @Override
     protected void paintComponent(Graphics g)

@@ -5,6 +5,7 @@
 
 package controllers;
 
+import javax.swing.JFileChooser;
 import ui.ListPanel;
 import ui.MainFrame;
 import ui.QueryPanel;
@@ -111,58 +112,37 @@ public class UIController
     	return mList;
     }
 
-    /**
-     * <code>viewVisualizer</code> is called in response to a user event;
-     * it sets the current display to the Visualizer
-     */
-    public void viewVisualizer()
+    public void setListConfiguration()
     {
-//    	if (mFrame.hasComponent(mList))
-//    	{
-//    		mFrame.remove(mList);
-//
-//            mFrame.add(mVisualizer);
-//            mCurrentPanel = mVisualizer;
-//    	}
-    }
-    
-    /**
-     * Called in response to a user event;
-     * it sets the current display to the List panel
-     */
-    public void viewListPanel()
-    {
-//    	if (mFrame.hasComponent(mVisualizer))
-//    	{
-//    		mFrame.remove(mVisualizer);
-//
-//            mFrame.add(mList);
-//            mCurrentPanel = mList;
-//    	}
+        isListViewSet = true;
+        mFrame.setSplitterPosition(dividerPosition);
+        mFrame.setConfiguration(mSearcher, mList);
     }
 
-    /**
-     * @return - The current panel that is being displayed
-     */
-    public ResultsDisplay getCurrentDisplay()
+    public void setVisualConfiguration()
     {
-        return mCurrentPanel;
+        isListViewSet = false;
+        mFrame.setSplitterPosition(dividerPosition);
+        mFrame.setConfiguration(mSearcher, mVisualizer);
     }
 
-    public void configureStartUp()
+    public boolean isListViewSet()
     {
-        if (!(mFrame == null || 
-              mSearcher == null ||
-              mList == null))
-        {
-            mFrame.setStartUpConfig(mSearcher, 
-                                    mList,
-                                    mHalf);
-        }
+        return isListViewSet;
+    }
+
+    // TODO Finish the JFileChooser for reading in the search directory
+    public void getMainDirectory()
+    {
+        JFileChooser getDirectory = new JFileChooser();
+
+
     }
     
     // Members
-    private final double mHalf = 0.50;
+    private final double dividerPosition = 0.38;
+
+    private boolean isListViewSet;
 
     private MainFrame mFrame;
     private QueryPanel mSearcher;

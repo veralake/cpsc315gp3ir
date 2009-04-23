@@ -11,7 +11,6 @@
 
 package ui;
 
-import javax.swing.JComponent;
 import documentSearching.Document;
 import prefuse.Display;
 import prefuse.Visualization;
@@ -30,6 +29,11 @@ import prefuse.render.LabelRenderer;
  */
 public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
 {
+
+    public VisualPanel()
+    {
+        
+    }
 
     /** Creates new form VisualPanel
      Might need to change constructor to Document[] and get name from document object*/
