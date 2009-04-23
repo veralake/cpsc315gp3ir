@@ -12,13 +12,13 @@
 package ui;
 
 import controllers.UIController;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -48,8 +48,6 @@ public class MainFrame extends javax.swing.JFrame
     private void initComponents() {
 
         splitPane = new javax.swing.JSplitPane();
-        jPanel2 = new javax.swing.JPanel();
-        queryPanel1 = new ui.QueryPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         directoryItem = new javax.swing.JMenuItem();
@@ -63,6 +61,11 @@ public class MainFrame extends javax.swing.JFrame
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName("mainFrame"); // NOI18N
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 altFFourPressed(evt);
@@ -73,31 +76,20 @@ public class MainFrame extends javax.swing.JFrame
         splitPane.setDividerLocation(240);
         splitPane.setDividerSize(7);
         splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        splitPane.setResizeWeight(0.6);
+        splitPane.setResizeWeight(0.7);
         splitPane.setContinuousLayout(true);
         splitPane.setLastDividerLocation(240);
         splitPane.setOneTouchExpandable(true);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 261, Short.MAX_VALUE)
-        );
-
-        splitPane.setRightComponent(jPanel2);
-
-        queryPanel1.setMinimumSize(new java.awt.Dimension(500, 250));
-        splitPane.setLeftComponent(queryPanel1);
 
         fileMenu.setText("File");
         fileMenu.setPreferredSize(new java.awt.Dimension(29, 25));
 
         directoryItem.setText("Search directory");
+        directoryItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                directoryItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(directoryItem);
 
         exitItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -155,6 +147,7 @@ public class MainFrame extends javax.swing.JFrame
         exitApplication();
     }//GEN-LAST:event_exitItemActionPerformed
 
+    // Exit program from Alt-F4 keypress
     private void altFFourPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_altFFourPressed
     {//GEN-HEADEREND:event_altFFourPressed
        if(evt.isAltDown() && evt.getKeyCode() == KeyEvent.VK_F4)
@@ -163,12 +156,13 @@ public class MainFrame extends javax.swing.JFrame
        }
     }//GEN-LAST:event_altFFourPressed
 
+    // Changes the current view to a traditional list view for search results
     private void listItemStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_listItemStateChanged
     {//GEN-HEADEREND:event_listItemStateChanged
         if (listItem.isSelected())
         {
             visualItem.setSelected(false);
-            UIController.getInstance().viewListPanel();
+            UIController.getInstance().setListConfiguration();
         }
         else if (!listItem.isSelected() && !visualItem.isSelected())
         {
@@ -176,18 +170,31 @@ public class MainFrame extends javax.swing.JFrame
         }
     }//GEN-LAST:event_listItemStateChanged
 
+    // Changes the current view to an information visualization view for search results
     private void visualItemStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_visualItemStateChanged
     {//GEN-HEADEREND:event_visualItemStateChanged
         if (visualItem.isSelected())
         {
             listItem.setSelected(false);
-            UIController.getInstance().viewVisualizer();
+            UIController.getInstance().setVisualConfiguration();
         }
         else if (!visualItem.isSelected() && !listItem.isSelected())
         {
             visualItem.setSelected(true);
         }
     }//GEN-LAST:event_visualItemStateChanged
+
+    // Resets the position of the divider after a frame-resize
+    private void formComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentResized
+    {//GEN-HEADEREND:event_formComponentResized
+        UIController.getInstance().setListConfiguration();
+    }//GEN-LAST:event_formComponentResized
+
+    // Resets the search directory
+    private void directoryItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_directoryItemActionPerformed
+    {//GEN-HEADEREND:event_directoryItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_directoryItemActionPerformed
 
     /**
      * Displays the frame to the user
@@ -198,61 +205,49 @@ public class MainFrame extends javax.swing.JFrame
     }
 
     /**
-     * Checks to see whether the frame has ownership of a component, namely a panel
-     * @param panel - The panel to test whether the frame currently has ownership of it
-     * @return <code>true</code> if the frame owns <code>panel</code>.
+     * Sets the query panel for the application
+     * @param c - instance of <code>QueryPanel</code> to display to user
      */
-    public boolean hasComponent(Component panel)
-    {
-    	boolean hasPanel = false;
-    	
-    	Component[] components = getContentPane().getComponents();
-    	int count = components.length;
-    	
-    	for (int i = 0; i < count; ++i)
-    	{
-    		if(components[i].equals(panel))
-    		{
-    			hasPanel = true;
-    			break;
-    		}
-    	}
-    	
-    	return hasPanel;
-    }
-
-    public void setSplitterPosition(double percentage)
-    {
-        splitPane.setDividerLocation(percentage);
-    }
-
     public void setTopPanel(QueryPanel c)
     {
         if (c != null)
         {
-            
-            splitPane.remove(1);
             splitPane.setTopComponent(c);
         }
     }
 
+    /**
+     * Sets the panel for displaying
+     * @param c - <code>JComponent</code> for listing results from a query
+     */
     public void setBottomPanel(JComponent c)
     {
         if (c != null)
         {
-            //splitPane.remove(2);
             splitPane.setBottomComponent(c);
         }
     }
 
-    public void setStartUpConfig(QueryPanel top,
-                                 JComponent bottom,
-                                 double splitPosition)
+    /**
+     * Sets the position of the divider for the <code>JSplitPane</code>
+     * @param percent - <code>double</code> value that represents a percentage of the screen.
+     * The value for <code>percent</code> must be between 0 and 1.
+     */
+    public void setSplitterPosition(double percent)
     {
-        setTopPanel(top);
-        setBottomPanel(bottom);
-        setSplitterPosition(splitPosition);
-        this.validate();
+        splitPane.setDividerLocation(percent);
+    }
+
+    /**
+     * Sets the panels for executing queries and displaying results
+     * @param qp - JPanel for entering queries
+     * @param rd - JPanel for displaying search results as either a list or visual format
+     */
+    public void setConfiguration(QueryPanel qp,
+                                 JPanel rd)
+    {
+        setTopPanel(qp);
+        setBottomPanel(rd);      
     }
 
     // Offset the screen from the top left corner
@@ -301,10 +296,8 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JMenuItem directoryItem;
     private javax.swing.JMenuItem exitItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButtonMenuItem listItem;
     private javax.swing.JMenuBar menuBar;
-    private ui.QueryPanel queryPanel1;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenu viewMenu;
     private javax.swing.JRadioButtonMenuItem visualItem;
