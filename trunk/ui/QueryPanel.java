@@ -16,6 +16,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 
 /**
  * <b>QueryPanel</b>
@@ -121,9 +122,17 @@ public class QueryPanel extends javax.swing.JPanel
 
     private void queryFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_queryFieldKeyPressed
     {//GEN-HEADEREND:event_queryFieldKeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            // TODO pass string to data controller
+        }
     }//GEN-LAST:event_queryFieldKeyPressed
 
+    /**
+     * Disables searching functionality.
+     * @param enabled - boolean telling whehther or not to disable 
+     * the text field and button
+     */
     @Override
     public void setEnabled(boolean enabled)
     {
@@ -131,6 +140,7 @@ public class QueryPanel extends javax.swing.JPanel
         searchButton.setEnabled(enabled);
     }
 
+    // Adds a nice gradient to the background of the application
     @Override
     protected void paintComponent(Graphics g)
     {

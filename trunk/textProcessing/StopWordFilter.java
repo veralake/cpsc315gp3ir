@@ -1,8 +1,6 @@
 package textProcessing;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +44,7 @@ public class StopWordFilter
 	 * @return A <code>List</code> of strings that is a subset of the original query but
 	 * without stop words, or null if no stop word file was present.
 	 */
-	public List<String> filterWords(final List<String> query)
+	public ArrayList<String> filterWords(final List<String> query)
 	{
 		ArrayList<String> newList = null;
 		
@@ -67,7 +65,8 @@ public class StopWordFilter
 		
 		return newList;
 	}
-	
+
+    // Reads in the StopWords.txt file that comprises of common English words
 	private ArrayList<String> initList()
 		throws IOException
 	{

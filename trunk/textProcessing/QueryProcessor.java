@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import project3.WordTokenizer;
 
+// TODO Test the QueryProcessor as a single unit
+
 /**
  * <b>QueryProcessor</b>
  * 
@@ -23,18 +25,18 @@ public class QueryProcessor implements WordTokenizer
 	 * @return A <code>List</code> of index words for searching text documents
 	 */
 	@Override
-	public List<String> tokenize(String query) 
+	public ArrayList<String> tokenize(String query)
 	{
-		List<String> indexWords = new ArrayList<String>();
+		List<String> tokens = mTokenizer.tokenize(query);
 	
+        ArrayList<String> indexWords = mStopFilter.filterWords(tokens);
 		
-		
-		// Continue making passes on our words until we have index words
+		indexWords = mWordStemmer.stems(indexWords);
 		
 		return indexWords;
 	}
 	
-	private Tokenizer tokenizer = new Tokenizer();
-	private StopWordFilter stopFilter = new StopWordFilter();
-	private StemFilter wordStemmer = new StemFilter();
+	private Tokenizer mTokenizer = new Tokenizer();
+	private StopWordFilter mStopFilter = new StopWordFilter();
+	private StemFilter mWordStemmer = new StemFilter();
 }
