@@ -12,11 +12,6 @@ import project3.WordStemmer;
  */
 public class StemFilter implements WordStemmer 
 {
-
-	// To the implementer of this class:  You may try going out on wikipedia because they list
-	// a lot of different types of Stemming algorithms.  There's also Porter's Stemming Algorithm,
-	// which is supposedly very popular amongst IR people.
-
 	/**
 	 * Finds the stem for a single word.
 	 * @param word - String containing the word for analyzing.
