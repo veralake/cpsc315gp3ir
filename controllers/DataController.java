@@ -51,8 +51,13 @@ public class DataController
      */
     public void setSearchDirectory(File directory)
     {
-    	
+    	if (mWorkingDirectory != directory)
+        {
+            mWorkingDirectory = directory;
+            // TODO run indexing algorithm here
+        }
     }
 
-    private QueryProcessor mQueryAnalyzer;
+    private File mWorkingDirectory = null;
+    private QueryProcessor mQueryAnalyzer = new QueryProcessor();
 }

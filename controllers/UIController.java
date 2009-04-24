@@ -9,7 +9,6 @@ import javax.swing.JFileChooser;
 import ui.ListPanel;
 import ui.MainFrame;
 import ui.QueryPanel;
-import ui.ResultsDisplay;
 import ui.VisualPanel;
 
 /**
@@ -112,41 +111,61 @@ public class UIController
     	return mList;
     }
 
+    /**
+     * Sets the current UI config to a list format
+     */
     public void setListConfiguration()
     {
-        isListViewSet = true;
         mFrame.setSplitterPosition(dividerPosition);
         mFrame.setConfiguration(mSearcher, mList);
     }
 
+    /**
+     * Sets the current UI config to a visual format
+     */
     public void setVisualConfiguration()
     {
-        isListViewSet = false;
         mFrame.setSplitterPosition(dividerPosition);
         mFrame.setConfiguration(mSearcher, mVisualizer);
     }
 
-    public boolean isListViewSet()
-    {
-        return isListViewSet;
-    }
-
-    // TODO Finish the JFileChooser for reading in the search directory
+    /**
+     * Gets the directory containing the text files to be indexed.
+     * Disables any ability to launch a query if no directory was selected.
+     */
     public void getMainDirectory()
     {
+        String message = "Please select working directory for searching";
+
         JFileChooser getDirectory = new JFileChooser();
+        getDirectory.setToolTipText(message);
+        getDirectory.setDialogTitle(message);
+        getDirectory.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
+        int value = getDirectory.showOpenDialog(mFrame);
 
+        if (value == JFileChooser.APPROVE_OPTION)
+        {
+            enableSearch(true);
+            DataController.getInstance().setSearchDirectory(getDirectory.getSelectedFile());
+        }
+        else
+        {
+            enableSearch(false);
+        }
+    }
+
+    // Tells the resident QueryPanel to disable search components.
+    private void enableSearch(boolean isEnabled)
+    {
+        mSearcher.setEnabled(isEnabled);
     }
     
     // Members
     private final double dividerPosition = 0.38;
 
-    private boolean isListViewSet;
-
     private MainFrame mFrame;
     private QueryPanel mSearcher;
     private ListPanel mList;
-    private ResultsDisplay mCurrentPanel;
     private VisualPanel mVisualizer;
 }

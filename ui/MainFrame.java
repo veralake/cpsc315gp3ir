@@ -193,7 +193,7 @@ public class MainFrame extends javax.swing.JFrame
     // Resets the search directory
     private void directoryItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_directoryItemActionPerformed
     {//GEN-HEADEREND:event_directoryItemActionPerformed
-        // TODO add your handling code here:
+        UIController.getInstance().getMainDirectory();
     }//GEN-LAST:event_directoryItemActionPerformed
 
     /**

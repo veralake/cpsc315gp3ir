@@ -125,13 +125,20 @@ public class QueryPanel extends javax.swing.JPanel
     }//GEN-LAST:event_queryFieldKeyPressed
 
     @Override
+    public void setEnabled(boolean enabled)
+    {
+        queryField.setEnabled(enabled);
+        searchButton.setEnabled(enabled);
+    }
+
+    @Override
     protected void paintComponent(Graphics g)
     {
-        Graphics2D g2D = (Graphics2D)g.create();
         super.paintComponent(g);
-
-        int height = this.getHeight();
-        int width = this.getWidth();
+        Graphics2D g2D = (Graphics2D)g.create();
+        
+        int height = getHeight();
+        int width = getWidth();
 
         GradientPaint p = new GradientPaint(new Point(0, 0),
                                             Color.BLUE,
@@ -139,7 +146,7 @@ public class QueryPanel extends javax.swing.JPanel
                                             Color.WHITE);
 
         g2D.setPaint(p);
-        g2D.fill(this.getVisibleRect());
+        g2D.fill(getVisibleRect());
 
         g2D.dispose();
     }

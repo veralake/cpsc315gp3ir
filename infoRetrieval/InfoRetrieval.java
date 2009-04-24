@@ -40,6 +40,7 @@ public final class InfoRetrieval
 
     private void Show()
     {
+        UIController.getInstance().getMainDirectory();
         UIController.getInstance().getFrame().Show();
     }
 
