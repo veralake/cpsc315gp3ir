@@ -124,7 +124,7 @@ public class StemFilter implements WordStemmer
 	 * @return <code>List</code> of <code>String</code> containing the stems of
 	 * each word
 	 */
-	public List<String> stems(List<String> words)
+	public ArrayList<String> stems(List<String> words)
 	{
 		ArrayList<String> wordStems = new ArrayList<String>();
 
