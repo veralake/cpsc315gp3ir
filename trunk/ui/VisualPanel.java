@@ -12,14 +12,24 @@
 package ui;
 
 import documentSearching.Document;
-import prefuse.Display;
-import prefuse.Visualization;
-import prefuse.action.ActionList;
-import prefuse.action.layout.GridLayout;
-import prefuse.activity.Activity;
-import prefuse.data.Table;
-import prefuse.render.DefaultRendererFactory;
-import prefuse.render.LabelRenderer;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Vector;
+import javax.imageio.ImageIO;
+import javax.swing.JScrollPane;
+
+
 
 /**
  * <b>VisualPanel</b>
@@ -27,47 +37,17 @@ import prefuse.render.LabelRenderer;
  * <p>This class represents the window for viewing the search results of a query
  * in an interactive, visually appealing format</p>
  */
-public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
+public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, MouseListener, MouseMotionListener
 {
-
-    public VisualPanel()
-    {
-        
-    }
+   JScrollPane jsp;
 
     /** Creates new form VisualPanel
      Might need to change constructor to Document[] and get name from document object*/
-    public VisualPanel(Document documents [])
+    public VisualPanel()
     {
+        jsp = new JScrollPane(this);
         initComponents();
-        String doc = "Document";
-        String name = "Name";
-        
-        data.addColumn(doc, Document.class);
-        data.addColumn(name, String.class);
-        data.addRows(documents.length);
-        
-        for(int i = 0; i < documents.length; i++){
-            data.set(i, doc, documents[i]);
-            data.set(i, name, documents[i].getName());
-        }
-        
-        
-        viz.add("data", data);
-        
-        //update later to give an image
-        renderer = new LabelRenderer("Name");
-        viz.setRendererFactory(new DefaultRendererFactory(renderer));
-        
-        layout = new ActionList(Activity.INFINITY);
-        layout.add( new GridLayout("layout", 4, 4));
-        viz.putAction("layout", layout);
-        
-        display = new Display(viz);
-        display.setSize(500, 500);
-        
-        this.add(display);
-        viz.run("layout");
+                
     }
 
     /** This method is called from within the constructor to
@@ -79,15 +59,68 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        fileNameL = new javax.swing.JLabel();
+        fileSizeL = new javax.swing.JLabel();
+        fileLocationL = new javax.swing.JLabel();
+        fileName = new javax.swing.JLabel();
+        fileSize = new javax.swing.JLabel();
+        fileLocation = new javax.swing.JLabel();
+
+        fileNameL.setText("File Name:");
+
+        fileSizeL.setText("File Size:");
+
+        fileLocationL.setText("File Location:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(fileNameL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fileName))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(fileSizeL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fileSize))
+                    .addComponent(fileLocationL)
+                    .addComponent(fileLocation))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fileNameL)
+                    .addComponent(fileName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fileSizeL)
+                    .addComponent(fileSize))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fileLocationL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fileLocation)
+                .addContainerGap(209, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(486, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -109,12 +142,128 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    Visualization viz;
-    LabelRenderer renderer;
-    Table data;
-    ActionList layout;
-    Display display;
+    public void initGraphics(){
+        try {
+            icon = ImageIO.read(new File("src/ui/icon.jpg"));
+        } catch (IOException e) {
+            System.out.println("Image not loaded");
+        }
+        
+        try {
+            slotImage = ImageIO.read(new File("src/ui/slot.jpg"));
+        } catch (IOException e) {
+            System.out.println("Image not loaded");
+        }
+      
+        for (int i = 0; i < documents.length; i++){
+            icons.add(icon);
+        }
+        
+        for (int i = 0; i < documents.length; i++){
+            labels.add(documents[i].getName());
+        }
+            
+    }
+    
+    public void initGrid(){
+        int root = (int) Math.sqrt((double)documents.length);        
+        
+        setSize(WIDTH_OF_SLOT*root, HEIGHT_OF_SLOT*root);
+        
+        for(int i = 0; i < root; i++)
+            for(int j = 0; j < root; j++){
+            Point p = new Point((WIDTH_OF_SLOT *(i)) + ICON_OFFSET, 
+                    (HEIGHT_OF_SLOT*j) + ICON_OFFSET);
+            slots.add(p);            
+        }
+    }
+    
+    public void set(Document d[]){
+        documents = d;
+        initGraphics();
+        initGrid();
+        
+    }
+    
+    public void clear(){
+        documents = new Document[0];
+        slots.clear();
+        labels.clear();
+    }
+    
+    @Override
+    public void paintComponent(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+        String text;
+        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        Hashtable<TextAttribute, Object> map = new Hashtable<TextAttribute, Object>();
+
+        map.put(TextAttribute.FOREGROUND, Color.WHITE);
+        font = font.deriveFont(map);
+        g.setFont(font);
+        
+
+        for (int i = 0; i < labels.size(); i++){
+            int x = slots.elementAt(i).x;
+            int y = slots.elementAt(i).y;
+            text = labels.elementAt(i);
+            g2.drawImage(slotImage, x-ICON_OFFSET, y-ICON_OFFSET, null);
+            g2.drawImage(icon, x, y, null);
+            g2.drawString(text, x, y + FONT_OFFSET);
+        }
+    }
+    
+    public void mouseClicked(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mousePressed(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mouseExited(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    private Document[] documents;
+    private Vector<String> labels               = new Vector();
+    private Vector<Point> slots                 = new Vector();
+    private Vector<BufferedImage> icons         = new Vector();
+    
+    public static final int HEIGHT_OF_SLOT      = 150;
+    public static final int WIDTH_OF_SLOT       = 150;
+    public static final int HEIGHT_OF_ICON      = 100;
+    public static final int WIDTH_OF_ICON       = 100;
+    public static final int ICON_OFFSET         = 25;
+    public static final int FONT_OFFSET         = 115;
+    public static final int OFFSET_TO_CENTER    = 75;
+    
+    private BufferedImage slotImage;
+    private BufferedImage icon;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel fileLocation;
+    private javax.swing.JLabel fileLocationL;
+    private javax.swing.JLabel fileName;
+    private javax.swing.JLabel fileNameL;
+    private javax.swing.JLabel fileSize;
+    private javax.swing.JLabel fileSizeL;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
 }
