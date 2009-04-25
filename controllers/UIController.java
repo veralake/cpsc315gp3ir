@@ -116,8 +116,11 @@ public class UIController
      */
     public void setListConfiguration()
     {
-        mFrame.setSplitterPosition(dividerPosition);
-        mFrame.setConfiguration(mSearcher, mList);
+    	if (mFrame != null)
+    	{
+	        mFrame.setSplitterPosition(dividerPosition);
+	        mFrame.setConfiguration(mSearcher, mList);
+    	}
     }
 
     /**
@@ -125,8 +128,11 @@ public class UIController
      */
     public void setVisualConfiguration()
     {
-        mFrame.setSplitterPosition(dividerPosition);
-        mFrame.setConfiguration(mSearcher, mVisualizer);
+    	if (mFrame != null)
+    	{
+	        mFrame.setSplitterPosition(dividerPosition);
+	        mFrame.setConfiguration(mSearcher, mVisualizer);
+    	}
     }
 
     /**
@@ -142,17 +148,27 @@ public class UIController
         getDirectory.setDialogTitle(message);
         getDirectory.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        int value = getDirectory.showOpenDialog(mFrame);
-
-        if (value == JFileChooser.APPROVE_OPTION)
+        if (mFrame != null)
         {
-            enableSearch(true);
-            DataController.getInstance().setSearchDirectory(getDirectory.getSelectedFile());
+	        int value = getDirectory.showOpenDialog(mFrame);
+	
+	        if (value == JFileChooser.APPROVE_OPTION)
+	        {
+	            enableSearch(true);
+	            DataController.getInstance().setSearchDirectory(getDirectory.getSelectedFile());
+	        }
+	        else if (DataController.getInstance().getSearchDirectory() == null)
+	        {
+	            enableSearch(false);
+	        }
         }
-        else
-        {
-            enableSearch(false);
-        }
+    }
+    
+    // TODO Implement this, so search results may be returned to the UI after a 
+    // query has been executed
+    public void addDocuments()
+    {
+    	
     }
 
     // Tells the resident QueryPanel to disable search components.

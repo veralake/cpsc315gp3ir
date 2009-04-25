@@ -9,11 +9,14 @@ import project3.WordTokenizer;
 /**
  * <b>QueryProcessor</b>
  * 
- *  <p>This class takes a query and formats it into a list of terms that
- *  are appropriate for searching text documents.</p> 
+ * <p>This class takes a query and formats it into a list of terms that
+ * are appropriate for searching text documents.</p> 
  */
 public class QueryProcessor implements WordTokenizer 
 {
+	/**
+	 * Default constructor
+	 */
 	public QueryProcessor()
 	{
 	}

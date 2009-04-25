@@ -38,10 +38,12 @@ public final class InfoRetrieval
         UIController.getInstance().setListConfiguration();
 	}
 
+	// Sets the primary JFrame to visible and prompts the user for a search
+	// directory
     private void Show()
     {
-        UIController.getInstance().getMainDirectory();
         UIController.getInstance().getFrame().Show();
+        UIController.getInstance().getMainDirectory();
     }
 
     /**

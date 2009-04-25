@@ -6,6 +6,8 @@ import java.util.List;
 
 import textProcessing.QueryProcessor;
 import documentSearching.Document;
+import documentSearching.IndexBuilder;
+import documentSearching.IndexMap;
 
 /**
  * <b>DataController</b>
@@ -45,6 +47,11 @@ public class DataController
     	return new ArrayList<Document>();
     }
     
+    public File getSearchDirectory()
+    {
+    	return mWorkingDirectory;
+    }
+    
     /**
      * Sets the directory of files to be searched and automatically runs the indexing algorithm.
      * @param directory - name of directory containing text files that the user wants to search.
@@ -54,10 +61,16 @@ public class DataController
     	if (mWorkingDirectory != directory)
         {
             mWorkingDirectory = directory;
+            
+            IndexBuilder indexer = new IndexBuilder(directory, mQueryAnalyzer);
+            
+            
+            
             // TODO run indexing algorithm here
         }
     }
 
     private File mWorkingDirectory = null;
+    private IndexMap mIndexSet = null;
     private QueryProcessor mQueryAnalyzer = new QueryProcessor();
 }

@@ -1,13 +1,13 @@
 package textProcessing;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
-// TODO Test StopWordFilter
 
 
 /**
@@ -24,18 +24,13 @@ public class StopWordFilter
 		Initialize();	
 	}
 	
-	private void Initialize()
+	/**
+	 * Was the stop list sorted properly
+	 * @return - returns true if the list was sorted during initialization
+	 */
+	public boolean isSorted()
 	{
-		try
-		{
-			mStopList = initList();
-			sortList(mStopList);
-			// 
-		}
-		catch (IOException ioe)
-		{
-			System.out.println(ioe.getMessage());
-		}
+		return mIsSorted;
 	}
 	
 	/**
@@ -48,7 +43,9 @@ public class StopWordFilter
 	{
 		ArrayList<String> newList = null;
 		
-		if (mStopList != null && query != null)
+		if (mStopList != null && 
+			query != null &&
+			isSorted())
 		{
 			newList = new ArrayList<String>();
 			
@@ -56,7 +53,7 @@ public class StopWordFilter
 			// of keywords to return.
 			for (String word : query)
 			{
-				if (Collections.binarySearch(mStopList, word) == -1)
+				if (Collections.binarySearch(mStopList, word.toLowerCase()) <= -1)
 				{
 					newList.add(word);
 				}
@@ -65,10 +62,30 @@ public class StopWordFilter
 		
 		return newList;
 	}
+	
+	private void Initialize()
+	{
+		try
+		{
+			mStopList = initList();
+			sortList(mStopList);
+		}
+		catch (FileNotFoundException fnf)
+		{
+			System.out.println("I haven't added the StopList.txt file yet, so if this " +
+							   "crashes the program, let me know.  -Zach");
+			
+			mStopList = new ArrayList<String>();
+		}
+		catch (IOException ioe)
+		{
+			System.out.println(ioe.getMessage());
+		}
+	}
 
     // Reads in the StopWords.txt file that comprises of common English words
 	private ArrayList<String> initList()
-		throws IOException
+		throws IOException, FileNotFoundException
 	{
 		ArrayList<String> stopList = null;
 		BufferedReader listReader = null;
@@ -79,9 +96,9 @@ public class StopWordFilter
 			listReader = new BufferedReader(new FileReader("StopList.txt"));
 			
 			String word = null;
-			while((word = listReader.readLine()) == null)
+			while((word = listReader.readLine()) != null)
 			{
-				stopList.add(word);
+				stopList.add(word.trim());
 			}
 		} 
 		finally
@@ -95,18 +112,21 @@ public class StopWordFilter
 	}
 	
 	// Sort the list after reading in.  In case someone gets mischievous with the stop list.
-	private boolean sortList(ArrayList<String> stopList)
+	private void sortList(ArrayList<String> stopList)
 	{
-		boolean bSorted = false;
-		
-		if (mStopList != null && !mStopList.isEmpty())
+		if (mStopList != null && 
+			!mStopList.isEmpty())
 		{
 			Collections.sort(stopList);
-			bSorted = true;
+			mIsSorted = true;
 		}
-		
-		return bSorted;
+		else
+		{
+			mIsSorted = false;
+		}
 	}
 	
-	private ArrayList<String> mStopList;
+	// Member variables
+	private ArrayList<String> mStopList = null;
+	private boolean mIsSorted = false;
 }
