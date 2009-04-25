@@ -3,6 +3,7 @@ package textProcessing;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Vector;
 import project3.WordTokenizer;
 
 /**
@@ -39,9 +40,13 @@ public class Tokenizer implements WordTokenizer
 	{
 		String[] words = null;
 		
-		// if hasQuotesOperator(a query) equals true
-        //     call String.split on quotes, set equal to words
-        // else
+		 if (hasQuotesOperator(query)){
+                    words = query.split("\"");
+                 }
+        
+                 else{
+                    words = query.split("\\s");
+                 }
         //     call split on spaces (default), set equal to words
 		
 		return words;
@@ -49,7 +54,31 @@ public class Tokenizer implements WordTokenizer
 
     private String[] removePunctuation(final String[] words)
     {
-        return new String[5];
+        for(int i = 0; i < words.length; i++){
+            String currentWord = words[i];
+            StringBuffer finishedWord = new StringBuffer();
+            for(int j = 0; j < currentWord.length(); j++){
+                char currentChar = currentWord.charAt(j);
+                
+                
+                switch (currentChar){
+                    case '"': break;
+                    case '\'': break;
+                    case '.': break;
+                    case '?': break;
+                    case '!': break;
+                    case ',': break;
+                    case ':': break;
+                    case ';': break;
+                    
+                    default: finishedWord.append(currentChar);break;
+                }
+            }
+            
+            words[i] = finishedWord.toString();                
+            
+        }
+        return words;
     }
 
     private boolean hasQuotesOperator(final String query)
@@ -62,6 +91,13 @@ public class Tokenizer implements WordTokenizer
         //     split on quotes
         // else
         //     call split on spaces
+        
+        for(int i = 0; i < query.length(); i++){
+            if (query.charAt(i) == '"')
+                for (int j = i; j < query.length(); j++)
+                    if(query.charAt(j) == '"')
+                        return true;
+        }
 
         return false;
     }
