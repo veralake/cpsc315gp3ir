@@ -24,10 +24,11 @@ public class IndexBuilder
 	 * @param directory - directory in which to search
 	 * @param processor - a processor for applying the stemming algorithm to document samples
 	 */
-    public IndexBuilder(File directory, QueryProcessor processor)
+    public IndexBuilder(File directory, 
+    					QueryProcessor processor)
     {
     	mMainDirectory = directory;
-    	mLineProcessory = processor;
+    	mLineProcessor = processor;
     }
     
     /**
@@ -40,14 +41,6 @@ public class IndexBuilder
     	return new IndexMap();
     }
     
-    /**
-     * @return the directory in which to search
-     */
-    public File getWorkingDirectory()
-    {
-    	return new File("");
-    }
-    
     private File mMainDirectory;
-    private QueryProcessor mLineProcessory;
+    private QueryProcessor mLineProcessor;
 }

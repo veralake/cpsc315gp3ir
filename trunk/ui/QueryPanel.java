@@ -18,6 +18,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
+import controllers.DataController;
+
 /**
  * <b>QueryPanel</b>
  * <p>This class provides the interface for entering in text for queries.</p>
@@ -112,8 +114,9 @@ public class QueryPanel extends javax.swing.JPanel
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
-        // TODO pass string to data controller
-}//GEN-LAST:event_searchButtonActionPerformed
+    	// TODO Finish the event handling for executing a query in the QueryPanel
+        DataController.getInstance().runQuery(queryField.getText());
+    }//GEN-LAST:event_searchButtonActionPerformed
 
     private void queryFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_queryFieldFocusGained
     {//GEN-HEADEREND:event_queryFieldFocusGained
@@ -124,13 +127,14 @@ public class QueryPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_queryFieldKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-            // TODO pass string to data controller
+        	// TODO Finish the event handling for executing a query in the QueryPanel
+            DataController.getInstance().runQuery(queryField.getText());
         }
     }//GEN-LAST:event_queryFieldKeyPressed
 
     /**
      * Disables searching functionality.
-     * @param enabled - boolean telling whehther or not to disable 
+     * @param enabled - boolean telling whether or not to disable 
      * the text field and button
      */
     @Override
@@ -140,7 +144,7 @@ public class QueryPanel extends javax.swing.JPanel
         searchButton.setEnabled(enabled);
     }
 
-    // Adds a nice gradient to the background of the application
+    // Adds a gradient to the background of the application
     @Override
     protected void paintComponent(Graphics g)
     {
@@ -152,7 +156,7 @@ public class QueryPanel extends javax.swing.JPanel
 
         GradientPaint p = new GradientPaint(new Point(0, 0),
                                             Color.BLUE,
-                                            new Point(width, height),
+                                            new Point(0, height),
                                             Color.WHITE);
 
         g2D.setPaint(p);

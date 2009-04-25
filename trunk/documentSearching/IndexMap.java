@@ -5,8 +5,10 @@
 
 package documentSearching;
 
-import java.util.SortedMap;
+import java.util.TreeMap;
 import project3.StemInfo;
+
+// TODO IndexMap is completed.  Needs testing
 
 /**
  * <b>IndexMap</b>
@@ -20,7 +22,6 @@ public class IndexMap
 	 */
 	public IndexMap()
 	{
-		
 	}
 	
 	/**
@@ -30,7 +31,10 @@ public class IndexMap
 	 */
 	public void add(String index, StemInfo info)
 	{
-		
+		if (mIndexMap != null)
+		{
+			mIndexMap.put(index, info);
+		}
 	}
 	
 	/**
@@ -40,7 +44,14 @@ public class IndexMap
 	 */
 	public boolean containsStem(String index)
 	{
-		return false;
+		boolean hasIndex = false;
+		
+		if (mIndexMap != null)
+		{
+			hasIndex = mIndexMap.containsKey(index);
+		}
+		
+		return hasIndex;
 	}
 	
 	/**
@@ -50,8 +61,15 @@ public class IndexMap
 	 */
 	public StemInfo getInfo(String index)
 	{
-		return new StemInfo("");
+		StemInfo info = null;
+		
+		if (mIndexMap != null)
+		{
+			info = mIndexMap.get(index);
+		}
+		
+		return info;
 	}
 	
-	private SortedMap<String, StemInfo> mIndexMap;
+	private TreeMap<String, StemInfo> mIndexMap = new TreeMap<String, StemInfo>();
 }

@@ -17,9 +17,8 @@ public class DocumentSearcher
 	 * Creates an instance of a <code>DocumentSearcher</code>
 	 * @param terms - A map of the primary index terms
 	 */
-    public DocumentSearcher(IndexMap terms)
+    public DocumentSearcher()
     {
-    	mTerms = terms;
     }
 	
     /**
@@ -27,10 +26,9 @@ public class DocumentSearcher
      * @param indexTerms - Terms from a user query
      * @return <code>Set</code> of documents that best fit the given index terms
      */
-    public Set<Document> getResults(List<String> indexTerms)
+    public Set<Document> getResults(final List<String> indexTerms, 
+    								final IndexMap terms)
     {
         return null;
     }
-   
-    private IndexMap mTerms;
 }
