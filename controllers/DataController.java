@@ -44,6 +44,11 @@ public class DataController
     public List<Document> runQuery(String query)
     {
         // Use queryAnalyzer to generate a list of documents
+
+        List<String> list = mQueryAnalyzer.tokenize(query);
+
+
+
     	return new ArrayList<Document>();
     }
     
@@ -58,15 +63,15 @@ public class DataController
      */
     public void setSearchDirectory(File directory)
     {
-    	if (mWorkingDirectory != directory)
+    	if (directory != null &&
+            mWorkingDirectory != directory)
         {
             mWorkingDirectory = directory;
             
-            IndexBuilder indexer = new IndexBuilder(directory, mQueryAnalyzer);
-            
-            
-            
-            // TODO run indexing algorithm here
+            IndexBuilder indexer = new IndexBuilder(directory,
+                                                    mQueryAnalyzer);
+
+            mIndexSet = indexer.createIndexMap();
         }
     }
 

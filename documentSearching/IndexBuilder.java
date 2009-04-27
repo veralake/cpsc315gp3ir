@@ -65,9 +65,9 @@ public class IndexBuilder
 				int startNum = 0;
 				for(String word: wordsInLine)
 				{
-					if(im.containsStem(word))
+					if(im.hasStemInfo(word))
 					{
-						im.getInfo(word).addInstance(f, lineNum, startNum, word);
+						im.getStemInfo(word).addInstance(f, lineNum, startNum, word);
 					}
 					else
 					{

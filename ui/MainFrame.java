@@ -48,6 +48,7 @@ public class MainFrame extends javax.swing.JFrame
     private void initComponents() {
 
         splitPane = new javax.swing.JSplitPane();
+        resultsPane = new javax.swing.JScrollPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         directoryItem = new javax.swing.JMenuItem();
@@ -80,6 +81,7 @@ public class MainFrame extends javax.swing.JFrame
         splitPane.setContinuousLayout(true);
         splitPane.setLastDividerLocation(240);
         splitPane.setOneTouchExpandable(true);
+        splitPane.setBottomComponent(resultsPane);
 
         fileMenu.setText("File");
         fileMenu.setPreferredSize(new java.awt.Dimension(29, 25));
@@ -225,6 +227,7 @@ public class MainFrame extends javax.swing.JFrame
         if (c != null)
         {
             splitPane.setBottomComponent(c);
+            //resultsPane.add(c);
         }
     }
 
@@ -298,6 +301,7 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JMenu fileMenu;
     private javax.swing.JRadioButtonMenuItem listItem;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JScrollPane resultsPane;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenu viewMenu;
     private javax.swing.JRadioButtonMenuItem visualItem;
