@@ -5,8 +5,10 @@
 
 package documentSearching;
 
+import java.util.Set;
 import java.util.TreeMap;
 import project3.StemInfo;
+import project3.StemInfo.StemInstance;
 
 // TODO IndexMap is completed.  Needs testing
 
@@ -85,5 +87,21 @@ public class IndexMap
         mIndexMap.clear();
     }
 
+    public String toString()
+    {
+    	String output = null;
+    	Set<String> keys = mIndexMap.keySet();
+    	for(String key: keys)
+    	{
+    		StemInfo si;
+    		output+= key+"\n"; 
+    		for(StemInstance sInstance: mIndexMap.get(key).getInstances())
+    		{
+    			output+="\t"+sInstance+"\n";
+    		}
+    	}
+    	return output;
+    	
+    }
 	private TreeMap<String, StemInfo> mIndexMap = new TreeMap<String, StemInfo>();
 }
