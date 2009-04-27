@@ -20,6 +20,9 @@ public class StemmerTester {
 		v.add("seriously");
 		v.add("nationalization");
 		v.add("activity");
+		v.add("swimmingly");
+		v.add("finally");
+		v.add("ability");
 		for(String s: v)
 		{
 			System.out.println(s+" -> "+sF.stem(s));

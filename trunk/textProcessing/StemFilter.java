@@ -17,6 +17,7 @@ public class StemFilter implements WordStemmer
 	 * @param word - String containing the word for analyzing.
 	 * @return - the stem of <code>word</code>
 	 */
+	
 	int vowels(String s)
 	{
 		int result = 0; 
@@ -29,7 +30,10 @@ public class StemFilter implements WordStemmer
 	}
 	public String stem(String word) 
 	{
+		//remove all non characters
 		word = word.toLowerCase();
+		
+		
 		if(word.endsWith("s"))
 		{
 		if(word.endsWith("sses")||word.endsWith("ies"))word = replaceEnd(word,"es","");
@@ -50,6 +54,7 @@ public class StemFilter implements WordStemmer
 			else if(word.endsWith("iz"))word = replaceEnd(word,"iz","ize");
 		}
 		if(word.endsWith("y")&&vowels(word)>1) word= replaceEnd(word,"y","i");
+		if(word.length()>2){
 		if(word.charAt(word.length()-2)=='a')
 		{
 			if(word.endsWith("ational")) word = replaceEnd(word,"ational","ate");
@@ -90,14 +95,8 @@ public class StemFilter implements WordStemmer
 			if(word.endsWith("biliti")) word = replaceEnd(word,"biliti","ble");
 		}
 		if(word.charAt(word.length()-2)=='g')word = replaceEnd(word,"logi","log");
-    	
-    
-    
-    
-    
-
-
-		return word;
+		}
+    	return word;
 	}
 	/**
 	 * replaces the ending of a word. If the replaceValue is greater than the original then it will return the original
@@ -108,14 +107,11 @@ public class StemFilter implements WordStemmer
 	 */
 	String replaceEnd(String original, String replaceValue, String newValue  )
 	{
-
 		if(original.length()>replaceValue.length())
 		{
 			String base = original.substring(0,original.length()-replaceValue.length());
 			return base + newValue;
-			
 		}
-		
 		return original; 
 	}
 	/**
