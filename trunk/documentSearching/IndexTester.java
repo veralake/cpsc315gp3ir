@@ -10,7 +10,8 @@ public class IndexTester {
 	public static void main(String[] args) {
 		File directory = new File("TestData");
 		IndexBuilder ib = new IndexBuilder(directory,null);
-		ib.createIndexMap();
+		IndexMap im = ib.createIndexMap();
+		
 
 	}
 
