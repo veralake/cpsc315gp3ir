@@ -114,7 +114,7 @@ public class QueryPanel extends javax.swing.JPanel
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
-    	// TODO Finish the event handling for executing a query in the QueryPanel
+    	// TODO Pass the ArrayList of documents to the UIController for updating the UI
         DataController.getInstance().runQuery(queryField.getText());
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -127,7 +127,7 @@ public class QueryPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_queryFieldKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-        	// TODO Finish the event handling for executing a query in the QueryPanel
+        	// TODO Pass the ArrayList of documents to the UIController for updating the UI
             DataController.getInstance().runQuery(queryField.getText());
         }
     }//GEN-LAST:event_queryFieldKeyPressed

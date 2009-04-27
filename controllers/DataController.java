@@ -2,10 +2,10 @@ package controllers;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import textProcessing.QueryProcessor;
 import documentSearching.Document;
+import documentSearching.DocumentRanker;
 import documentSearching.IndexBuilder;
 import documentSearching.IndexMap;
 
@@ -41,15 +41,15 @@ public class DataController
      * Call in response to a user event to start a search.
      * @param query - Original query to be processed
      */
-    public List<Document> runQuery(String query)
+    public ArrayList<Document> runQuery(String query)
     {
         // Use queryAnalyzer to generate a list of documents
 
-        List<String> list = mQueryAnalyzer.tokenize(query);
+        ArrayList<String> list = mQueryAnalyzer.tokenize(query);
 
+        DocumentRanker rankAlgorithm = new DocumentRanker(mIndexSet);
 
-
-    	return new ArrayList<Document>();
+        return rankAlgorithm.generateResults(list);
     }
     
     public File getSearchDirectory()

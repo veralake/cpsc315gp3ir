@@ -11,7 +11,10 @@
 
 package ui;
 
+import documentSearching.Document;
 import java.io.File;
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
 
 /**
  * <b>SearchResult</b>
@@ -30,6 +33,11 @@ public class SearchResult extends javax.swing.JPanel
         initComponents();
     }
 
+    public SearchResult(Document d)
+    {
+        initComponents();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -39,15 +47,29 @@ public class SearchResult extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        textPane = new javax.swing.JScrollPane();
+        documentText = new javax.swing.JTextArea();
+
+        documentText.setBackground(new java.awt.Color(224, 223, 227));
+        documentText.setColumns(20);
+        documentText.setRows(5);
+        textPane.setViewportView(documentText);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 571, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textPane, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 168, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(textPane, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -57,7 +79,8 @@ public class SearchResult extends javax.swing.JPanel
      */
     public void setTitle(String title)
     {
-        
+        TitledBorder tb = BorderFactory.createTitledBorder(title);
+        this.setBorder(tb);
     }
 
     /**
@@ -77,11 +100,14 @@ public class SearchResult extends javax.swing.JPanel
      */
     public void setLink(File document)
     {
-        
+        //java.awt.Desktop
+        // Use this to launch a file-associated program
     }
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea documentText;
+    private javax.swing.JScrollPane textPane;
     // End of variables declaration//GEN-END:variables
 
 }
