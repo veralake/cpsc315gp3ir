@@ -5,7 +5,14 @@
 
 package documentSearching;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import project3.StemInfo;
 
 import textProcessing.QueryProcessor;
 
@@ -38,8 +45,71 @@ public class IndexBuilder
      */
     public IndexMap createIndexMap()
     {
-    	return new IndexMap();
+    	IndexMap im = new IndexMap();
+    	File files[] = mMainDirectory.listFiles();
+    	for(File f: files)
+    	{
+    		Scanner scanner;
+    		try {
+				scanner = new Scanner(f);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+			int lineNum = 1;
+			while(scanner.hasNext())
+			{
+				String line = scanner.nextLine();
+				String wordsInLine[] = line.split(" ");
+				int startNum = 0;
+				for(String word: wordsInLine)
+				{
+					if(im.containsStem(word))
+					{
+						im.getInfo(word).addInstance(f, lineNum, startNum, word);
+					}
+					else
+					{
+						StemInfo si = new StemInfo(word);
+						si.addInstance(f, lineNum, startNum, word);	
+					}
+					startNum+=word.length()+1;
+				}
+				lineNum++;
+				
+			}
+    	}
+    	return im;
     }
+//    private String searchDirectory(File directory)
+//    {
+//    	String output = null;
+//    	File files[] = directory.listFiles();
+//    	for(File f: files)
+//    	{
+//    		if(f.isDirectory())
+//    		{
+//    			output += searchDirectory(f);
+//    		}
+//    		else
+//    		{
+//    			try {
+//					Scanner scanner = new Scanner(f);
+//					while(scanner.hasNext())output+=" "+scanner.next();
+//				} catch (FileNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//    			
+//    		}
+//    		
+//    	}
+//    	return output;
+//    	
+//    	
+//    }
     
     private File mMainDirectory;
     private QueryProcessor mLineProcessor;
