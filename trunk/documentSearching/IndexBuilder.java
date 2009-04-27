@@ -46,6 +46,7 @@ public class IndexBuilder
     public IndexMap createIndexMap()
     {
     	IndexMap im = new IndexMap();
+        boolean isDir = mMainDirectory.isDirectory();
     	File files[] = mMainDirectory.listFiles();
     	for(File f: files)
     	{

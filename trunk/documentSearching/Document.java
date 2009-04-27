@@ -6,7 +6,7 @@
 package documentSearching;
 
 
-import java.util.Set;
+import java.util.ArrayList;
 import project3.DocumentInfo;
 import project3.StemInfo.StemInstance;
 
@@ -27,21 +27,43 @@ public class Document implements DocumentInfo
 		mName = name;
 		mRank = rank;
 	}
+
+    public double getRank()
+    {
+        return mRank;
+    }
 	
 	public String getName()
 	{
 		return mName;
 	}
+
+    public void addInstance(StemInstance s)
+    {
+        stems.add(s);
+    }
 	
 	/**
 	 * Return all instances of a stem in the document
 	 */
 	@Override
-    public Set<StemInstance> getInstances(String stem)
+    public ArrayList<StemInstance> getInstances(String stem)
     {
-        return null;
+        ArrayList<StemInstance> instances = new ArrayList<StemInstance>();
+
+        for (StemInstance si : stems)
+        {
+            if (si.getStem().equals(stem))
+            {
+                instances.add(si);
+            }
+        }
+
+        return instances;
     }
 
     private double mRank;
     private String mName;
+
+    private ArrayList<StemInstance> stems = new ArrayList<StemInstance>();
 }
