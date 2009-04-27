@@ -3,7 +3,6 @@ package textProcessing;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Vector;
 import project3.WordTokenizer;
 
 /**
@@ -102,6 +101,8 @@ public class Tokenizer implements WordTokenizer
         return false;
     }
 
+    // Puts the the words into a container that the other components of the QueryProcessor
+    // can use.
     private ArrayList<String> makeWordList(final String[] words)
     {
         ArrayList<String> list = new ArrayList<String>();

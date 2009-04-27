@@ -29,7 +29,7 @@ public class IndexMap
 	 * @param index - String to add as an index
 	 * @param info - <code>StemInfo</code> associated with <code>index</code> 
 	 */
-	public void add(String index, StemInfo info)
+	public void addStemInfo(String index, StemInfo info)
 	{
 		if (mIndexMap != null)
 		{
@@ -42,7 +42,7 @@ public class IndexMap
 	 * @param index - String to test whether it is in the map
 	 * @return false if <code>index</code> is not in the map
 	 */
-	public boolean containsStem(String index)
+	public boolean hasStemInfo(String index)
 	{
 		boolean hasIndex = false;
 		
@@ -59,7 +59,7 @@ public class IndexMap
 	 * @param index - String you want to get info on
 	 * @return <code>StemInfo</code> object for <code>index</code>
 	 */
-	public StemInfo getInfo(String index)
+	public StemInfo getStemInfo(String index)
 	{
 		StemInfo info = null;
 		
@@ -70,6 +70,20 @@ public class IndexMap
 		
 		return info;
 	}
-	
+
+    /**
+     * Removes the
+     * @param index
+     */
+    public void removeStemInfo(String index)
+    {
+        mIndexMap.remove(index);
+    }
+
+    public void clearAll()
+    {
+        mIndexMap.clear();
+    }
+
 	private TreeMap<String, StemInfo> mIndexMap = new TreeMap<String, StemInfo>();
 }
