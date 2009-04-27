@@ -43,7 +43,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
    JScrollPane jsp;
 
     /** Creates new form VisualPanel
-     Might need to change constructor to Document[] and get name from document object*/
+     */
     public VisualPanel()
     {
         addMouseListener(this);
@@ -171,6 +171,9 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         
     }
     
+    /**
+     * Retrieves and initializes images used in the visual panel.
+     */
     public void initGraphics(){
         BufferedImage icon = null;
         try {
@@ -194,7 +197,10 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         }
             
     }
-    
+  
+    /**
+     * Sets up the Grid that the icons will be displayed on.
+     */
     public void initGrid(){
         int root = (int) Math.sqrt((double)documents.size());        
         
@@ -220,6 +226,11 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         }
     }
     
+    /**
+     * Sets up the visualization with the set of documents passed to it.
+     * @param d
+     * An array of Documents that will appear in the visualization.
+     */
     public void set(Document d[]){
         for(int i = 0; i < d.length; i++)
         	documents.add(d[i]);
@@ -228,6 +239,9 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         
     }
     
+    /**
+     * Clears all data from the visualization
+     */
     public void clear(){
         documents.clear();
         slots.clear();
@@ -235,6 +249,9 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     }
     
     @Override
+    /**
+     * Paints the visualization in the window.
+     */
     public void paintComponent(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
         String text;
@@ -281,7 +298,17 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         }
     }
     
-    public int findClickedIcon(int x, int y){
+    /**
+     * Used to find which item has been clicked.
+     * @param x
+     * X coordinate of where the mouse clicked.
+     * @param y
+     * Y coordinate of where the mouse clicked.
+     * @return
+     * Returns the index of the clicked icon.
+     * Returns -1 if no icon was clicked.
+     */
+    private int findClickedIcon(int x, int y){
         for(int i = 0; i < hitBoxes.size(); i++){
             if(hitBoxes.elementAt(i).contains(x, y)){
                 return i;              
@@ -290,6 +317,10 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         return -1;
     }
     
+    /**
+     * When an icon is clicked, the information in the FileInfoDisplay will change
+     * to match the clicked item.
+     */
     public void mouseClicked(MouseEvent e) {
         iconSelected = findClickedIcon(e.getX(), e.getY());
         
@@ -297,6 +328,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
            fileName.setText(documents.elementAt(iconSelected).getName());
         } 
     }
+
 
     public void mousePressed(MouseEvent e) {
         iconSelected = findClickedIcon(e.getX(), e.getY());
@@ -313,6 +345,11 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
 
     }
 
+    /**
+     * When the mouse button is released, if the selected icon is over the center
+     * of another icon, they will switch places. Otherwise, it will return
+     * to it's original location.
+     */
     public void mouseReleased(MouseEvent e) {
     	for(int i = 0; i < slots.size(); i++){
     		if (hitBoxes.elementAt(iconSelected).contains(
@@ -321,7 +358,6 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     			
     			swapElements(documents, iconSelected, i);
     			swapElements(labels, iconSelected, i);
-    			//swapElements(iconPosition, iconSelected, i);
     			swapElements(hitBoxes, iconSelected, i);
     		}	
     	}
@@ -351,18 +387,34 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     public void mouseMoved(MouseEvent e) {
     }
     
-    public void updatePosition(MouseEvent e){
+    /**
+     * Used to update the position of a dragged item.
+     * @param e
+     * The MouseEvent that was used in one of the MouseListener functions
+     */
+    private void updatePosition(MouseEvent e){
         hitBoxes.elementAt(iconSelected).setLocation(lastx + e.getX(), lasty + e.getY());
         iconPosition.elementAt(iconSelected).setLocation(lastx + e.getX(), lasty + e.getY());
         repaint();
     }
     
-    public void swapElements(Vector v, int indexA, int indexB){
+    /**
+     * Swaps the positions of two items in a vector. Used to change positions of icons
+     * int the mouseReleased function.
+     * @param v
+     * Vector to be manipulated.
+     * @param indexA
+     * Index of one of the items to be swapped.
+     * @param indexB
+     * Index of one of the items to be swapped.
+     */
+    private void swapElements(Vector v, int indexA, int indexB){
         Object temp = v.elementAt(indexA);
         v.set(indexA, v.elementAt(indexB));
         v.set(indexB, temp);        
     }
     
+
     private Vector<Document> documents			= new Vector();
     private Vector<String> labels               = new Vector();
     private Vector<Point> slots                 = new Vector();
