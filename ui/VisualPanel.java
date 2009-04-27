@@ -140,10 +140,35 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
      * Adds a search item that is to be displayed in the visual format.
      * @param doc - <code>Document</code> to displayed
      */
-    @Override
     public void addDocument(Document doc)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	int root = (int) Math.sqrt((double)documents.size());
+    	
+        documents.add(doc);
+        labels.add(doc.getName());
+        icons.add(icons.lastElement());
+        
+        int lastSlotx = slots.lastElement().x;
+        int lastSloty = slots.lastElement().y;
+        
+        if(lastSlotx/WIDTH_OF_SLOT >= root){
+        	Point p = new Point((WIDTH_OF_SLOT * (lastSlotx +1)) + ICON_OFFSET,
+        			(HEIGHT_OF_SLOT*lastSloty) + ICON_OFFSET);
+        	
+        	iconPosition.add(p);
+            hitBoxes.add(new Rectangle(p.x, p.y, WIDTH_OF_ICON, HEIGHT_OF_ICON));
+            slots.add(new Point(WIDTH_OF_SLOT *(lastSlotx + 1), HEIGHT_OF_SLOT*lastSloty));
+        }
+        else{
+        	Point p = new Point((WIDTH_OF_SLOT * (0)) + ICON_OFFSET,
+        			(HEIGHT_OF_SLOT*(lastSloty +1)) + ICON_OFFSET);
+        	
+        	iconPosition.add(p);
+            hitBoxes.add(new Rectangle(p.x, p.y, WIDTH_OF_ICON, HEIGHT_OF_ICON));
+            slots.add(new Point(WIDTH_OF_SLOT *(0), HEIGHT_OF_SLOT*(lastSloty + 1)));        	
+        }
+        
+        
     }
     
     public void initGraphics(){
@@ -160,42 +185,51 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
             System.out.println("Image not loaded");
         }
       
-        for (int i = 0; i < documents.length; i++){
+        for (int i = 0; i < documents.size(); i++){
             icons.add(icon);
         }
         
-        for (int i = 0; i < documents.length; i++){
-            labels.add(documents[i].getName());
+        for (int i = 0; i < documents.size(); i++){
+            labels.add(documents.elementAt(i).getName());
         }
             
     }
     
     public void initGrid(){
-        int root = (int) Math.sqrt((double)documents.length);        
+        int root = (int) Math.sqrt((double)documents.size());        
         
         setSize(WIDTH_OF_SLOT*root, HEIGHT_OF_SLOT*root);
         
-        for(int i = 0; i < root; i++)
-            for(int j = 0; j < root; j++){
-           
-                Point p = new Point((WIDTH_OF_SLOT *(j)) + ICON_OFFSET, 
-                    (HEIGHT_OF_SLOT*i) + ICON_OFFSET);
+        int x = 0;
+        int y = 0;
+        
+        for(int i = 0; i < documents.size(); i++){
+        	
+        	Point p = new Point((WIDTH_OF_SLOT *(x)) + ICON_OFFSET, 
+                    (HEIGHT_OF_SLOT*y) + ICON_OFFSET);
                 
                 iconPosition.add(p);
                 hitBoxes.add(new Rectangle(p.x, p.y, WIDTH_OF_ICON, HEIGHT_OF_ICON));
-                slots.add(new Point(WIDTH_OF_SLOT *(j), HEIGHT_OF_SLOT*i));            
+                slots.add(new Point(WIDTH_OF_SLOT *(x), HEIGHT_OF_SLOT*y));
+                
+                x++;
+                if (x >= root){
+                	x = 0;
+                	y++;
+                }
         }
     }
     
     public void set(Document d[]){
-        documents = d;
+        for(int i = 0; i < d.length; i++)
+        	documents.add(d[i]);
         initGraphics();
         initGrid();
         
     }
     
     public void clear(){
-        documents = new Document[0];
+        documents.clear();
         slots.clear();
         labels.clear();
     }
@@ -218,16 +252,19 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         font = font.deriveFont(map);
         g.setFont(font);
         
-
         for (int i = 0; i < labels.size(); i++){
             slotx   = slots.elementAt(i).x;
             sloty   = slots.elementAt(i).y;
+
+            g2.drawImage(slotImage, slotx, sloty, null);
+            }
+
+        for (int i = 0; i < labels.size(); i++){
             iconx   = iconPosition.elementAt(i).x;
             icony   = iconPosition.elementAt(i).y;
             text    = labels.elementAt(i);
             icon    = icons.elementAt(i);
             
-            g2.drawImage(slotImage, slotx, sloty, null);
             g2.drawImage(icon, iconx, icony, null);
             g2.drawString(text, iconx, icony + FONT_OFFSET);
         }
@@ -257,7 +294,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         iconSelected = findClickedIcon(e.getX(), e.getY());
         
         if(iconSelected > -1){
-           fileName.setText(documents[iconSelected].getName());
+           fileName.setText(documents.elementAt(iconSelected).getName());
         } 
     }
 
@@ -277,15 +314,33 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     }
 
     public void mouseReleased(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+    	for(int i = 0; i < slots.size(); i++){
+    		if (hitBoxes.elementAt(iconSelected).contains(
+    				slots.elementAt(i).x + OFFSET_TO_CENTER,
+    				slots.elementAt(i).y + OFFSET_TO_CENTER)){
+    			
+    			swapElements(documents, iconSelected, i);
+    			swapElements(labels, iconSelected, i);
+    			//swapElements(iconPosition, iconSelected, i);
+    			swapElements(hitBoxes, iconSelected, i);
+    		}	
+    	}
+    	
+    	hitBoxes.elementAt(iconSelected).setLocation(
+    			slots.elementAt(iconSelected).x + ICON_OFFSET, 
+    			slots.elementAt(iconSelected).y + ICON_OFFSET);
+    	
+    	iconPosition.elementAt(iconSelected).setLocation(
+    			slots.elementAt(iconSelected).x + ICON_OFFSET, 
+    			slots.elementAt(iconSelected).y + ICON_OFFSET);
+    	
+    	repaint();
     }
 
     public void mouseEntered(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void mouseExited(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -294,7 +349,6 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     }
 
     public void mouseMoved(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     public void updatePosition(MouseEvent e){
@@ -303,13 +357,13 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         repaint();
     }
     
-    public void swapElements(Vector<Object> v, int indexA, int indexB){
+    public void swapElements(Vector v, int indexA, int indexB){
         Object temp = v.elementAt(indexA);
         v.set(indexA, v.elementAt(indexB));
         v.set(indexB, temp);        
     }
     
-    private Document[] documents;
+    private Vector<Document> documents			= new Vector();
     private Vector<String> labels               = new Vector();
     private Vector<Point> slots                 = new Vector();
     private Vector<Point> iconPosition          = new Vector();
