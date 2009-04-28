@@ -2,6 +2,7 @@ package textProcessing;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import project3.WordTokenizer;
 
@@ -40,13 +41,49 @@ public class Tokenizer implements WordTokenizer
 		String[] words = null;
 		
 		 if (hasQuotesOperator(query)){
-                    words = query.split("\"");
-                 }
+			 String trimmedQuery = query.trim();
+			 Vector<String> processedStrings = new Vector();
+			 String[] splitString;
+			 String[] individualWords;
+			
+			 //if the first char is a quote, then all of the odd numbered
+			 //strings returned by split("\"") will need to be split further.
+			 if(query.charAt(0) == '"'){
+				 splitString = query.split("\"");
+				 for(int i = 0; i < splitString.length; i++){
+					 if(i%2 == 0){
+						 processedStrings.add(splitString[i]);
+					 }
+					 else{
+						 individualWords = tokenizeQuery(splitString[i]);
+						 for (int j = 0; j < individualWords.length; j++)
+							 processedStrings.add(individualWords[j]);
+					 }
+				 }
+			 }
+			 //if the first char is not a quote, then all of the even numbered
+			 //strings returned by split("\"") will need to be split further.
+			 else{
+				 splitString = query.split("\"");
+				 for(int i = 0; i < splitString.length; i++){
+					 if(i%2 != 0){
+						 processedStrings.add(splitString[i]);
+					 }
+					 else{
+						 individualWords = tokenizeQuery(splitString[i]);
+						 for (int j = 0; j < individualWords.length; j++)
+							 processedStrings.add(individualWords[j]);
+					 }
+				 }
+				 
+			 }
+			 words = (String[]) processedStrings.toArray();
+		 }
         
-                 else{
-                    words = query.split("\\s");
-                 }
-        //     call split on spaces (default), set equal to words
+		 else{
+			 words = query.split("\\s");
+		}
+        
 		
 		return words;
 	}
