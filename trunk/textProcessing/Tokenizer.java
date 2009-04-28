@@ -77,7 +77,11 @@ public class Tokenizer implements WordTokenizer
 				 }
 				 
 			 }
-			 words = (String[]) processedStrings.toArray();
+			// words = (String[]) processedStrings.toArray(); Illegal cast
+			 words = new String[processedStrings.size()];
+			 for( int x = 0; x<processedStrings.size();x++) words[x] = processedStrings.get(x);
+		
+		
 		 }
         
 		 else{

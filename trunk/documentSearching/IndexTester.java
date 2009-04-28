@@ -10,7 +10,7 @@ public class IndexTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		File directory = new File("C:\\TestData");
+		File directory = new File("TestData");
 		QueryProcessor qp = new QueryProcessor();
 		IndexBuilder ib = new IndexBuilder(directory,qp);
 		IndexMap im = ib.createIndexMap();
