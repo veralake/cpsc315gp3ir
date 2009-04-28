@@ -1,0 +1,70 @@
+CPSC 315: Programming Studio
+
+   
+
+Spring Semester, 2009
+
+Lecture Time and place: T/Th 11:10 pm - 12:25 pm, HRBB 104
+
+Lab Time and place: M/W 9:10 pm - 10:00 am, HRBB 209
+
+Instructor: Dr. Frank Shipman
+Office: HRBB 404
+Email: shipman@cs.tamu.edu
+Office hours: TBD, or by appointment
+
+TA: Tim Mann
+Office: HRBB 339
+Email: t0m6753@cs.tamu.edu
+Office hours: MTThF 1-2pm, W 12-1pm or by appointment
+
+Students
+List of students
+
+Course description
+Programming, like drawing, writing, and many other skills, improves with practice. This class provides an intensive programming experience that integrates core concepts in Computer Science and familiarizes students with a variety of programming/development tools and techniques. Students will primarily work in small teams on month-long projects emphasizing different specializations within computer science. The course focuses on honing good programming techniques to ease code integration, reuse, and clarity.
+
+Note: You should expect to spend a significant amount of time (>10 hours/week) outside of class time on programming projects. This may require meeting with team members outside of the class/lab periods.
+Prerequisites
+This class is intended for students who have completed CPSC 314, Programming Languages, and are concurrently taking CPSC 313 "Intro to Computer Systems". It is meant to be somewhat of a capstone course for the lower-level computer science courses, before taking courses in the upper-level tracks.
+
+Schedule
+Approximate class schedule
+
+Grading
+
+ 
+  Class participation	10%
+  Solo project          10%
+  Project lead effort   20%
+  Team projects		60% (20% each project)
+
+Assignments
+The Assignments Page will be updated throughout the semester as new assignments are available.
+
+Class participation
+You are expected to attend each lecture and lab period. Missing lectures or labs will result in a lower class participation grade.
+
+This class is scheduled as a 2 hour lecture/2 hour lab class each week. As the lecture period is the normal twice a week schedule, we will have approximately 20 lectures of the 28 normally scheduled classes. Most of the lectures will be scheduled towards the start of the semester so the material can be used in your projects.
+
+Academic Honesty
+The Aggie Honor Code is: “An Aggie does not lie, cheat, or steal or tolerate those who do.” Upon accepting admission to Texas A&M University, a student immediately assumes a commitment to uphold the Honor Code, to accept responsibility for learning, and to follow the philosophy and rules of the Honor System. Students will be required to state their commitment on examinations, research papers, and other academic work. Ignorance of the rules does not exclude any member of the TAMU community from the requirements or the processes of the Honor System. For additional information please visit: www.tamu.edu/aggiehonor/
+
+For this class, certain aspects of the honor code need to be clarified.
+
+1) There may be times in this course where you or your team make use of external code/software/libraries. Whenever this is done, you must make sure that, in addition to following any restrictions on that code itself, you clearly document what the source of the external code was, and how it was used.
+
+2) There may be cases in this course where you or your team seeks outside assistance related to one of the projects. Any assistance received from people other than members of your team, the professor, teaching assistant, or peer teacher needs to be clearly documented.
+
+3) You will be working in team environments in this course, and your work as a team will be used to determine grades. As such, it is your responsibility, when asked, to:
+
+a) accurately describe the work that you have done on a team project. Claiming credit for work that you have not done or that others did instead is a violation of the code.
+
+b) accurately describe (to the best of your knowledge) the performance of other team members. “Covering” for another team member (claiming they did more work than you know they did) or “spiking” them (claiming they did less work than you know they did) are examples of honor code violations.
+
+c) prevent (as best you can) or report (known) violations of the honor code by your other team members. You share responsibility when a project is turned in; if you are aware of a teammate having violated the code in his/her work on the project, and do not report it, you are claiming credit for that violation yourself.
+
+If there are any questions or concerns about whether an action is appropriate, you should check with the professor or teaching assistant first. If in doubt, assume that it is not appropriate.
+
+ADA Statement:
+The Americans with Disabilities Act (ADA) is a federal antidiscrimination statute that provides comprehensive civil rights protection for persons with disabilities. Among other things, this legislation requires that all students with disabilities be guaranteed a learning environment that provides for reasonable accommodation of their disabilities. If you believeyou have a disability requiring an accommodation, please contact the Office of Disability Services in Cain Hall, Rm. B118, or call 845-1637. 
