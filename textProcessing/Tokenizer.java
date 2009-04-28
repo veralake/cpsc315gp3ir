@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 import project3.WordTokenizer;
 
 /**
@@ -34,7 +36,18 @@ public class Tokenizer implements WordTokenizer
 		
 		return makeWordList(trimmedWords);
 	}
-
+	
+	private boolean isOneQuotation(final String query)
+	{
+		if(query.charAt(0) == '"')
+			for(char c: query.toCharArray()){
+				if(c == '"')
+					if (query.indexOf(c, 1) == query.length()-1)
+						return true;
+			}
+		return false;
+	}
+	
 	// Splits the original query into whole-grain, bite-sized tokens covered in frosting
 	private String[] tokenizeQuery(final String query)
 	{
@@ -48,7 +61,13 @@ public class Tokenizer implements WordTokenizer
 			
 			 //if the first char is a quote, then all of the odd numbered
 			 //strings returned by split("\"") will need to be split further.
-			 if(query.charAt(0) == '"'){
+			 if (isOneQuotation(query)){
+//				 words = new String[1];
+//				 words[0] = query;
+				 processedStrings.add(query);
+			 }
+			 
+			 else if(query.charAt(0) == '"'){
 				 splitString = query.split("\"");
 				 for(int i = 0; i < splitString.length; i++){
 					 if(i%2 == 0){
@@ -150,7 +169,10 @@ public class Tokenizer implements WordTokenizer
 
         for (String s : words)
         {
-            list.add(s);
+        	if (!s.equals(""))
+        	{
+        		list.add(s);
+        	}
         }
 
         return list;
