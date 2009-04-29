@@ -5,7 +5,11 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
 import javax.swing.JFileChooser;
+
+import documentSearching.Document;
 import ui.ListPanel;
 import ui.MainFrame;
 import ui.QueryPanel;
@@ -164,11 +168,24 @@ public class UIController
         }
     }
     
-    // TODO Implement this, so search results may be returned to the UI after a 
-    // query has been executed
-    public void addDocuments()
+    /**
+     * Call this to display a new list of results to the user
+     * @param documents - <code>ArrayList</code> of <code>Document</code> 
+     * to be displayed to the user.
+     */
+    public void addDocuments(ArrayList<Document> documents)
     {
-    	
+    	if (mVisualizer != null && mList != null)
+    	{
+    		mList.clear();
+    		mVisualizer.clear();
+    		
+	    	for (Document d : documents)
+	    	{
+	    		mList.addDocument(d);
+	    		mVisualizer.addDocument(d);
+	    	}
+    	}
     }
 
     // Tells the resident QueryPanel to disable search components.

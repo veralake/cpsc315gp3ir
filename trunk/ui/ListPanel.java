@@ -73,6 +73,15 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
 		
 	}
 
+	/**
+	 * 
+	 */
+	@Override
+	public void clear() 
+	{
+		
+	}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 

@@ -22,7 +22,6 @@ import textProcessing.QueryProcessor;
  * 
  * <p>Builds an <code>IndexMap</code> given a working directory. This class will
  * contain the inverted index algorithm</p>
- * @author Zachary Edens
  */
 public class IndexBuilder
 {
@@ -112,7 +111,6 @@ public class IndexBuilder
 	//					Scanner scanner = new Scanner(f);
 	//					while(scanner.hasNext())output+=" "+scanner.next();
 	//				} catch (FileNotFoundException e) {
-	//					// TODO Auto-generated catch block
 	//					e.printStackTrace();
 	//				}
 	//				

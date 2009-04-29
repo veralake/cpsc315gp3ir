@@ -21,4 +21,10 @@ public interface ResultsDisplay
      * @param doc - document to be displayed
      */
     public void addDocument(Document doc);
+    
+    
+    /**
+     * Clears all documents contained in the display
+     */
+    public void clear();
 }
