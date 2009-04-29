@@ -27,6 +27,13 @@ public class Document implements DocumentInfo
 		mName = name;
 		mRank = rank;
 	}
+	
+	public Document(Document doc)
+	{
+		mRank = doc.mRank;
+		mName = doc.mName;
+		mStems = doc.mStems;
+	}
 
     public double getRank()
     {
@@ -40,7 +47,7 @@ public class Document implements DocumentInfo
 
     public void addInstance(StemInstance s)
     {
-        stems.add(s);
+        mStems.add(s);
     }
 	
 	/**
@@ -51,7 +58,7 @@ public class Document implements DocumentInfo
     {
         ArrayList<StemInstance> instances = new ArrayList<StemInstance>();
 
-        for (StemInstance si : stems)
+        for (StemInstance si : mStems)
         {
             if (si.getStem().equals(stem))
             {
@@ -65,5 +72,5 @@ public class Document implements DocumentInfo
     private double mRank;
     private String mName;
 
-    private ArrayList<StemInstance> stems = new ArrayList<StemInstance>();
+    private ArrayList<StemInstance> mStems = new ArrayList<StemInstance>();
 }

@@ -10,7 +10,6 @@ import java.util.TreeMap;
 import project3.StemInfo;
 import project3.StemInfo.StemInstance;
 
-// TODO IndexMap is completed.  Needs testing
 
 /**
  * <b>IndexMap</b>

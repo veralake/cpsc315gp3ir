@@ -73,37 +73,54 @@ public class SearchResult extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Set the title for the result.  This is typically the document title.
-     * @param title - String that will be used for the title of the result
-     */
-    public void setTitle(String title)
+    public void setDocument(Document doc)
     {
-        TitledBorder tb = BorderFactory.createTitledBorder(title);
-        this.setBorder(tb);
+    	mDoc = doc;
+    	setDisplayProperties();
     }
-
-    /**
-     * Used as a short description of the result.  This can be sample text containing
-     * the index terms.
-     * @param text - String of a description of the result
-     */
-    public void setSampleText(String text)
+    
+    public Document getDocument()
     {
-        
+    	return new Document(mDoc);
     }
-
-    /**
-     * Create a link to the document for opening.
-     * @param document - A file object so that the file may be retrieved for user
-     * interaction
-     */
-    public void setLink(File document)
+    
+    private void setDisplayProperties()
     {
-        //java.awt.Desktop
-        // Use this to launch a file-associated program
+    	
     }
+    
+//    /**
+//     * Set the title for the result.  This is typically the document title.
+//     * @param title - String that will be used for the title of the result
+//     */
+//    public void setTitle(String title)
+//    {
+//        TitledBorder tb = BorderFactory.createTitledBorder(title);
+//        this.setBorder(tb);
+//    }
 
+//    /**
+//     * Used as a short description of the result.  This can be sample text containing
+//     * the index terms.
+//     * @param text - String of a description of the result
+//     */
+//    public void setSampleText(String text)
+//    {
+//        
+//    }
+
+//    /**
+//     * Create a link to the document for opening.
+//     * @param document - A file object so that the file may be retrieved for user
+//     * interaction
+//     */
+//    public void setLink(File document)
+//    {
+//        //java.awt.Desktop
+//        // Use this to launch a file-associated program
+//    }
+
+    private Document mDoc;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea documentText;

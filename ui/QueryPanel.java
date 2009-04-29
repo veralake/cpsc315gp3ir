@@ -17,8 +17,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import controllers.DataController;
+import controllers.UIController;
+import documentSearching.Document;
 
 /**
  * <b>QueryPanel</b>
@@ -114,8 +117,8 @@ public class QueryPanel extends javax.swing.JPanel
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
-    	// TODO Pass the ArrayList of documents to the UIController for updating the UI
-        DataController.getInstance().runQuery(queryField.getText());
+        ArrayList<Document> documents = DataController.getInstance().runQuery(queryField.getText());
+        UIController.getInstance().addDocuments(documents);
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void queryFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_queryFieldFocusGained
@@ -127,8 +130,8 @@ public class QueryPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_queryFieldKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-        	// TODO Pass the ArrayList of documents to the UIController for updating the UI
-            DataController.getInstance().runQuery(queryField.getText());
+        	ArrayList<Document> documents = DataController.getInstance().runQuery(queryField.getText());
+        	UIController.getInstance().addDocuments(documents);
         }
     }//GEN-LAST:event_queryFieldKeyPressed
 

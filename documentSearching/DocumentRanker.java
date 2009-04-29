@@ -31,6 +31,16 @@ public class DocumentRanker
     {
         return new ArrayList<Document>();
     }
+    
+    private double tfidfWeight()
+    {
+    	return 0;
+    }
+    
+    private double termWeight()
+    {
+    	return 0;
+    }
 
     private final IndexMap mMap;
 }
