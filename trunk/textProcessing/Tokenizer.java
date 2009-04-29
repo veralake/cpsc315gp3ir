@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 import project3.WordTokenizer;
 
 /**
@@ -30,24 +28,40 @@ public class Tokenizer implements WordTokenizer
 	@Override
 	public List<String> tokenize(String bodyOfText) 
 	{
-		String[] words = tokenizeQuery(bodyOfText);
+		String[] words = tokenizeAndrew(bodyOfText);
 
-        String[] trimmedWords = removePunctuation(words);
+        //String[] trimmedWords = removePunctuation(words);
 		
-		return makeWordList(trimmedWords);
+		return makeWordList(words);
 	}
+
 	
-	private boolean isOneQuotation(final String query)
+	private String[] tokenizeAndrew(final String query)
 	{
-		if(query.charAt(0) == '"')
-			for(char c: query.toCharArray()){
-				if(c == '"')
-					if (query.indexOf(c, 1) == query.length()-1)
-						return true;
+		String[] words = query.split(" ");
+		for(int i = 0; i<words.length; i++)
+		{
+			String s = words[i].toLowerCase();
+			String newWord="";
+			for(int x=0;x<s.length();x++)
+			{
+				if(s.charAt(x)>=97&&s.charAt(x)<=122)
+				{
+					newWord += s.charAt(x)+"";
+				}
+				else 
+				{
+					if(words[i].contains("Dr.")||words[i].contains("Mr.")||words[i].contains("Mrs."))
+					{
+					newWord+= s.charAt(x)+"";	
+					
+					}
+				}
 			}
-		return false;
+			words[i] = newWord;
+		}
+		return words;
 	}
-	
 	// Splits the original query into whole-grain, bite-sized tokens covered in frosting
 	private String[] tokenizeQuery(final String query)
 	{
@@ -61,13 +75,7 @@ public class Tokenizer implements WordTokenizer
 			
 			 //if the first char is a quote, then all of the odd numbered
 			 //strings returned by split("\"") will need to be split further.
-			 if (isOneQuotation(query)){
-//				 words = new String[1];
-//				 words[0] = query;
-				 processedStrings.add(query);
-			 }
-			 
-			 else if(query.charAt(0) == '"'){
+			 if(query.charAt(0) == '"'){
 				 splitString = query.split("\"");
 				 for(int i = 0; i < splitString.length; i++){
 					 if(i%2 == 0){
@@ -169,12 +177,11 @@ public class Tokenizer implements WordTokenizer
 
         for (String s : words)
         {
-        	if (!s.equals(""))
-        	{
-        		list.add(s);
-        	}
+        	if(!s.equals("")) list.add(s);
+        	
         }
-
+        
+        
         return list;
     }
 }
