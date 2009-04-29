@@ -9,12 +9,15 @@
  * Created on Apr 9, 2009, 12:10:09 AM
  */
 
+// TODO : Test SearchResult
+
 package ui;
 
 import documentSearching.Document;
-import java.io.File;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
+import project3.StemInfo.StemInstance;
 
 /**
  * <b>SearchResult</b>
@@ -36,6 +39,7 @@ public class SearchResult extends javax.swing.JPanel
     public SearchResult(Document d)
     {
         initComponents();
+        setDisplayProperties();
     }
 
     /** This method is called from within the constructor to
@@ -49,27 +53,36 @@ public class SearchResult extends javax.swing.JPanel
 
         textPane = new javax.swing.JScrollPane();
         documentText = new javax.swing.JTextArea();
+        rankField = new javax.swing.JTextField();
 
         documentText.setBackground(new java.awt.Color(224, 223, 227));
         documentText.setColumns(20);
         documentText.setRows(5);
         textPane.setViewportView(documentText);
 
+        rankField.setBackground(new java.awt.Color(224, 223, 227));
+        rankField.setEditable(false);
+        rankField.setText("stuff");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textPane, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(rankField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textPane, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rankField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textPane, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -78,52 +91,76 @@ public class SearchResult extends javax.swing.JPanel
     	mDoc = doc;
     	setDisplayProperties();
     }
-    
+
+    /**
+     * Returns the document associated with this search result
+     * @return - <code>Document</code> used to fill out this panel
+     */
     public Document getDocument()
     {
     	return new Document(mDoc);
     }
-    
+
+    // Sets how the SearchResult should look based on the given document
     private void setDisplayProperties()
     {
-    	
+    	setBorder();
+        setRank();
+        setSampleText();
+    }
+
+    // Set the border to the title of the document
+    private void setBorder()
+    {
+        if (mDoc != null)
+        {
+            TitledBorder border = BorderFactory.createTitledBorder(mDoc.getName());
+            this.setBorder(border);
+        }
+    }
+
+    // Shows the rank of the document
+    private void setRank()
+    {
+        if (mDoc != null)
+        {
+            Double d = mDoc.getRank();
+            rankField.setText(d.toString());
+        }
+    }
+
+    // Gives the user sample text
+    private void setSampleText()
+    {
+        ArrayList<String> indexes = mDoc.getIndexWords();
+
+        StringBuilder builder = new StringBuilder();
+
+        for (String word : indexes)
+        {
+            String spacing = " : ";
+
+            ArrayList<StemInstance> instances = mDoc.getInstances(word);
+
+            Integer lineNumber = instances.get(0).getLineNumber();
+            String stem = instances.get(0).getStem();
+            String sample = instances.get(0).getInstance();
+
+            builder.append(lineNumber.toString() +
+                           spacing + 
+                           stem +
+                           spacing +
+                           sample);
+        }
+
+        documentText.setText(builder.toString());
     }
     
-//    /**
-//     * Set the title for the result.  This is typically the document title.
-//     * @param title - String that will be used for the title of the result
-//     */
-//    public void setTitle(String title)
-//    {
-//        TitledBorder tb = BorderFactory.createTitledBorder(title);
-//        this.setBorder(tb);
-//    }
-
-//    /**
-//     * Used as a short description of the result.  This can be sample text containing
-//     * the index terms.
-//     * @param text - String of a description of the result
-//     */
-//    public void setSampleText(String text)
-//    {
-//        
-//    }
-
-//    /**
-//     * Create a link to the document for opening.
-//     * @param document - A file object so that the file may be retrieved for user
-//     * interaction
-//     */
-//    public void setLink(File document)
-//    {
-//        //java.awt.Desktop
-//        // Use this to launch a file-associated program
-//    }
-
     private Document mDoc;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea documentText;
+    private javax.swing.JTextField rankField;
     private javax.swing.JScrollPane textPane;
     // End of variables declaration//GEN-END:variables
 
