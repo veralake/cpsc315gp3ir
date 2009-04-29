@@ -29,7 +29,7 @@ public class IndexBuilder
 	 * @param processor - a processor for applying the stemming algorithm to document samples
 	 */
 	public IndexBuilder(File directory, 
-			QueryProcessor processor)
+			            QueryProcessor processor)
 	{
 		mMainDirectory = directory;
 		mLineProcessor = processor;
