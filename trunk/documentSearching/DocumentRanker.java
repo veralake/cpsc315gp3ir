@@ -29,6 +29,8 @@ public class DocumentRanker
      */
     public ArrayList<Document> generateResults(ArrayList<String> words)
     {
+    	
+    	
         return new ArrayList<Document>();
     }
     

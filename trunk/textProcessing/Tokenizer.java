@@ -28,6 +28,22 @@ public class Tokenizer implements WordTokenizer
 	@Override
 	public List<String> tokenize(String bodyOfText) 
 	{
+		// Key feature: "" is an operator, and anything inside the quotes is unconditionally left alone
+		// Here's what I want for the tokenizer:
+		// Step 1:  Scan string for quotes (may want to record positions and number of)
+		// Step 2:  i) if there's only one, leave it (it'll be removed later on)
+		//			ii) if the count is even, pair up quotes (can do it linearly or regex, don't care)
+		//				and return substrings in between quotes operators (use positions from before).
+		//				keep the substring in a container on the side until the rest of the query is
+		//				done being tokenized.
+		//			iii) if count is odd, do what you would do in (ii) except ignore the last quotation
+		// Step 3:  Run the query through the tokenizeAndrew algorithm to generate an ArrayList<String>
+		// Step 4:  If any substrings were generated from Step 2, add them to the ArrayList from step 3 now
+		// Step 5:  Return final array list
+		
+		// Note:  After a concatenated sequence from Step 4, the next word you check should be the string
+		// in the splitted array after the last concatenated string.
+		
 		String[] words = tokenizeAndrew(bodyOfText);
 
         //String[] trimmedWords = removePunctuation(words);
