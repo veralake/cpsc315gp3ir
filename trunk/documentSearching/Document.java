@@ -47,7 +47,13 @@ public class Document implements DocumentInfo
 
     public void addInstance(StemInstance s)
     {
+        mIndexes.add(s.getStem());
         mStems.add(s);
+    }
+
+    public ArrayList<String> getIndexWords()
+    {
+        return new ArrayList<String>(mIndexes);
     }
 	
 	/**
@@ -72,5 +78,6 @@ public class Document implements DocumentInfo
     private double mRank;
     private String mName;
 
+    private ArrayList<String> mIndexes = new ArrayList<String>();
     private ArrayList<StemInstance> mStems = new ArrayList<StemInstance>();
 }

@@ -18,7 +18,9 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -48,7 +50,6 @@ public class MainFrame extends javax.swing.JFrame
     private void initComponents() {
 
         splitPane = new javax.swing.JSplitPane();
-        resultsPane = new javax.swing.JScrollPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         directoryItem = new javax.swing.JMenuItem();
@@ -81,7 +82,6 @@ public class MainFrame extends javax.swing.JFrame
         splitPane.setContinuousLayout(true);
         splitPane.setLastDividerLocation(240);
         splitPane.setOneTouchExpandable(true);
-        splitPane.setBottomComponent(resultsPane);
 
         fileMenu.setText("File");
         fileMenu.setPreferredSize(new java.awt.Dimension(29, 25));
@@ -226,8 +226,10 @@ public class MainFrame extends javax.swing.JFrame
     {
         if (c != null)
         {
-            splitPane.setBottomComponent(c);
-            //resultsPane.add(c);
+            //JScrollPane pane = new JScrollPane(c);
+            resultsPane = null;
+            resultsPane = new JScrollPane(c);
+            splitPane.setBottomComponent(resultsPane);
         }
     }
 
@@ -294,6 +296,8 @@ public class MainFrame extends javax.swing.JFrame
         this.dispose();
         System.exit(0);
     }
+
+    private JScrollPane resultsPane;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem directoryItem;
@@ -301,7 +305,6 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JMenu fileMenu;
     private javax.swing.JRadioButtonMenuItem listItem;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JScrollPane resultsPane;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenu viewMenu;
     private javax.swing.JRadioButtonMenuItem visualItem;
