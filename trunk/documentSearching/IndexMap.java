@@ -5,6 +5,7 @@
 
 package documentSearching;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import project3.StemInfo;
@@ -63,6 +64,11 @@ public class IndexMap
 		return hasIndex;
 	}
 	
+	public ArrayList<String> getStems()
+	{
+		return new ArrayList<String>(mIndexMap.keySet());
+	}
+	
 	/**
 	 * Returns the information describing <code>index</code>
 	 * @param index - String you want to get info on
@@ -78,6 +84,35 @@ public class IndexMap
 		}
 		
 		return info;
+	}
+	
+	/**
+	 * Returns the number of documents a term appears in
+	 * @param index - the term to return a document count of
+	 * @return integer specifying how many documents <code>index</code>
+	 * appears in
+	 */
+	public int getStemDocumentCount(String index)
+	{
+		ArrayList<String> docNames = new ArrayList<String>();
+		
+		if (mIndexMap.keySet().contains((index)))
+		{
+			StemInfo info = getStemInfo(index);
+			
+			ArrayList<StemInstance> instances = new ArrayList<StemInstance>(info.getInstances());
+			
+			for (StemInstance si : instances)
+			{
+				String file = si.getDocument().getAbsolutePath();
+				if (!docNames.contains(file))
+				{
+					docNames.add(file);
+				}
+			}
+		}
+		
+		return docNames.size();
 	}
 	
     /**
@@ -109,5 +144,6 @@ public class IndexMap
     	return output;
     	
     }
+    
 	private TreeMap<String, StemInfo> mIndexMap = new TreeMap<String, StemInfo>();
 }

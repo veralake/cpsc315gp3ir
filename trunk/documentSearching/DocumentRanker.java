@@ -11,6 +11,8 @@ import java.util.TreeMap;
 import project3.StemInfo;
 import project3.StemInfo.StemInstance;
 
+// TODO Move vector functions to a static class, probably in a linear algebrish package
+
 /**
  * <b>DocumentRanker</b>
  *
@@ -34,9 +36,24 @@ public class DocumentRanker
     public ArrayList<Document> generateResults(final ArrayList<String> words)
     {
     	// Get list of documents LD where each doc contains at least one of the query terms
-    	ArrayList<Document> releventDocs = retrieveRelevantDocs(words);
+    	ArrayList<Document> relevantDocs = retrieveRelevantDocs(words);
     	
+    	// Compute Additional parameters
+    	int totalDocs = relevantDocs.size();
+
+    	ArrayList<String> indexes = mMap.getStems();
+    	    	
     	// Calculate query term vector
+    	ArrayList<Double> termVector = getTermVector(words,
+    												 indexes,
+    												 totalDocs);
+//    	
+//    	ArrayList<Document> rankedDocs = new ArrayList<Document>();
+//    	
+//    	for (Document d : relevantDocs)
+//    	{
+//    		
+//    	}
     	
     	// for each document doc in LD 
     	// {
@@ -46,7 +63,7 @@ public class DocumentRanker
     	// }
     	// return rankedLD
     	
-        return new ArrayList<Document>();
+        return relevantDocs;//rankedDocs;
     }
     
     // Retrieves all documents where each document contains at least one of the term words
@@ -56,7 +73,7 @@ public class DocumentRanker
     	
     	ArrayList<StemInstance> instances = createStemInstanceList(stems);
     	
-    	return createDocumentList(instances); //createDocumentList(stems);
+    	return createDocumentList(instances);
     }
     
     // Maps terms to StemInfo's
@@ -88,6 +105,7 @@ public class DocumentRanker
     	return instances;
     }
     
+    // Creates mapping from stem instances to documents
     private ArrayList<Document> createDocumentList(final ArrayList<StemInstance> instances)
     {
     	TreeMap<String, Document> docMap = new TreeMap<String, Document>();
@@ -111,6 +129,39 @@ public class DocumentRanker
     	return new ArrayList<Document>(docMap.values());
     }
     
+    // Computes the angle between a term and document vector, i.e. the rank of the document
+    private double computeRank(final ArrayList<Double> termVector,
+    						   final ArrayList<Double> docVector)
+    {
+    	return Math.acos((dotProduct(termVector, 
+    								 docVector)) / (magnitude(termVector) * magnitude(docVector)));
+    }
+    
+    // Computes the magnitude of a vector v
+    private double magnitude(final ArrayList<Double> v)
+    {
+    	return Math.sqrt(dotProduct(v, v));
+    }
+    
+    // Computes the dot product of two vectors
+    private double dotProduct(final ArrayList<Double> v1, 
+    						  final ArrayList<Double> v2)
+    {
+    	double scalar = 0;
+    	
+    	if (v1.size() == v2.size())
+    	{
+    		int size = v1.size();
+    		
+    		for (int i = 0; i < size; ++i)
+    		{
+    			scalar = scalar + v1.get(i).doubleValue() + v2.get(i).doubleValue();
+    		}
+    	}
+    	
+    	return scalar;
+    }
+    
     // Computes the weight vector for a document
     private ArrayList<Double> getDocVector(final Document doc)
     {
@@ -118,22 +169,40 @@ public class DocumentRanker
     }
 
     // Computes the weight vector for a query
-    private ArrayList<Double> getTermVector(final ArrayList<String> words)
+    private ArrayList<Double> getTermVector(final ArrayList<String> words,
+    										final ArrayList<String> indexes,
+    										int totalDocs)
     {
-    	return new ArrayList<Double>();
+    	ArrayList<Double> termVector = new ArrayList<Double>();
+    	
+    	for (String index : indexes)
+    	{
+    		
+    	}
+    	
+    	return termVector;
     }
     
     // Computes a single element of a document vector
     private Double computeIndexWeight()
     {
+    	double w = 0;
+    	
     	return new Double(0);
     }
     
-    // Computes a single element of a query
-    private Double computeTermWeight()
+    // Computes a single element of a query vector
+    private Double computeTermWeight(int totalDocs,
+    								 String index,
+    								 final ArrayList<String> words)
     {
-    	return new Double(0);
+    	
+    	double w = (0.5 + ((0.5 * 1) / 1)) * Math.log(totalDocs/mMap.getStemDocumentCount(index));
+    	
+    	return new Double(w);
     }
+    
+    // write functions for index frequence
 
     private final IndexMap mMap;
 }
