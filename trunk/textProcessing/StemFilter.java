@@ -96,6 +96,7 @@ public class StemFilter implements WordStemmer
 		}
 		if(word.charAt(word.length()-2)=='g')word = replaceEnd(word,"logi","log");
 		}
+		if(word.endsWith("i")) word = replaceEnd(word,"i","y");
     	return word;
 	}
 	/**

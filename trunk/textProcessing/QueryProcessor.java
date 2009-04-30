@@ -34,11 +34,14 @@ public class QueryProcessor implements WordTokenizer
 	
         ArrayList<String> indexWords = mStopFilter.filterWords(tokens);
 		
-		indexWords = mWordStemmer.stems(indexWords);
+		//indexWords = mWordStemmer.stems(indexWords);
 		
 		return indexWords;
 	}
-	
+	public String stem(String word)
+	{
+		return mWordStemmer.stem(word);
+	}
 	private Tokenizer mTokenizer = new Tokenizer();
 	private StopWordFilter mStopFilter = new StopWordFilter();
 	private StemFilter mWordStemmer = new StemFilter();
