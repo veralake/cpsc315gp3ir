@@ -60,7 +60,7 @@ public class Tokenizer implements WordTokenizer
 		// Step 4:  If any substrings were generated from Step 2, add them to the ArrayList from step 3 now
 		// Step 5:  Return final array list
 		
-		String[] words = tokenizeAndrew(bodyOfText);
+		String[] words = tokenizeQuery(bodyOfText);
 
         //String[] trimmedWords = removePunctuation(words);
 		
@@ -68,7 +68,7 @@ public class Tokenizer implements WordTokenizer
 	}
 
 	
-	private String[] tokenizeAndrew(final String query)
+	private String[] tokenizeQuery(final String query)
 	{
 		String[] words = query.split(" ");
 		for(int i = 0; i<words.length; i++)
@@ -89,11 +89,7 @@ public class Tokenizer implements WordTokenizer
 							newWord+=s.charAt(x);
 						}
 					}
-//					if(words[i].contains("Dr.")||words[i].contains("Mr.")||words[i].contains("Mrs."))
-//					{
-//					newWord+= s.charAt(x)+"";	
-//					
-//					}
+					
 				}
 			}
 			words[i] = newWord;
@@ -101,7 +97,8 @@ public class Tokenizer implements WordTokenizer
 		return words;
 	}
 	// Splits the original query into whole-grain, bite-sized tokens covered in frosting
-	private String[] tokenizeQuery(final String query)
+	
+	/*private String[] tokenizeQuery(final String query)
 	{
 		String[] words = null;
 		
@@ -156,56 +153,59 @@ public class Tokenizer implements WordTokenizer
 		
 		return words;
 	}
+	*/
 
-    private String[] removePunctuation(final String[] words)
-    {
-        for(int i = 0; i < words.length; i++){
-            String currentWord = words[i];
-            StringBuffer finishedWord = new StringBuffer();
-            for(int j = 0; j < currentWord.length(); j++){
-                char currentChar = currentWord.charAt(j);
-                
-                
-                switch (currentChar){
-                    case '"': break;
-                    case '\'': break;
-                    case '.': break;
-                    case '?': break;
-                    case '!': break;
-                    case ',': break;
-                    case ':': break;
-                    case ';': break;
-                    
-                    default: finishedWord.append(currentChar);break;
-                }
-            }
-            
-            words[i] = finishedWord.toString();                
-            
-        }
-        return words;
-    }
-
-    private boolean hasQuotesOperator(final String query)
-    {
-        // Any query that contains a chunk of text surrounded by
-        // double quotes should be treated unconditionally as a
-        // single token.
-
-        // if contains "...stuff..."
-        //     split on quotes
-        // else
-        //     call split on spaces
-        
-        for(int i = 0; i < query.length(); i++){
-            if (query.charAt(i) == '"')
-                for (int j = i; j < query.length(); j++)
-                    if(query.charAt(j) == '"')
-                        return true;
-        }
-
-        return false;
-    }
+    /*private String[] removePunctuation(final String[] words)
+//    {
+//        for(int i = 0; i < words.length; i++){
+//            String currentWord = words[i];
+//            StringBuffer finishedWord = new StringBuffer();
+//            for(int j = 0; j < currentWord.length(); j++){
+//                char currentChar = currentWord.charAt(j);
+//                
+//                
+//                switch (currentChar){
+//                    case '"': break;
+//                    case '\'': break;
+//                    case '.': break;
+//                    case '?': break;
+//                    case '!': break;
+//                    case ',': break;
+//                    case ':': break;
+//                    case ';': break;
+//                    
+//                    default: finishedWord.append(currentChar);break;
+//                }
+//            }
+//            
+//            words[i] = finishedWord.toString();                
+//            
+//        }
+//        return words;
+//    }
+//
+//    private boolean hasQuotesOperator(final String query)
+//    {
+//        // Any query that contains a chunk of text surrounded by
+//        // double quotes should be treated unconditionally as a
+//        // single token.
+//
+//        // if contains "...stuff..."
+//        //     split on quotes
+//        // else
+//        //     call split on spaces
+//        
+//        for(int i = 0; i < query.length(); i++){
+//            if (query.charAt(i) == '"')
+//                for (int j = i; j < query.length(); j++)
+//                    if(query.charAt(j) == '"')
+//                        return true;
+//        }
+//
+//        return false;
+//    }
+ * */
+ 
 
     // Puts the the words into a container that the other components of the QueryProcessor
     // can use.
