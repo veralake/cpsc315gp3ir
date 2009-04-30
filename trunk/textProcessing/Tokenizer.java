@@ -1,7 +1,10 @@
 package textProcessing;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Vector;
 
 import project3.WordTokenizer;
@@ -13,11 +16,27 @@ import project3.WordTokenizer;
  */
 public class Tokenizer implements WordTokenizer 
 {
+	Vector<String> Exceptions;
     /**
      * Default constructor
      */
 	public Tokenizer()
 	{
+		Exceptions = new Vector<String>(); 
+		
+		File file = new File("TokenizerExceptions.txt");
+		
+		try {
+			Scanner scanner = new Scanner(file);
+			while(scanner.hasNext())
+			{
+				Exceptions.add(scanner.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -64,11 +83,17 @@ public class Tokenizer implements WordTokenizer
 				}
 				else 
 				{
-					if(words[i].contains("Dr.")||words[i].contains("Mr.")||words[i].contains("Mrs."))
+					for(String exception: Exceptions)
 					{
-					newWord+= s.charAt(x)+"";	
-					
+						if(words[i].contains(exception)){
+							newWord+=s.charAt(x);
+						}
 					}
+//					if(words[i].contains("Dr.")||words[i].contains("Mr.")||words[i].contains("Mrs."))
+//					{
+//					newWord+= s.charAt(x)+"";	
+//					
+//					}
 				}
 			}
 			words[i] = newWord;
