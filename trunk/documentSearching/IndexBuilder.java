@@ -72,16 +72,16 @@ public class IndexBuilder
 					int startNum = 0;
 					for(String word: wordsInLine)
 					{
-						
-						if(im.hasStemInfo(word))
+						String stemmedWord = mLineProcessor.stem(word);
+						if(im.hasStemInfo(stemmedWord))
 						{
-							im.getStemInfo(word).addInstance(f, lineNum, startNum, word);
+							im.getStemInfo(stemmedWord).addInstance(f, lineNum, startNum, word);
 						}
 						else
 						{
-							StemInfo si = new StemInfo(word);
+							StemInfo si = new StemInfo(stemmedWord);
 							si.addInstance(f, lineNum, startNum, word);	
-							im.addStemInfo(word, si);
+							im.addStemInfo(stemmedWord, si);
 						}
 						startNum+=word.length()+1;
 					}
