@@ -18,6 +18,12 @@ import project3.StemInfo.StemInstance;
  */
 public class Document implements DocumentInfo
 {
+	public Document(String name)
+	{
+		mName = name;
+		mRank = 0;
+	}
+	
 	/**
 	 * Create a <code>Document</code> for a file
 	 * @param rank - the rank of the file
@@ -39,6 +45,11 @@ public class Document implements DocumentInfo
     {
         return mRank;
     }
+    
+    public void setRank(double rank)
+    {
+    	mRank = rank;
+    }
 	
 	public String getName()
 	{
@@ -47,7 +58,11 @@ public class Document implements DocumentInfo
 
     public void addInstance(StemInstance s)
     {
-        mIndexes.add(s.getStem());
+    	if (!mIndexes.contains(s.getStem()))
+    	{
+    		mIndexes.add(s.getStem());
+    	}
+    	
         mStems.add(s);
     }
 

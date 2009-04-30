@@ -26,6 +26,14 @@ public class IndexMap
 	}
 	
 	/**
+	 * Copy Constructor
+	 */
+	public IndexMap(final IndexMap map)
+	{
+		mIndexMap = new TreeMap<String, StemInfo>(map.mIndexMap);
+	}
+	
+	/**
 	 * Add a new index term to the list
 	 * @param index - String to add as an index
 	 * @param info - <code>StemInfo</code> associated with <code>index</code> 
@@ -71,7 +79,7 @@ public class IndexMap
 		
 		return info;
 	}
-
+	
     /**
      * Removes the
      * @param index
@@ -92,7 +100,6 @@ public class IndexMap
     	Set<String> keys = mIndexMap.keySet();
     	for(String key: keys)
     	{
-    		StemInfo si;
     		output+= key+"\n"; 
     		for(StemInstance sInstance: mIndexMap.get(key).getInstances())
     		{

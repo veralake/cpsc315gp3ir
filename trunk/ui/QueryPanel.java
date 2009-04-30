@@ -155,8 +155,6 @@ public class QueryPanel extends javax.swing.JPanel
         Graphics2D g2D = (Graphics2D)g.create();
         
         int height = getHeight();
-        int width = getWidth();
-
         GradientPaint p = new GradientPaint(new Point(0, 0),
                                             Color.BLUE,
                                             new Point(0, height),

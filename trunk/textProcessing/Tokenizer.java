@@ -41,9 +41,6 @@ public class Tokenizer implements WordTokenizer
 		// Step 4:  If any substrings were generated from Step 2, add them to the ArrayList from step 3 now
 		// Step 5:  Return final array list
 		
-		// Note:  After a concatenated sequence from Step 4, the next word you check should be the string
-		// in the splitted array after the last concatenated string.
-		
 		String[] words = tokenizeAndrew(bodyOfText);
 
         //String[] trimmedWords = removePunctuation(words);
