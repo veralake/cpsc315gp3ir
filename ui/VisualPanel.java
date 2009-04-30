@@ -30,6 +30,8 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.JScrollPane;
 
+import controllers.UIController;
+
 
 
 /**
@@ -61,7 +63,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        fileInfoPanel = new javax.swing.JPanel();
         fileNameL = new javax.swing.JLabel();
         fileSizeL = new javax.swing.JLabel();
         fileLocationL = new javax.swing.JLabel();
@@ -77,8 +79,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
 
         fileName.setText("None Selected");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(fileInfoPanel);
+        fileInfoPanel.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -120,11 +122,11 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(433, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(fileInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fileInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -202,12 +204,12 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
      * Sets up the Grid that the icons will be displayed on.
      */
     public void initGrid(){
-        int root = (int) Math.sqrt((double)documents.size());        
-        
-        setSize(WIDTH_OF_SLOT*root, HEIGHT_OF_SLOT*root);
         
         int x = 0;
         int y = 0;
+        
+        
+        int columns = (UIController.getInstance().getFrame().getWidth() - fileInfoPanel.getWidth())/WIDTH_OF_SLOT;
         
         for(int i = 0; i < documents.size(); i++){
         	
@@ -219,7 +221,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
                 slots.add(new Point(WIDTH_OF_SLOT *(x), HEIGHT_OF_SLOT*y));
                 
                 x++;
-                if (x >= root){
+                if (x >= columns){
                 	x = 0;
                 	y++;
                 }
@@ -443,7 +445,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     private javax.swing.JLabel fileNameL;
     private javax.swing.JLabel fileSize;
     private javax.swing.JLabel fileSizeL;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel fileInfoPanel;
     // End of variables declaration//GEN-END:variables
 
 }
