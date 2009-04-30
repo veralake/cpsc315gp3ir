@@ -63,6 +63,7 @@ public class StopWordFilter
 		return newList;
 	}
 	
+	// Initializes the stop list and sorts the stop words read from StopList.txt
 	private void Initialize()
 	{
 		try
@@ -72,9 +73,6 @@ public class StopWordFilter
 		}
 		catch (FileNotFoundException fnf)
 		{
-			System.out.println("I haven't added the StopList.txt file yet, so if this " +
-							   "crashes the program, let me know.  -Zach");
-			
 			mStopList = new ArrayList<String>();
 		}
 		catch (IOException ioe)

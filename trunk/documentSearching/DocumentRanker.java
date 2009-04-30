@@ -6,6 +6,7 @@
 package documentSearching;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.TreeMap;
 
 import project3.StemInfo;
@@ -44,12 +45,12 @@ public class DocumentRanker
     	ArrayList<String> indexes = mMap.getStems();
     	    	
     	// Calculate query term vector
-    	ArrayList<Double> termVector = getTermVector(words,
-    												 indexes,
-    												 totalDocs);
-//    	
+//    	ArrayList<Double> termVector = getTermVector(words,
+//    												 indexes,
+//    												 totalDocs);
+    	
 //    	ArrayList<Document> rankedDocs = new ArrayList<Document>();
-//    	
+    	
 //    	for (Document d : relevantDocs)
 //    	{
 //    		
@@ -61,7 +62,9 @@ public class DocumentRanker
     	// 	   Create document (which includes assigning rank
     	// 	   insert document into list rankedLD
     	// }
-    	// return rankedLD
+    	
+//    	Collections.sort
+    	
     	
         return relevantDocs;//rankedDocs;
     }
@@ -165,6 +168,12 @@ public class DocumentRanker
     // Computes the weight vector for a document
     private ArrayList<Double> getDocVector(final Document doc)
     {
+    	ArrayList<Double> docVector = new ArrayList<Double>();
+    	
+//    	int 
+    	
+    	int maxDocFrequency = maxIndexDocFrequency(mMap.getStems(), doc);
+    	
     	return new ArrayList<Double>();
     }
 
@@ -175,34 +184,116 @@ public class DocumentRanker
     {
     	ArrayList<Double> termVector = new ArrayList<Double>();
     	
+    	int maxItFrequency = maxIndexQueryFrequence(indexes, 
+    											    words);
+    	
     	for (String index : indexes)
     	{
-    		
+    		termVector.add(computeTermWeight(totalDocs, 
+    										 maxItFrequency,
+    										 index,
+    										 words));
     	}
     	
     	return termVector;
     }
     
     // Computes a single element of a document vector
-    private Double computeIndexWeight()
+    private Double computeIndexWeight(final int totalDocs,
+    								  final int maxDocFrequency,
+    								  final String index,
+    								  final Document doc)
     {
-    	double w = 0;
+    	double tf = (double)indexDocFrequency(index, doc) / maxDocFrequency;
+    	
+    	double idf = (double)totalDocs / mMap.getStemDocumentCount(index);
+    	
+    	double w = tf * idf;
     	
     	return new Double(0);
     }
     
     // Computes a single element of a query vector
     private Double computeTermWeight(int totalDocs,
+    								 int maxIndexFreq,
     								 String index,
     								 final ArrayList<String> words)
     {
+		double termFrequency = indexQueryFrequency(index, words) / maxIndexFreq;
     	
-    	double w = (0.5 + ((0.5 * 1) / 1)) * Math.log(totalDocs/mMap.getStemDocumentCount(index));
+    	double w = (0.5 + ((0.5 * termFrequency) / maxIndexFreq)) * Math.log((double)totalDocs/mMap.getStemDocumentCount(index));
     	
     	return new Double(w);
     }
     
-    // write functions for index frequence
+    // Returns the max frequency of any index term in the query
+    private int maxIndexQueryFrequence(final ArrayList<String> indexes,
+    								   final ArrayList<String> query)
+    {
+    	ArrayList<Integer> frequencies = new ArrayList<Integer>();
+    	
+    	for (String word : indexes)
+    	{
+    		frequencies.add(new Integer(indexQueryFrequency(word, query)));
+    	}
+    	
+    	// Sorts the collection such that the largest is at the end.
+    	Collections.sort(frequencies);
+    	
+    	return frequencies.get(frequencies.size() - 1).intValue();
+    }
+    
+    
+    // This computes the frequency of an index term in a query
+    private int indexQueryFrequency(final String index, 
+    							    final ArrayList<String> query)
+    {
+    	int count = 0;
+    	
+    	if (index != null && query != null)
+    	{
+	    	for (String word : query)
+	    	{
+	    		if (query.equals(word))
+	    		{
+	    			++count;
+	    		}
+	    	}
+    	}
+    	
+    	return count;
+    }
+    
+
+    // Returns the frequence of a term in a document
+    private int indexDocFrequency(final String index,
+    							  final Document doc)
+    {
+    	int count = 0;
+    	
+    	if (index != null && doc != null)
+    	{
+    		doc.getInstances(index).size();
+    	}
+    	
+    	return count;
+    }
+    
+    // Returns the max frequency of all the index terms for the given document
+    private int maxIndexDocFrequency(final ArrayList<String> indexes,
+    								 final Document doc)
+    {
+    	ArrayList<Integer> frequencies = new ArrayList<Integer>();
+    	
+    	for (String index : indexes)
+    	{
+    		frequencies.add(indexDocFrequency(index, doc));
+    	}
+    	
+    	Collections.sort(frequencies);
+    	
+    	return frequencies.get(frequencies.size() - 1);
+    }
 
     private final IndexMap mMap;
 }

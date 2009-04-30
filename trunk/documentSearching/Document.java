@@ -18,6 +18,11 @@ import project3.StemInfo.StemInstance;
  */
 public class Document implements DocumentInfo
 {
+	/**
+	 * Constructor that sets name only.
+	 * Useful for when the name is known but the rank is not
+	 * @param name
+	 */
 	public Document(String name)
 	{
 		mName = name;
@@ -26,14 +31,20 @@ public class Document implements DocumentInfo
 	
 	/**
 	 * Create a <code>Document</code> for a file
+	 * @param name - title of the document, which is typically the file path
 	 * @param rank - the rank of the file
 	 */
-	public Document(String name, double rank)
+	public Document(String name, 
+					double rank)
 	{
 		mName = name;
 		mRank = rank;
 	}
 	
+	/**
+	 * Copy constructor
+	 * @param doc - <code>Document</code> to be copied
+	 */
 	public Document(Document doc)
 	{
 		mRank = doc.mRank;
@@ -41,6 +52,10 @@ public class Document implements DocumentInfo
 		mStems = doc.mStems;
 	}
 
+	/**
+	 * Returns the rank of the document
+	 * @return
+	 */
     public double getRank()
     {
         return mRank;
@@ -56,6 +71,10 @@ public class Document implements DocumentInfo
 		return mName;
 	}
 
+	/**
+	 * Adds adds an instance of a stem to the list
+	 * @param s
+	 */
     public void addInstance(StemInstance s)
     {
     	if (!mIndexes.contains(s.getStem()))
@@ -66,6 +85,11 @@ public class Document implements DocumentInfo
         mStems.add(s);
     }
 
+    /**
+     * Gets a list of all the index terms a document contains
+     * @return <code>ArrayList&ltString&gt</code> where each string is 
+     * is an index term in the map 
+     */
     public ArrayList<String> getIndexWords()
     {
         return new ArrayList<String>(mIndexes);
@@ -90,6 +114,7 @@ public class Document implements DocumentInfo
         return instances;
     }
 
+	// Private members for name, rank, index terms and instances of index terms
     private double mRank;
     private String mName;
 

@@ -64,6 +64,11 @@ public class IndexMap
 		return hasIndex;
 	}
 	
+	/**
+	 * Returns all of the index terms in the map
+	 * @return An <code>ArrayList</code> of <code>String</code>
+	 * where each string is an index term
+	 */
 	public ArrayList<String> getStems()
 	{
 		return new ArrayList<String>(mIndexMap.keySet());
@@ -124,11 +129,17 @@ public class IndexMap
         mIndexMap.remove(index);
     }
 
+    /**
+     * Removes all indexes from the map
+     */
     public void clearAll()
     {
         mIndexMap.clear();
     }
 
+    /**
+     * Outputs the contents of the map in a human-readable form
+     */
     public String toString()
     {
     	String output = null;
@@ -145,5 +156,6 @@ public class IndexMap
     	
     }
     
+    // mapping of index terms with their StemInfo objects
 	private TreeMap<String, StemInfo> mIndexMap = new TreeMap<String, StemInfo>();
 }
