@@ -18,7 +18,9 @@ public class Tokenizer implements WordTokenizer
 {
 	Vector<String> Exceptions;
     /**
-     * Default constructor
+     * Tokenizer to split a String of words into tokens for further processing
+     * Constructor creates Exception list of words that do not need to have their punctuation removed
+     * 
      */
 	public Tokenizer()
 	{
@@ -56,7 +58,7 @@ public class Tokenizer implements WordTokenizer
 		//				keep the substring in a container on the side until the rest of the query is
 		//				done being tokenized.
 		//			iii) if count is odd, do what you would do in (ii) except ignore the last quotation
-		// Step 3:  Run the query through the tokenizeAndrew algorithm to generate an ArrayList<String>
+		// Step 3:  Run the query through the tokenizeQuery algorithm to generate an ArrayList<String>
 		// Step 4:  If any substrings were generated from Step 2, add them to the ArrayList from step 3 now
 		// Step 5:  Return final array list
 		
@@ -67,7 +69,13 @@ public class Tokenizer implements WordTokenizer
 		return makeWordList(words);
 	}
 
-	
+	/**
+	 * Main tokenizer for the program. Splits a string up using space (" ") as a delimeter.
+	 * Then removes punctuation unless it is needed i.e Mr. Ms. ... 
+	 * @param query String for tokenizing (usually a line of text from a file)
+	 * @return tokenized string with punctuation removed
+	 * @author Andrew
+	 */
 	private String[] tokenizeQuery(final String query)
 	{
 		String[] words = query.split(" ");
@@ -96,119 +104,14 @@ public class Tokenizer implements WordTokenizer
 		}
 		return words;
 	}
-	// Splits the original query into whole-grain, bite-sized tokens covered in frosting
-	
-	/*private String[] tokenizeQuery(final String query)
-	{
-		String[] words = null;
 		
-		 if (hasQuotesOperator(query)){
-			 String trimmedQuery = query.trim();
-			 Vector<String> processedStrings = new Vector();
-			 String[] splitString;
-			 String[] individualWords;
-			
-			 //if the first char is a quote, then all of the odd numbered
-			 //strings returned by split("\"") will need to be split further.
-			 if(query.charAt(0) == '"'){
-				 splitString = query.split("\"");
-				 for(int i = 0; i < splitString.length; i++){
-					 if(i%2 == 0){
-						 processedStrings.add(splitString[i]);
-					 }
-					 else{
-						 individualWords = tokenizeQuery(splitString[i]);
-						 for (int j = 0; j < individualWords.length; j++)
-							 processedStrings.add(individualWords[j]);
-					 }
-				 }
-			 }
-			 //if the first char is not a quote, then all of the even numbered
-			 //strings returned by split("\"") will need to be split further.
-			 else{
-				 splitString = query.split("\"");
-				 for(int i = 0; i < splitString.length; i++){
-					 if(i%2 != 0){
-						 processedStrings.add(splitString[i]);
-					 }
-					 else{
-						 individualWords = tokenizeQuery(splitString[i]);
-						 for (int j = 0; j < individualWords.length; j++)
-							 processedStrings.add(individualWords[j]);
-					 }
-				 }
-				 
-			 }
-			// words = (String[]) processedStrings.toArray(); Illegal cast
-			 words = new String[processedStrings.size()];
-			 for( int x = 0; x<processedStrings.size();x++) words[x] = processedStrings.get(x);
-		
-		
-		 }
-        
-		 else{
-			 words = query.split("\\s");
-		}
-        
-		
-		return words;
-	}
-	*/
-
-    /*private String[] removePunctuation(final String[] words)
-//    {
-//        for(int i = 0; i < words.length; i++){
-//            String currentWord = words[i];
-//            StringBuffer finishedWord = new StringBuffer();
-//            for(int j = 0; j < currentWord.length(); j++){
-//                char currentChar = currentWord.charAt(j);
-//                
-//                
-//                switch (currentChar){
-//                    case '"': break;
-//                    case '\'': break;
-//                    case '.': break;
-//                    case '?': break;
-//                    case '!': break;
-//                    case ',': break;
-//                    case ':': break;
-//                    case ';': break;
-//                    
-//                    default: finishedWord.append(currentChar);break;
-//                }
-//            }
-//            
-//            words[i] = finishedWord.toString();                
-//            
-//        }
-//        return words;
-//    }
-//
-//    private boolean hasQuotesOperator(final String query)
-//    {
-//        // Any query that contains a chunk of text surrounded by
-//        // double quotes should be treated unconditionally as a
-//        // single token.
-//
-//        // if contains "...stuff..."
-//        //     split on quotes
-//        // else
-//        //     call split on spaces
-//        
-//        for(int i = 0; i < query.length(); i++){
-//            if (query.charAt(i) == '"')
-//                for (int j = i; j < query.length(); j++)
-//                    if(query.charAt(j) == '"')
-//                        return true;
-//        }
-//
-//        return false;
-//    }
- * */
- 
-
-    // Puts the the words into a container that the other components of the QueryProcessor
-    // can use.
+	/**
+	 *  Puts the the words into a container that the other components of the QueryProcessor
+	 * can use.
+	 * @param words Array of String to be added to the WordList
+	 * @return ArrayList of words
+	 */
+     
     private ArrayList<String> makeWordList(final String[] words)
     {
         ArrayList<String> list = new ArrayList<String>();
