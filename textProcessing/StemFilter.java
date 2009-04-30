@@ -45,6 +45,7 @@ public class StemFilter implements WordStemmer
 			if(word.endsWith("at"))word = replaceEnd(word,"at","ate");
 			else if(word.endsWith("bl"))word = replaceEnd(word,"bl","ble");
 			else if(word.endsWith("iz"))word = replaceEnd(word,"iz","ize");
+			else if(word.endsWith("l")) word = replaceEnd(word,"l","le");
 		}
 		if(word.endsWith("ed"))
 		{
