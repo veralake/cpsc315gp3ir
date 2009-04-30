@@ -175,10 +175,12 @@ public class UIController
      */
     public void addDocuments(ArrayList<Document> documents)
     {
-    	if (mVisualizer != null && mList != null)
+    	if (mVisualizer != null && mList != null && documents != null)
     	{
     		mList.clear();
     		mVisualizer.clear();
+    		
+    		mVisualizer.set(documents);
     		
 	    	for (Document d : documents)
 	    	{

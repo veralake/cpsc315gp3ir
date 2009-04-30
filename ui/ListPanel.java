@@ -70,7 +70,11 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
 	@Override
 	public void addDocument(Document doc) 
 	{
+		// TODO Implement this
 		
+		SearchResult result = new SearchResult(doc);
+		
+		this.add(result);
 	}
 
 	/**

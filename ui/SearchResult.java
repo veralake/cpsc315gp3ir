@@ -38,6 +38,7 @@ public class SearchResult extends javax.swing.JPanel
 
     public SearchResult(Document d)
     {
+    	mDoc = d;
         initComponents();
         setDisplayProperties();
     }
