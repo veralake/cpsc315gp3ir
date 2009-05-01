@@ -11,14 +11,9 @@
 
 package ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.GroupLayout;
-import javax.swing.JComponent;
 import documentSearching.Document;
 
 /**
