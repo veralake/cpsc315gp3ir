@@ -184,7 +184,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         int lastSlotx = slots.lastElement().x;
         int lastSloty = slots.lastElement().y;
         
-        if(lastSlotx/WIDTH_OF_SLOT >= columns){
+        if(lastSlotx/WIDTH_OF_SLOT < columns){
         	Point p = new Point((WIDTH_OF_SLOT+ lastSlotx) + ICON_OFFSET,
         			lastSloty + ICON_OFFSET);
         	
