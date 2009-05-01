@@ -55,21 +55,12 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Removes all search items contained in the visual panel for another query.
-     */
-    public void removeSearchItems()
-    {
-    }
-
-    /**
      * Adds a search item that is to be displayed in the visual format.
      * @param doc - <code>Document</code> reference to displayed
      */
 	@Override
 	public void addDocument(Document doc) 
 	{
-		// TODO Implement this
-		
 		SearchResult result = new SearchResult(doc);
 		
 		this.add(result);
@@ -77,20 +68,26 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
 		this.validate();
 	}
 	
-	public void addDocuments(ArrayList<Document> doc)
+	/**
+	 * Add a list of documents for user display
+	 * @param docs - <code>ArrayList&ltDocument&gt</code> which are
+	 * converted to <code>SearchResult</code> objects and displayed in a 
+	 * list
+	 */
+	public void addDocuments(ArrayList<Document> docs)
 	{
-		GridLayout gl = new GridLayout(doc.size(), 1);
+		GridLayout gl = new GridLayout(docs.size(), 1);
 		
 		this.setLayout(gl);
 		
-		for (Document d : doc)
+		for (Document d : docs)
 		{
 			addDocument(d);
 		}
 	}
 
 	/**
-	 * 
+	 * Removes all search results from view
 	 */
 	@Override
 	public void clear() 
