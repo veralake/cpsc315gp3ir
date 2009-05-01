@@ -146,6 +146,7 @@ public class SearchResult extends javax.swing.JPanel
             String spacing = " : ";
             
             builder.append(word + spacing + "\n");
+            builder.append("\t" + mDoc.getPath() + "\n");
 
             ArrayList<StemInstance> instances = mDoc.getInstances(word);
 
@@ -155,10 +156,7 @@ public class SearchResult extends javax.swing.JPanel
 	            String stem = instance.toString();
 	            String sample = instance.getInstance();
 	
-	            builder.append("\t" + 
-	            			   instance.getLineNumber() + 
-	            			   spacing +
-	            			   "\n");
+	            builder.append("\t" + "Line:" + instance.getLineNumber() + "\n");
             }
         }
 

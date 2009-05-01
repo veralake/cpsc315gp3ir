@@ -51,6 +51,16 @@ public class Document implements DocumentInfo
 		mName = doc.mName;
 		mStems = doc.mStems;
 	}
+	
+	public void setPath(String path)
+	{
+		mPath = path;
+	}
+	
+	public String getPath()
+	{
+		return mPath;
+	}
 
 	/**
 	 * Returns the rank of the document
@@ -117,6 +127,7 @@ public class Document implements DocumentInfo
 	// Private members for name, rank, index terms and instances of index terms
     private double mRank;
     private String mName;
+    private String mPath;
 
     private ArrayList<String> mIndexes = new ArrayList<String>();
     private ArrayList<StemInstance> mStems = new ArrayList<StemInstance>();

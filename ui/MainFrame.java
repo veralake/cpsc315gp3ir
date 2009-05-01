@@ -188,7 +188,7 @@ public class MainFrame extends javax.swing.JFrame
     // Resets the position of the divider after a frame-resize
     private void formComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentResized
     {//GEN-HEADEREND:event_formComponentResized
-        UIController.getInstance().setListConfiguration();
+       UIController.getInstance().defaultSplitterPosition();
     }//GEN-LAST:event_formComponentResized
 
     // Resets the search directory

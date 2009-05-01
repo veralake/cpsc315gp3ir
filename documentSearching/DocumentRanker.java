@@ -115,11 +115,12 @@ public class DocumentRanker
     	
     	for (StemInstance si : instances)
     	{
-    		String docName = si.getDocument().getAbsolutePath();
+    		String docName = si.getDocument().getName();
     		// If the doc map does not have a document name for this instance
     		if (!docMap.keySet().contains(docName))
     		{
     			Document d = new Document(docName);
+    			d.setPath(si.getDocument().getAbsolutePath());
     			d.addInstance(si);
     			docMap.put(docName, d);
     		}
@@ -186,6 +187,8 @@ public class DocumentRanker
     	
     	int maxItFrequency = maxIndexQueryFrequence(indexes, 
     											    words);
+    	
+    	System.out.println(mMap.toString());
     	
     	for (String index : indexes)
     	{

@@ -2,7 +2,6 @@ package textProcessing;
 
 import java.util.ArrayList;
 import java.util.List;
-import project3.WordTokenizer;
 
 // TODO Test the QueryProcessor as a single unit
 
