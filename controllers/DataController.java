@@ -45,7 +45,7 @@ public class DataController
     {
         // Use queryAnalyzer to generate a list of documents
 
-        ArrayList<String> list = mQueryAnalyzer.tokenize(query);
+        ArrayList<String> list = mQueryAnalyzer.tokenize(query,true);
 
         DocumentRanker rankAlgorithm = new DocumentRanker(mIndexSet);
 
