@@ -269,6 +269,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         	documents.add(d.get(i));
         initGraphics();
         initGrid();
+        repaint();
+        validate();
         
     }
     
