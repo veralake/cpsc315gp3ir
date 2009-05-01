@@ -5,11 +5,14 @@
 
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
 import documentSearching.Document;
+import java.awt.Desktop;
+import java.io.File;
 import ui.ListPanel;
 import ui.MainFrame;
 import ui.QueryPanel;
@@ -137,6 +140,16 @@ public class UIController
 	        mFrame.setSplitterPosition(dividerPosition);
 	        mFrame.setConfiguration(mSearcher, mVisualizer);
     	}
+    }
+    
+    public void openFile(String filePath) throws IOException{
+        if(Desktop.isDesktopSupported()){
+
+            File file = new File(filePath);
+
+            Desktop.getDesktop().open(file);
+        }
+        
     }
 
     /**
