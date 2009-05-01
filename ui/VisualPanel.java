@@ -63,7 +63,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	this.setOpaque(false);
         fileInfoPanel = new javax.swing.JPanel();
         fileNameL = new javax.swing.JLabel();
         fileSizeL = new javax.swing.JLabel();
@@ -180,13 +180,13 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     public void initGraphics(){
         BufferedImage icon = null;
         try {
-            icon = ImageIO.read(new File("src/ui/icon.jpg"));
+            icon = ImageIO.read(new File("icon.jpg"));
         } catch (IOException e) {
             System.out.println("Image not loaded");
         }
         
         try {
-            slotImage = ImageIO.read(new File("src/ui/slot.jpg"));
+            slotImage = ImageIO.read(new File("slot.jpg"));
         } catch (IOException e) {
             System.out.println("Image not loaded");
         }
@@ -396,7 +396,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
 
     public void mouseMoved(MouseEvent e) {
     }
-    
+    public boolean isOpaque(){return false;}
     /**
      * Used to update the position of a dragged item.
      * @param e
