@@ -45,75 +45,93 @@ import java.io.*;
 */
 
 class Porter
-{  private char[] b;
-private int i,     /* offset into b */
-            i_end, /* offset to end of stemmed word */
-            j, k;
-private static final int INC = 50;
+{  
+	private char[] b;
+	private int i,     /* offset into b */
+	 			i_end, /* offset to end of stemmed word */
+	 			j, k;
+	private static final int INC = 50;
                   /* unit of size whereby b is increased */
-public Porter()
-{  b = new char[INC];
-   i = 0;
-   i_end = 0;
-}
+	public Porter()
+	{  
+		b = new char[INC];
+		i = 0;
+		i_end = 0;
+	}
 
-/**
- * Add a character to the word being stemmed.  When you are finished
- * adding characters, you can call stem(void) to stem the word.
- */
+	/**
+	 * Add a character to the word being stemmed.  When you are finished
+	 * adding characters, you can call stem(void) to stem the word.
+	 */
+	
+	public void add(char ch)
+	{  
+		if (i == b.length)
+		{  
+			char[] new_b = new char[i+INC];
+			for (int c = 0; c < i; c++) new_b[c] = b[c];
+			b = new_b;
+		}
+		b[i++] = ch;
+	}
 
-public void add(char ch)
-{  if (i == b.length)
-   {  char[] new_b = new char[i+INC];
-      for (int c = 0; c < i; c++) new_b[c] = b[c];
-      b = new_b;
-   }
-   b[i++] = ch;
-}
 
+	/** 
+	 * Adds wLen characters to the word being stemmed contained in a portion
+	 * of a char[] array. This is like repeated calls of add(char ch), but
+	 * faster.
+	 */
+	
+	public void add(char[] w, int wLen)
+	{  
+		if (i+wLen >= b.length)
+		{  
+			char[] new_b = new char[i+wLen+INC];
+			for (int c = 0; c < i; c++) new_b[c] = b[c];
+			b = new_b;
+		}
+		for (int c = 0; c < wLen; c++) b[i++] = w[c];
+	}
 
-/** Adds wLen characters to the word being stemmed contained in a portion
- * of a char[] array. This is like repeated calls of add(char ch), but
- * faster.
- */
+	/**
+	 * After a word has been stemmed, it can be retrieved by toString(),
+	 * or a reference to the internal buffer can be retrieved by getResultBuffer
+	 * and getResultLength (which is generally more efficient.)
+	 */
+	public String toString() 
+	{ 
+		return new String(b,0,i_end); 
+	}
 
-public void add(char[] w, int wLen)
-{  if (i+wLen >= b.length)
-   {  char[] new_b = new char[i+wLen+INC];
-      for (int c = 0; c < i; c++) new_b[c] = b[c];
-      b = new_b;
-   }
-   for (int c = 0; c < wLen; c++) b[i++] = w[c];
-}
+	/**
+	 * Returns the length of the word resulting from the stemming process.
+	 */
+	public int getResultLength() 
+	{ 
+		return i_end; 
+	}
 
-/**
- * After a word has been stemmed, it can be retrieved by toString(),
- * or a reference to the internal buffer can be retrieved by getResultBuffer
- * and getResultLength (which is generally more efficient.)
- */
-public String toString() { return new String(b,0,i_end); }
+	/**
+	 * Returns a reference to a character buffer containing the results of
+	 * the stemming process.  You also need to consult getResultLength()
+	 * to determine the length of the result.
+	 */
+	public char[] getResultBuffer() 
+	{ 
+		return b; 
+	}
 
-/**
- * Returns the length of the word resulting from the stemming process.
- */
-public int getResultLength() { return i_end; }
-
-/**
- * Returns a reference to a character buffer containing the results of
- * the stemming process.  You also need to consult getResultLength()
- * to determine the length of the result.
- */
-public char[] getResultBuffer() { return b; }
-
-/* cons(i) is true <=> b[i] is a consonant. */
-
-private final boolean cons(int i)
-{  switch (b[i])
-   {  case 'a': case 'e': case 'i': case 'o': case 'u': return false;
-      case 'y': return (i==0) ? true : !cons(i-1);
-      default: return true;
-   }
-}
+	/* cons(i) is true <=> b[i] is a consonant. */
+	
+	private final boolean cons(int i)
+	{  
+		switch (b[i])
+		{  
+			case 'a': case 'e': case 'i': case 'o': case 'u': return false;
+			case 'y': return (i==0) ? true : !cons(i-1);
+			default: return true;
+		}
+	}
 
 /* m() measures the number of consonant sequences between 0 and j. if c is
    a consonant sequence and v a vowel sequence, and <..> indicates arbitrary
@@ -126,45 +144,65 @@ private final boolean cons(int i)
       ....
 */
 
-private final int m()
-{  int n = 0;
-   int i = 0;
-   while(true)
-   {  if (i > j) return n;
-      if (! cons(i)) break; i++;
-   }
-   i++;
-   while(true)
-   {  while(true)
-      {  if (i > j) return n;
-            if (cons(i)) break;
-            i++;
-      }
-      i++;
-      n++;
-      while(true)
-      {  if (i > j) return n;
-         if (! cons(i)) break;
-         i++;
-      }
-      i++;
-    }
-}
+	private final int m()
+	{  
+		int n = 0;
+		int i = 0;
+		while(true)
+		{  
+			if (i > j) 
+				return n;
+			if (! cons(i)) 
+				break; 
+			
+			i++;
+		}
+		i++;
+		while(true)
+		{  
+			while(true)
+			{  
+				if (i > j) 
+					return n;
+	            if (cons(i)) 
+	            	break;
+	            i++;
+			}
+			i++;
+			n++;
+			while(true)
+			{  
+				if (i > j) 
+					return n;
+				if (! cons(i)) 
+					break;
+				i++;
+			}
+			i++;
+		}
+		}
 
-/* vowelinstem() is true <=> 0,...j contains a vowel */
+	/* vowelinstem() is true <=> 0,...j contains a vowel */
+	
+	private final boolean vowelinstem()
+	{ 
+		int i; 
+		for (i = 0; i <= j; i++) 
+			if (! cons(i)) 
+				return true;
+		return false;
+	}
 
-private final boolean vowelinstem()
-{  int i; for (i = 0; i <= j; i++) if (! cons(i)) return true;
-   return false;
-}
+	/* doublec(j) is true <=> j,(j-1) contain a double consonant. */
 
-/* doublec(j) is true <=> j,(j-1) contain a double consonant. */
-
-private final boolean doublec(int j)
-{  if (j < 1) return false;
-   if (b[j] != b[j-1]) return false;
-   return cons(j);
-}
+	private final boolean doublec(int j)
+	{  
+		if (j < 1) 
+			return false;
+		if (b[j] != b[j-1])
+			return false;
+		return cons(j);
+	}
 
 /* cvc(i) is true <=> i-2,i-1,i has the form consonant - vowel - consonant
    and also if the second c is not w,x or y. this is used when trying to
@@ -175,36 +213,49 @@ private final boolean doublec(int j)
 
 */
 
-private final boolean cvc(int i)
-{  if (i < 2 || !cons(i) || cons(i-1) || !cons(i-2)) return false;
-   {  int ch = b[i];
-      if (ch == 'w' || ch == 'x' || ch == 'y') return false;
-   }
-   return true;
-}
+	private final boolean cvc(int i)
+	{  
+		if (i < 2 || !cons(i) || cons(i-1) || !cons(i-2)) return false;
+		{  
+			int ch = b[i];
+			if (ch == 'w' || ch == 'x' || ch == 'y') 
+				return false;
+		}
+		return true;
+	}
 
-private final boolean ends(String s)
-{  int l = s.length();
-   int o = k-l+1;
-   if (o < 0) return false;
-   for (int i = 0; i < l; i++) if (b[o+i] != s.charAt(i)) return false;
-   j = k-l;
-   return true;
-}
+	private final boolean ends(String s)
+	{  
+		int l = s.length();
+		int o = k-l+1;
+		if (o < 0) 
+			return false;
+		for (int i = 0; i < l; i++) 
+			if (b[o+i] != s.charAt(i)) 
+				return false;
+		j = k-l;
+		return true;
+	}
 
 /* setto(s) sets (j+1),...k to the characters in the string s, readjusting
    k. */
 
-private final void setto(String s)
-{  int l = s.length();
-   int o = j+1;
-   for (int i = 0; i < l; i++) b[o+i] = s.charAt(i);
-   k = j+l;
-}
+	private final void setto(String s)
+	{  
+		int l = s.length();
+		int o = j+1;
+		for (int i = 0; i < l; i++) 
+			b[o+i] = s.charAt(i);
+		k = j+l;
+	}
 
 /* r(s) is used further down. */
 
-private final void r(String s) { if (m() > 0) setto(s); }
+	private final void r(String s) 
+	{ 
+		if (m() > 0) 
+			setto(s); 
+	}
 
 /* step1() gets rid of plurals and -ed or -ing. e.g.
 
