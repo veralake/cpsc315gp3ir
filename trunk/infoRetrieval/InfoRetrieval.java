@@ -13,6 +13,7 @@ import ui.VisualPanel;
  */
 public final class InfoRetrieval 
 {
+	// Singleton - ensures only one instance of the program
 	private static class Holder
 	{
 		private static final InfoRetrieval mInstance = new InfoRetrieval();
@@ -23,6 +24,7 @@ public final class InfoRetrieval
 		return Holder.mInstance;
 	}
 	
+	// Set up major UI components of the app
 	private InfoRetrieval()
 	{
 		UIController.getInstance().setFrame(new MainFrame());
