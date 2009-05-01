@@ -14,6 +14,10 @@
 package ui;
 
 import documentSearching.Document;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
@@ -140,21 +144,41 @@ public class SearchResult extends javax.swing.JPanel
         for (String word : indexes)
         {
             String spacing = " : ";
+            
+            builder.append(word + spacing + "\n");
 
             ArrayList<StemInstance> instances = mDoc.getInstances(word);
 
-            Integer lineNumber = instances.get(0).getLineNumber();
-            String stem = instances.get(0).getStem();
-            String sample = instances.get(0).getInstance();
-
-            builder.append(lineNumber.toString() +
-                           spacing + 
-                           stem +
-                           spacing +
-                           sample);
+            for (StemInstance instance : instances)
+            {
+	            Integer lineNumber = instance.getLineNumber();
+	            String stem = instance.toString();
+	            String sample = instance.getInstance();
+	
+	            builder.append("\t" + 
+	            			   instance.getLineNumber() + 
+	            			   spacing +
+	            			   "\n");
+            }
         }
 
         documentText.setText(builder.toString());
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+    	super.paintComponent(g);
+    	
+    	this.setBackground(Color.WHITE);
+    	
+    	Dimension textBox = documentText.getSize();
+    	
+    	textBox.height = getSize().height - 5;
+    	
+    	documentText.setSize(textBox);
+    	
+    	this.revalidate();
     }
     
     private Document mDoc;

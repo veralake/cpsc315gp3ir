@@ -25,6 +25,7 @@ import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 import javax.imageio.ImageIO;
@@ -144,8 +145,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
      */
     public void addDocument(Document doc)
     {
-    	int root = (int) Math.sqrt((double)documents.size());
-    	
+    	//int columns = (UIController.getInstance().getFrame().getWidth() - fileInfoPanel.getWidth())/WIDTH_OF_SLOT;
+    	int columns = 3;
         documents.add(doc);
         labels.add(doc.getName());
         icons.add(icons.lastElement());
@@ -153,21 +154,21 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         int lastSlotx = slots.lastElement().x;
         int lastSloty = slots.lastElement().y;
         
-        if(lastSlotx/WIDTH_OF_SLOT >= root){
-        	Point p = new Point((WIDTH_OF_SLOT * (lastSlotx +1)) + ICON_OFFSET,
-        			(HEIGHT_OF_SLOT*lastSloty) + ICON_OFFSET);
+        if(lastSlotx/WIDTH_OF_SLOT >= columns){
+        	Point p = new Point((WIDTH_OF_SLOT+ lastSlotx) + ICON_OFFSET,
+        			lastSloty + ICON_OFFSET);
         	
         	iconPosition.add(p);
             hitBoxes.add(new Rectangle(p.x, p.y, WIDTH_OF_ICON, HEIGHT_OF_ICON));
-            slots.add(new Point(WIDTH_OF_SLOT *(lastSlotx + 1), HEIGHT_OF_SLOT*lastSloty));
+            slots.add(new Point(WIDTH_OF_SLOT + lastSlotx, lastSloty));
         }
         else{
         	Point p = new Point((WIDTH_OF_SLOT * (0)) + ICON_OFFSET,
-        			(HEIGHT_OF_SLOT*(lastSloty +1)) + ICON_OFFSET);
+        			(HEIGHT_OF_SLOT +lastSloty) + ICON_OFFSET);
         	
         	iconPosition.add(p);
             hitBoxes.add(new Rectangle(p.x, p.y, WIDTH_OF_ICON, HEIGHT_OF_ICON));
-            slots.add(new Point(WIDTH_OF_SLOT *(0), HEIGHT_OF_SLOT*(lastSloty + 1)));        	
+            slots.add(new Point(WIDTH_OF_SLOT *(0), HEIGHT_OF_SLOT+ lastSloty));        	
         }
         
         
@@ -209,8 +210,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         int y = 0;
         
         
-        int columns = (UIController.getInstance().getFrame().getWidth() - fileInfoPanel.getWidth())/WIDTH_OF_SLOT;
-        
+        //int columns = (UIController.getInstance().getFrame().getWidth() - fileInfoPanel.getWidth())/WIDTH_OF_SLOT;
+        int columns = 3;
         for(int i = 0; i < documents.size(); i++){
         	
         	Point p = new Point((WIDTH_OF_SLOT *(x)) + ICON_OFFSET, 
@@ -233,9 +234,9 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
      * @param d
      * An array of Documents that will appear in the visualization.
      */
-    public void set(Document d[]){
-        for(int i = 0; i < d.length; i++)
-        	documents.add(d[i]);
+    public void set(ArrayList<Document> d){
+        for(int i = 0; i < d.size(); i++)
+        	documents.add(d.get(i));
         initGraphics();
         initGrid();
         
@@ -271,14 +272,14 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         font = font.deriveFont(map);
         g.setFont(font);
         
-        for (int i = 0; i < labels.size(); i++){
+        for (int i = 0; i < documents.size(); i++){
             slotx   = slots.elementAt(i).x;
             sloty   = slots.elementAt(i).y;
 
             g2.drawImage(slotImage, slotx, sloty, null);
             }
 
-        for (int i = 0; i < labels.size(); i++){
+        for (int i = 0; i < documents.size(); i++){
             iconx   = iconPosition.elementAt(i).x;
             icony   = iconPosition.elementAt(i).y;
             text    = labels.elementAt(i);
@@ -298,6 +299,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
             g2.drawString(text, iconx, icony + FONT_OFFSET);
             
         }
+        validate();
     }
     
     /**
@@ -328,7 +330,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         
         if(iconSelected > -1){
            fileName.setText(documents.elementAt(iconSelected).getName());
-        } 
+        }
+        else fileName.setText("None Selected");
     }
 
 
@@ -336,12 +339,14 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         iconSelected = findClickedIcon(e.getX(), e.getY());
         
         if(iconSelected > -1){
+        	fileName.setText(documents.elementAt(iconSelected).getName());
             lastx = hitBoxes.elementAt(iconSelected).x - e.getX();
             lasty = hitBoxes.elementAt(iconSelected).y - e.getY();
             updatePosition(e);
             pressedIcon = true;
         }
         else{
+        	fileName.setText("None Selected");
             pressedIcon = false;            
         }
 
@@ -353,6 +358,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
      * to it's original location.
      */
     public void mouseReleased(MouseEvent e) {
+    	if(iconSelected > -1){
     	for(int i = 0; i < slots.size(); i++){
     		if (hitBoxes.elementAt(iconSelected).contains(
     				slots.elementAt(i).x + OFFSET_TO_CENTER,
@@ -372,7 +378,9 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     			slots.elementAt(iconSelected).x + ICON_OFFSET, 
     			slots.elementAt(iconSelected).y + ICON_OFFSET);
     	
+    	validate();
     	repaint();
+    	}
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -397,6 +405,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     private void updatePosition(MouseEvent e){
         hitBoxes.elementAt(iconSelected).setLocation(lastx + e.getX(), lasty + e.getY());
         iconPosition.elementAt(iconSelected).setLocation(lastx + e.getX(), lasty + e.getY());
+        validate();
         repaint();
     }
     
