@@ -12,7 +12,7 @@ import project3.WordTokenizer;
  * <p>This class takes a query and formats it into a list of terms that
  * are appropriate for searching text documents.</p> 
  */
-public class QueryProcessor implements WordTokenizer 
+public class QueryProcessor
 {
 	/**
 	 * Default constructor
@@ -27,17 +27,22 @@ public class QueryProcessor implements WordTokenizer
 	 * @param query - The user's original query
 	 * @return A <code>List</code> of index words for searching text documents
 	 */
-	@Override
-	public ArrayList<String> tokenize(String query)
+	public ArrayList<String> tokenize(String query, boolean stem)
 	{
 		List<String> tokens = mTokenizer.tokenize(query);
 	
         ArrayList<String> indexWords = mStopFilter.filterWords(tokens);
-		
-		//indexWords = mWordStemmer.stems(indexWords);
+		if(stem)indexWords = mWordStemmer.stems(indexWords);
 		
 		return indexWords;
 	}
+	
+	/**
+	 * method to return the 
+	 * @param word String 
+	 * @return the stem of word
+	 * @author Andrew Johnson
+	 */
 	public String stem(String word)
 	{
 		return mWordStemmer.stem(word);
