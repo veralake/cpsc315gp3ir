@@ -45,16 +45,18 @@ public class DocumentRanker
     	ArrayList<String> indexes = mMap.getStems();
     	    	
     	// Calculate query term vector
-//    	ArrayList<Double> termVector = getTermVector(words,
-//    												 indexes,
-//    												 totalDocs);
+    	ArrayList<Double> termVector = getTermVector(words,
+    												 indexes,
+    												 totalDocs);
     	
-//    	ArrayList<Document> rankedDocs = new ArrayList<Document>();
+    	ArrayList<Document> rankedDocs = new ArrayList<Document>();
     	
-//    	for (Document d : relevantDocs)
-//    	{
-//    		
-//    	}
+    	for (Document d : relevantDocs)
+    	{
+    		ArrayList<Double> docVector = new ArrayList<Double>();
+    		
+    		
+    	}
     	
     	// for each document doc in LD 
     	// {
@@ -68,6 +70,17 @@ public class DocumentRanker
     	
         return relevantDocs;//rankedDocs;
     }
+    
+    /**
+     * Returns all documents that have been indexed
+     * @return <code>ArrayList&ltDocument&gt</code> containing all indexed
+     * <code>Document</code> objects
+     */
+    public ArrayList<Document> returnAllDocuments()
+    {
+    	return retrieveRelevantDocs(mMap.getStems());
+    }
+    
     
     // Retrieves all documents where each document contains at least one of the term words
     private ArrayList<Document> retrieveRelevantDocs(final ArrayList<String> words)
@@ -188,8 +201,6 @@ public class DocumentRanker
     	int maxItFrequency = maxIndexQueryFrequence(indexes, 
     											    words);
     	
-    	System.out.println(mMap.toString());
-    	
     	for (String index : indexes)
     	{
     		termVector.add(computeTermWeight(totalDocs, 
@@ -207,9 +218,18 @@ public class DocumentRanker
     								  final String index,
     								  final Document doc)
     {
-    	double tf = (double)indexDocFrequency(index, doc) / maxDocFrequency;
+    	double tf = 0;
+    	if (0 != maxDocFrequency)
+    	{
+    		tf = (double)indexDocFrequency(index, doc) / maxDocFrequency;
+    	}
     	
-    	double idf = (double)totalDocs / mMap.getStemDocumentCount(index);
+    	double idf = 0;
+    	
+    	if (mMap.getStemDocumentCount(index) != 0)
+    	{
+    		idf = (double)totalDocs / mMap.getStemDocumentCount(index);
+    	}
     	
     	double w = tf * idf;
     	
@@ -222,9 +242,30 @@ public class DocumentRanker
     								 String index,
     								 final ArrayList<String> words)
     {
-		double termFrequency = indexQueryFrequency(index, words) / maxIndexFreq;
+		double termFrequency = 0; 
+		
+		if (0 != maxIndexFreq)
+		{
+			termFrequency = indexQueryFrequency(index, words) / maxIndexFreq;
+		}
+		else
+		{
+			termFrequency = indexQueryFrequency(index, words);
+		}
+		
+		if (totalDocs == 0)
+		{
+			totalDocs = 1;
+		}
+		
+		int stemDocCount = 0;
+		
+		if ((stemDocCount = mMap.getStemDocumentCount(index)) == 0)
+		{
+			stemDocCount = totalDocs;
+		}
     	
-    	double w = (0.5 + ((0.5 * termFrequency) / maxIndexFreq)) * Math.log((double)totalDocs/mMap.getStemDocumentCount(index));
+    	double w = 0.5 + (0.5 * termFrequency) * Math.log((double)totalDocs/stemDocCount);
     	
     	return new Double(w);
     }
@@ -257,7 +298,7 @@ public class DocumentRanker
     	{
 	    	for (String word : query)
 	    	{
-	    		if (query.equals(word))
+	    		if (word.equals(index))
 	    		{
 	    			++count;
 	    		}
@@ -268,7 +309,7 @@ public class DocumentRanker
     }
     
 
-    // Returns the frequence of a term in a document
+    // Returns the frequency of a term in a document
     private int indexDocFrequency(final String index,
     							  final Document doc)
     {

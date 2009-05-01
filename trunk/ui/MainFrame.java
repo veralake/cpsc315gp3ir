@@ -58,7 +58,7 @@ public class MainFrame extends javax.swing.JFrame
         visualItem = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Search");
+        setTitle("Have a little Java with your search!");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName("mainFrame"); // NOI18N

@@ -97,33 +97,6 @@ public class IndexBuilder
 		
 		return im;
 	}
-	//    private String searchDirectory(File directory)
-	//    {
-	//    	String output = null;
-	//    	File files[] = directory.listFiles();
-	//    	for(File f: files)
-	//    	{
-	//    		if(f.isDirectory())
-	//    		{
-	//    			output += searchDirectory(f);
-	//    		}
-	//    		else
-	//    		{
-	//    			try {
-	//					Scanner scanner = new Scanner(f);
-	//					while(scanner.hasNext())output+=" "+scanner.next();
-	//				} catch (FileNotFoundException e) {
-	//					e.printStackTrace();
-	//				}
-	//				
-	//    			
-	//    		}
-	//    		
-	//    	}
-	//    	return output;
-	//    	
-	//    	
-	//    }
 
 	private File mMainDirectory;
 	private QueryProcessor mLineProcessor;
