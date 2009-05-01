@@ -80,7 +80,7 @@ public class StemInfo
 		{
 		    return doc;
 		}
-	
+		
 		/**
 		 * Returns the line number on which this word stem instance occurs.
 		 */

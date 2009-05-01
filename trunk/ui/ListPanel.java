@@ -14,7 +14,10 @@ package ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 
+import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import documentSearching.Document;
 
@@ -75,6 +78,20 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
 		SearchResult result = new SearchResult(doc);
 		
 		this.add(result);
+		
+		this.validate();
+	}
+	
+	public void addDocuments(ArrayList<Document> doc)
+	{
+		GridLayout gl = new GridLayout(doc.size(), 1);
+		
+		this.setLayout(gl);
+		
+		for (Document d : doc)
+		{
+			addDocument(d);
+		}
 	}
 
 	/**
@@ -83,9 +100,9 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
 	@Override
 	public void clear() 
 	{
-		
+		this.removeAll();
 	}
-
+	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 

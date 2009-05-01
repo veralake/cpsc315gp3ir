@@ -182,9 +182,10 @@ public class UIController
     		
     		mVisualizer.set(documents);
     		
+    		mList.addDocuments(documents);
+    		
 	    	for (Document d : documents)
 	    	{
-	    		mList.addDocument(d);
 	    		mVisualizer.addDocument(d);
 	    	}
     	}
