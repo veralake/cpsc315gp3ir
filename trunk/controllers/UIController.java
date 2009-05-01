@@ -190,6 +190,14 @@ public class UIController
 	    	}
     	}
     }
+    
+    public void defaultSplitterPosition()
+    {
+    	if (mFrame != null)
+    	{
+    		mFrame.setSplitterPosition(dividerPosition);
+    	}
+    }
 
     // Tells the resident QueryPanel to disable search components.
     private void enableSearch(boolean isEnabled)

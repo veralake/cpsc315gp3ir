@@ -94,6 +94,7 @@ public class IndexBuilder
 				}
 			}
 		}
+		
 		return im;
 	}
 	//    private String searchDirectory(File directory)
