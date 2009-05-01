@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JScrollPane;
 
@@ -157,7 +159,11 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
 
     private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
        if (iconSelected > -1){
-
+            try {
+                UIController.getInstance().openFile(documents.elementAt(iconSelected).getPath());
+            } catch (IOException ex) {
+                Logger.getLogger(VisualPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
        }
     }//GEN-LAST:event_openButtonActionPerformed
 
