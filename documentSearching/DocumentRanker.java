@@ -55,11 +55,13 @@ public class DocumentRanker
     	// Documents with the lowest ranks are the best matches.
     	for (Document d : relevantDocs)
     	{
-    		ArrayList<Double> docVector = getDocVector(d);
+    		ArrayList<Double> docVector = getDocVector(d, 
+    												   mMap.getStems());
     		
     		Document ranked = new Document(d);
     		
-    		ranked.setRank(computeRank(termVector, docVector));
+    		ranked.setRank(computeRank(termVector, 
+    								   docVector));
     		
     		rankedDocs.add(ranked);
     	}
@@ -178,11 +180,14 @@ public class DocumentRanker
     }
     
     // Computes the weight vector for a document
-    private ArrayList<Double> getDocVector(final Document doc)
+    private ArrayList<Double> getDocVector(final Document doc,
+    									   final ArrayList<String> indexes)
     {
     	ArrayList<Double> docVector = new ArrayList<Double>();
     	
-    	int maxDocFrequency = maxIndexDocFrequency(mMap.getStems(), doc);
+    	int maxDocFrequency = maxIndexDocFrequency(indexes, doc);
+    	
+//    	for 
     	
     	return new ArrayList<Double>();
     }
