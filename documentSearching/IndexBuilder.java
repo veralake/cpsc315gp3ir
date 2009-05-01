@@ -43,19 +43,22 @@ public class IndexBuilder
 	public IndexMap createIndexMap()
 	{
 		IndexMap im = new IndexMap();
-		
+		// Is the file a directory
 		if(!mMainDirectory.isDirectory()){
 			System.err.println("Input file is not a directory");
 			return null;
 		}
 		File files[] = mMainDirectory.listFiles();
+		//Are there files in the directory
 		if(files.length==0)
 			{
 			System.err.println("directory is empty ");
 			return null;
 			}
+		
 		for(File f: files)
 		{
+			//For each file process tokenize the text and add it to the IndexMap
 			if(!f.isDirectory()){
 				Scanner scanner;
 				try {
@@ -68,17 +71,18 @@ public class IndexBuilder
 				while(scanner.hasNext())
 				{
 					String line = scanner.nextLine();
-					ArrayList<String> wordsInLine = mLineProcessor.tokenize(line);
+					ArrayList<String> wordsInLine = mLineProcessor.tokenize(line,false);
 					int startNum = 0;
 					for(String word: wordsInLine)
 					{
 						String stemmedWord = mLineProcessor.stem(word);
-						if(im.hasStemInfo(stemmedWord))
+						
+						if(im.hasStemInfo(stemmedWord))//Word is already in Map, add another instance
 						{
 							im.getStemInfo(stemmedWord).addInstance(f, lineNum, startNum, word);
 						}
 						else
-						{
+						{ // word is not in Map create a StemInfo for it
 							StemInfo si = new StemInfo(stemmedWord);
 							si.addInstance(f, lineNum, startNum, word);	
 							im.addStemInfo(stemmedWord, si);
