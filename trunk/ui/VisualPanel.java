@@ -167,14 +167,6 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
        }
     }//GEN-LAST:event_openButtonActionPerformed
 
-     /**
-     * Removes all search items contained in the visual panel for another query.
-     */
-    public void removeSearchItems()
-    {
-        
-    }
-
     /**
      * Adds a search item that is to be displayed in the visual format.
      * @param doc - <code>Document</code> to displayed
