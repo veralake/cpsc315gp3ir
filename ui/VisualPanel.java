@@ -63,73 +63,103 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	this.setOpaque(false);
-        fileInfoPanel = new javax.swing.JPanel();
-        fileNameL = new javax.swing.JLabel();
-        fileSizeL = new javax.swing.JLabel();
+
+        jPanel1 = new javax.swing.JPanel();
         fileLocationL = new javax.swing.JLabel();
         fileName = new javax.swing.JLabel();
-        fileSize = new javax.swing.JLabel();
         fileLocation = new javax.swing.JLabel();
-
-        fileNameL.setText("File Name:");
-
-        fileSizeL.setText("File Size:");
+        openButton = new javax.swing.JButton();
+        fileNameL = new javax.swing.JLabel();
+        fileRankL = new javax.swing.JLabel();
+        fileRank = new javax.swing.JLabel();
+        endOfResultsL = new javax.swing.JLabel();
 
         fileLocationL.setText("File Location:");
 
         fileName.setText("None Selected");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(fileInfoPanel);
-        fileInfoPanel.setLayout(jPanel1Layout);
+        fileLocation.setText("None Selected");
+
+        openButton.setText("Open File");
+        openButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openButtonActionPerformed(evt);
+            }
+        });
+
+        fileNameL.setText("File Name:");
+
+        fileRankL.setText("File Rank:");
+
+        fileRank.setText("None Selected");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(openButton))
+                    .addComponent(fileLocationL)
+                    .addComponent(fileLocation)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(fileNameL)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fileName))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(fileSizeL)
+                        .addComponent(fileRankL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fileSize))
-                    .addComponent(fileLocationL)
-                    .addComponent(fileLocation))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(fileRank)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fileNameL)
                     .addComponent(fileName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fileSizeL)
-                    .addComponent(fileSize))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(fileRankL)
+                    .addComponent(fileRank))
+                .addGap(22, 22, 22)
                 .addComponent(fileLocationL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(fileLocation)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addGap(67, 67, 67)
+                .addComponent(openButton)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
+
+        endOfResultsL.setText("End Of Results");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(433, Short.MAX_VALUE)
-                .addComponent(fileInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(172, 172, 172)
+                .addComponent(endOfResultsL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fileInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(endOfResultsL))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
+       if (iconSelected > -1){
+
+       }
+    }//GEN-LAST:event_openButtonActionPerformed
 
      /**
      * Removes all search items contained in the visual panel for another query.
@@ -180,13 +210,13 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     public void initGraphics(){
         BufferedImage icon = null;
         try {
-            icon = ImageIO.read(new File("icon.jpg"));
+            icon = ImageIO.read(new File("src/ui/icon.jpg"));
         } catch (IOException e) {
             System.out.println("Image not loaded");
         }
         
         try {
-            slotImage = ImageIO.read(new File("slot.jpg"));
+            slotImage = ImageIO.read(new File("src/ui/slot.jpg"));
         } catch (IOException e) {
             System.out.println("Image not loaded");
         }
@@ -232,7 +262,7 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     /**
      * Sets up the visualization with the set of documents passed to it.
      * @param d
-     * An array of Documents that will appear in the visualization.
+     * An ArrayList of Documents that will appear in the visualization.
      */
     public void set(ArrayList<Document> d){
         for(int i = 0; i < d.size(); i++)
@@ -300,6 +330,15 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
             
         }
         validate();
+
+        int maxy = 0;
+
+        for(int i = 0; i < slots.size(); i++){
+            if (slots.elementAt(i).y > maxy)
+                maxy = slots.elementAt(i).y;
+        }
+
+        endOfResultsL.setLocation(15, maxy + HEIGHT_OF_SLOT + 15);
     }
     
     /**
@@ -330,8 +369,15 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         
         if(iconSelected > -1){
            fileName.setText(documents.elementAt(iconSelected).getName());
+           fileLocation.setText(documents.elementAt(iconSelected).getPath());
+           fileRank.setText(Double.toString(documents.elementAt(iconSelected).getRank()));
         }
-        else fileName.setText("None Selected");
+        else{
+            fileName.setText("None Selected");
+            fileLocation.setText("None Selected");
+            fileRank.setText("None Selected");
+        }
+
     }
 
 
@@ -340,6 +386,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         
         if(iconSelected > -1){
         	fileName.setText(documents.elementAt(iconSelected).getName());
+            fileLocation.setText(documents.elementAt(iconSelected).getPath());
+            fileRank.setText(Double.toString(documents.elementAt(iconSelected).getRank()));
             lastx = hitBoxes.elementAt(iconSelected).x - e.getX();
             lasty = hitBoxes.elementAt(iconSelected).y - e.getY();
             updatePosition(e);
@@ -347,6 +395,8 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
         }
         else{
         	fileName.setText("None Selected");
+            fileLocation.setText("None Selected");
+            fileRank.setText("None Selected");
             pressedIcon = false;            
         }
 
@@ -448,13 +498,15 @@ public class VisualPanel extends javax.swing.JPanel implements ResultsDisplay, M
     private boolean pressedIcon    = false;
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel endOfResultsL;
     private javax.swing.JLabel fileLocation;
     private javax.swing.JLabel fileLocationL;
     private javax.swing.JLabel fileName;
     private javax.swing.JLabel fileNameL;
-    private javax.swing.JLabel fileSize;
-    private javax.swing.JLabel fileSizeL;
-    private javax.swing.JPanel fileInfoPanel;
+    private javax.swing.JLabel fileRank;
+    private javax.swing.JLabel fileRankL;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton openButton;
     // End of variables declaration//GEN-END:variables
 
 }
