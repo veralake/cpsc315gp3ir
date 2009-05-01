@@ -52,11 +52,19 @@ public class Document implements DocumentInfo
 		mStems = doc.mStems;
 	}
 	
+	/**
+	 * Sets the full file path corresponding this objects file
+	 * @param path - Fully qualified file path as a <code>String</code>
+	 */
 	public void setPath(String path)
 	{
 		mPath = path;
 	}
 	
+	
+	/**
+	 * @return - the path of the corresponding file
+	 */
 	public String getPath()
 	{
 		return mPath;
@@ -71,11 +79,19 @@ public class Document implements DocumentInfo
         return mRank;
     }
     
+    /**
+     * Sets the rank for the Document
+     * @param rank - <code>double</code> that represents how desirable of a 
+     * search result this file was
+     */
     public void setRank(double rank)
     {
     	mRank = rank;
     }
 	
+    /**
+     * @return - <code>String</code> that is the name of the file
+     */
 	public String getName()
 	{
 		return mName;

@@ -183,14 +183,12 @@ public class UIController
     		mVisualizer.set(documents);
     		
     		mList.addDocuments(documents);
-    		
-	    	for (Document d : documents)
-	    	{
-	    		mVisualizer.addDocument(d);
-	    	}
     	}
     }
     
+    /**
+     * Sets the splitter bar to a preset location
+     */
     public void defaultSplitterPosition()
     {
     	if (mFrame != null)

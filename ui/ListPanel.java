@@ -101,6 +101,7 @@ public class ListPanel extends javax.swing.JPanel implements ResultsDisplay
 	public void clear() 
 	{
 		this.removeAll();
+		this.revalidate();
 	}
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables

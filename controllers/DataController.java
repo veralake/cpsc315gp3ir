@@ -49,9 +49,24 @@ public class DataController
 
         DocumentRanker rankAlgorithm = new DocumentRanker(mIndexSet);
 
-        return rankAlgorithm.generateResults(list);
+        ArrayList<Document> documents = null;
+        
+        if(!list.isEmpty())
+    	{
+    		documents = rankAlgorithm.generateResults(list);
+    	}
+        else
+        {
+        	documents = rankAlgorithm.returnAllDocuments();
+        }
+        
+        return documents;
     }
     
+    /**
+     * @return - Returns a <code>File</code> containing the current
+     * directory the app is searching in
+     */
     public File getSearchDirectory()
     {
     	return mWorkingDirectory;
