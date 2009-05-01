@@ -17,14 +17,20 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="433" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
+              <Component id="endOfResultsL" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="182" max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="endOfResultsL" min="-2" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -34,59 +40,54 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="openButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="fileLocationL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="fileLocation" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="fileNameL" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="fileName" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="fileSizeL" min="-2" max="-2" attributes="0"/>
+                          <Component id="fileRankL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="fileSize" min="-2" max="-2" attributes="0"/>
+                          <Component id="fileRank" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="fileLocationL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="fileLocation" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="fileNameL" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="fileName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="fileSizeL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fileSize" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fileRankL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fileRank" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="fileLocationL" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="fileLocation" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="209" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                  <Component id="openButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="74" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="fileNameL">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="File Name:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="fileSizeL">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="File Size:"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="fileLocationL">
           <Properties>
             <Property name="text" type="java.lang.String" value="File Location:"/>
@@ -97,11 +98,40 @@
             <Property name="text" type="java.lang.String" value="None Selected"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="fileSize">
-        </Component>
         <Component class="javax.swing.JLabel" name="fileLocation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="None Selected"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="openButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Open File"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fileNameL">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="File Name:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fileRankL">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="File Rank:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fileRank">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="None Selected"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="endOfResultsL">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="End Of Results"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
