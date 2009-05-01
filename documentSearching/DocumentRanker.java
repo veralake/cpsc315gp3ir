@@ -51,24 +51,22 @@ public class DocumentRanker
     	
     	ArrayList<Document> rankedDocs = new ArrayList<Document>();
     	
+    	// Compute the rank for the document.  
+    	// Documents with the lowest ranks are the best matches.
     	for (Document d : relevantDocs)
     	{
-    		ArrayList<Double> docVector = new ArrayList<Double>();
+    		ArrayList<Double> docVector = getDocVector(d);
     		
+    		Document ranked = new Document(d);
     		
+    		ranked.setRank(computeRank(termVector, docVector));
+    		
+    		rankedDocs.add(ranked);
     	}
-    	
-    	// for each document doc in LD 
-    	// {
-    	// 	   compute dot_product(doc.vector, query_terms.vector)
-    	// 	   Create document (which includes assigning rank
-    	// 	   insert document into list rankedLD
-    	// }
     	
 //    	Collections.sort
     	
-    	
-        return relevantDocs;//rankedDocs;
+        return rankedDocs;
     }
     
     /**
@@ -183,8 +181,6 @@ public class DocumentRanker
     private ArrayList<Double> getDocVector(final Document doc)
     {
     	ArrayList<Double> docVector = new ArrayList<Double>();
-    	
-//    	int 
     	
     	int maxDocFrequency = maxIndexDocFrequency(mMap.getStems(), doc);
     	
@@ -317,7 +313,7 @@ public class DocumentRanker
     	
     	if (index != null && doc != null)
     	{
-    		doc.getInstances(index).size();
+    		count = doc.getInstances(index).size();
     	}
     	
     	return count;
@@ -331,7 +327,7 @@ public class DocumentRanker
     	
     	for (String index : indexes)
     	{
-    		frequencies.add(indexDocFrequency(index, doc));
+    		frequencies.add(new Integer(indexDocFrequency(index, doc)));
     	}
     	
     	Collections.sort(frequencies);

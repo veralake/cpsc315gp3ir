@@ -49,7 +49,9 @@ public class Document implements DocumentInfo
 	{
 		mRank = doc.mRank;
 		mName = doc.mName;
+		mPath = doc.mPath;
 		mStems = doc.mStems;
+		mIndexes = doc.mIndexes;
 	}
 	
 	/**
